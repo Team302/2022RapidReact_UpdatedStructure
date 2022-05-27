@@ -26,15 +26,15 @@
 
 // Team 302 includes
 #include <hw/usages/MotorControllerUsage.h>
-#include <controllers/ControlModes.h>
-#include <controllers/ControlData.h>
+#include <mechanisms/controllers/ControlModes.h>
+#include <mechanisms/controllers/ControlData.h>
 
 // Third Party Includes
 #include <ctre/phoenix/motorcontrol/RemoteSensorSource.h>
 #include <ctre/phoenix/motorcontrol/StatusFrame.h>
 
 /// @interface IDragonMotorController
-/// @brief The general interface to motor controllers so that the specific mechanisms that use motors,
+/// @brief The general interface to motor mechanisms/controllers so that the specific mechanisms that use motors,
 ///        don't need to special case what motor controller is being used.
 class IDragonMotorController
 {

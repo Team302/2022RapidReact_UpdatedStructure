@@ -23,6 +23,7 @@
 
 // Team 302 includes
 #include <hw/usages/DigitalInputUsage.h>
+#include <utils/logger.h>
 
 // Third Party Includes
 
@@ -62,6 +63,12 @@ DigitalInputUsage::DIGITAL_SENSOR_USAGE DigitalInputUsage::GetUsage
     string              usageString
 )
 {
-    return m_usageMap.find(usageString)->second;
+    auto it = m_usageMap.find(usageString);
+    if (it != m_usageMap.end())
+    {
+        return it->second;
+    }
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("DigitalInputUsage::GetUsage - unknown usage"), usageString);
+    return DigitalInputUsage::DIGITAL_SENSOR_USAGE::UNKNOWN_DIGITAL_TYPE;
 }
 

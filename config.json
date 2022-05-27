@@ -7,7 +7,7 @@
   "gyro": "Pigeon",
   "gyro ctor": "50",
   "is drivetrain": true,
-  "motor controllers": [
+  "motor hw/xml": [
     "TalonFX",
     "TalonFX"
   ],

@@ -16,9 +16,9 @@
 
 #include <auton/PrimitiveEnums.h>
 #include <auton/PrimitiveParams.h>
-#include <states/intake/IntakeStateMgr.h>
-#include <states/shooter/ShooterStateMgr.h>
-#include <subsys/interfaces/IChassis.h>
+#include <chassis/IChassis.h>
+#include <mechanisms/intake/IntakeStateMgr.h>
+#include <mechanisms/shooter/ShooterStateMgr.h>
 
 PrimitiveParams::PrimitiveParams
 (

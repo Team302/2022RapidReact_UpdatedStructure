@@ -25,14 +25,14 @@
 #include <frc/kinematics/ChassisSpeeds.h>
 
 // Team 302 includes
-#include <auton/primitives/TurnAngle.h>
 #include <auton/PrimitiveParams.h>
 #include <auton/primitives/IPrimitive.h>
-#include <subsys/ChassisFactory.h>
-#include <controllers/ControlModes.h>
-#include <subsys/interfaces/IChassis.h>
-#include <hw/factories/PigeonFactory.h>
+#include <auton/primitives/TurnAngle.h>
+#include <chassis/ChassisFactory.h>
+#include <chassis/IChassis.h>
+#include <mechanisms/controllers/ControlModes.h>
 #include <hw/DragonPigeon.h>
+#include <hw/factories/PigeonFactory.h>
 
 // Third Party Includes
 

@@ -26,7 +26,7 @@
 
 // 302 Includes
 #include <auton/primitives/DrivePath.h>
-#include <subsys/ChassisFactory.h>
+#include <chassis/ChassisFactory.h>
 #include <utils/Logger.h>
 
 
@@ -68,9 +68,9 @@ void DrivePath::Init(PrimitiveParams *params)
     m_heading = params->GetHeading();
     m_maxTime = params->GetTime();
 
-    Logger::GetLogger()->LogError(string("DrivePathInit"), string(m_pathname));
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("DrivePathInit"), string(m_pathname));
 
-    Logger::GetLogger()->LogError(string("DrivePathInit"), string(m_pathname));
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT,string("DrivePathInit"), string(m_pathname));
 
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Initialized", "False");
     Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Running", "False");
@@ -88,7 +88,7 @@ void DrivePath::Init(PrimitiveParams *params)
     
     Logger::GetLogger()->ToNtTable(m_pathname + "Trajectory", "Time", m_trajectory.TotalTime().to<double>());// Debugging
 
-    Logger::GetLogger()->LogError(string("DrivePathInit"), to_string(m_trajectoryStates.size()));
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT,string("DrivePathInit"), to_string(m_trajectoryStates.size()));
     
     if (!m_trajectoryStates.empty()) // only go if path name found
     {
@@ -305,7 +305,7 @@ bool DrivePath::IsDone() //Default primitive function to determine if the primit
     {   //debugging
         Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "Done", "True");
         Logger::GetLogger()->ToNtTable("DrivePath" + m_pathname, "WhyDone", whyDone);
-        Logger::GetLogger()->LogError(Logger::LOGGER_LEVEL::PRINT, "DrivePath" + m_pathname, "Is done because: " + whyDone);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, "DrivePath" + m_pathname, "Is done because: " + whyDone);
     }
     return isDone;
     
@@ -336,7 +336,7 @@ void DrivePath::GetTrajectory //Parses pathweaver json to create a series of poi
 {
     if (!path.empty()) // only go if path name found
     {
-        Logger::GetLogger()->LogError(string("DrivePath" + m_pathname), string("Finding Deploy Directory"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("DrivePath" + m_pathname), string("Finding Deploy Directory"));
 
         // Read path into trajectory for deploy directory.  JSON File ex. Bounce1.wpilid.json
         //wpi::SmallString<64> deployDir;  //creates a string variable
@@ -348,14 +348,14 @@ void DrivePath::GetTrajectory //Parses pathweaver json to create a series of poi
 
         m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);
 
-        Logger::GetLogger()->LogError(string("Deploy path is "), deployDir.c_str()); //Debugging
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Deploy path is "), deployDir.c_str()); //Debugging
         
         //This doesn't work, gives parsing error
         m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);  //Creates a trajectory or path that can be used in the code, parsed from pathweaver json
         //m_trajectory = frc::TrajectoryUtil::FromPathweaverJson("/home/lvuser/deploy/paths/5Ball1.wpilib.json"); //This is a temporary fix
         m_trajectoryStates = m_trajectory.States();  //Creates a vector of all the states or "waypoints" the robot needs to get to
         
-        Logger::GetLogger()->LogError(string("DrivePath - Loaded = "), path);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("DrivePath - Loaded = "), path);
         Logger::GetLogger()->ToNtTable("DrivePathValues", "TrajectoryTotalTime", m_trajectory.TotalTime().to<double>());
     }
 

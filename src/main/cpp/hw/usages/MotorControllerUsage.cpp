@@ -23,6 +23,7 @@
 
 // Team 302 includes
 #include <hw/usages/MotorControllerUsage.h>
+#include <utils/Logger.h>
 
 // Third Party Includes
 
@@ -70,5 +71,11 @@ MotorControllerUsage::MOTOR_CONTROLLER_USAGE MotorControllerUsage::GetUsage
     string              usageString
 )
 {
-    return m_usageMap.find(usageString)->second;
+    auto it = m_usageMap.find(usageString);
+    if (it != m_usageMap.end())
+    {
+        return it->second;
+    }
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("MotorControllerUsage::GetUsage - unknown usage"), usageString);
+    return MotorControllerUsage::MOTOR_CONTROLLER_USAGE::UNKNOWN_MOTOR_CONTROLLER_USAGE;
 }

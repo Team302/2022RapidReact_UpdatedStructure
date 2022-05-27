@@ -53,7 +53,7 @@ bool DragonDigitalInput::Get() const
 	}
 	else
 	{
-        Logger::GetLogger()->LogError( string("DragonXBox::GetAxisValue"), string("DigitalInput not created") );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonXBox::GetAxisValue"), string("DigitalInput not created") );
 	}
 	return isSet;
 }

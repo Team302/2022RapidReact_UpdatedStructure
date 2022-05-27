@@ -57,21 +57,21 @@ TeleopControl* TeleopControl::GetInstance()
 TeleopControl::TeleopControl() : m_axisIDs(),
 								 m_buttonIDs(),
 								 m_controllerIndex(),
-								 m_controllers(),
+								 m_controller(),
 								 m_count( 0 )
 {
 	for ( int inx=0; inx<DriverStation::kJoystickPorts; ++inx )
 	{
-		m_controllers[inx] = nullptr;
+		m_controller[inx] = nullptr;
 		if ( DriverStation::GetJoystickIsXbox( inx ) )
 		{
             auto xbox = new DragonXBox( inx );
-			m_controllers[inx] = xbox;
+			m_controller[inx] = xbox;
 		}
 		else if ( DriverStation::GetJoystickType( inx ) == GenericHID::kHID1stPerson )
 		{
             auto gamepad = new DragonGamepad( inx );
-			m_controllers[inx] = gamepad;
+			m_controller[inx] = gamepad;
 		}
 	}
 
@@ -86,24 +86,9 @@ TeleopControl::TeleopControl() : m_axisIDs(),
         m_buttonIDs[inx]  		= IDragonGamePad::UNDEFINED_BUTTON;
         m_controllerIndex[inx]  = -1;
     }
-/*
-	Driver  NOTES FROM TANAY
-	L-Stick Robot Drive (Field Orient) 				SWERVE_DRIVE_DRIVE  << SWERVEDIRVE.CPP  <<ROBOT.CPP
-	R-Stick X Axis Robot Rotation 					SWERVE_DRIVE_ROTATE  << SWERVEDIRVE.CPP  <<ROBOT.CPP
-	Left Bumper - 	Maintain Target					FINDTARGET  << SWERVEDIRVE.CPP
-	Right Bumper - Polar Drive        				DRIVE_POLAR  << SWERVEDIRVE.CPP
 
-	Right Trigger - Climber Manual UP   			CLIMBER_MAN_UP <<ClimberStateMgr
-	Left Trigger Climber manual DOWN    			CLIMBER_MAN_DOWN  <<ClimberStateMgr
-
-	Select + R-Stick yAxis Pos Climber Arm Forward  SELECT_CLIMBER_ARM + CLIMBER_MAN_UP <<ClimberStateMgr
-	Select + R-Stick yAxis Neg - Climber Arm Back   SELECT_CLIMBER_ARM + CLIMBER_MAN_DOWN <<ClimberStateMgr
-
-	A Button - Automated Climber        			CLIMB_AUTO  <<ClimberStateMgr
-	B Button - Rezero Pigion    					REZERO_PIGEON  << SWERVEDIRVE.CPP
-*/
     auto ctrlNo = 0;
-    if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
+    if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
 		m_controllerIndex[ SWERVE_DRIVE_DRIVE]			= ctrlNo;
 		m_axisIDs[ SWERVE_DRIVE_DRIVE]					= IDragonGamePad::LEFT_JOYSTICK_Y;
@@ -124,45 +109,24 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_controllerIndex[HOLD_POSITION]				= ctrlNo;
 		m_buttonIDs[HOLD_POSITION]						= IDragonGamePad::X_BUTTON;
 		
-		//TODO needs hook to states 
-		//Analog???
 		m_controllerIndex[CLIMBER_MAN_UP]				= ctrlNo;  
 		m_axisIDs[CLIMBER_MAN_UP]	 					= IDragonGamePad::RIGHT_TRIGGER;
 		m_controllerIndex[CLIMBER_MAN_DOWN]				= ctrlNo;  
 		m_axisIDs[CLIMBER_MAN_DOWN]	 				    = IDragonGamePad::LEFT_TRIGGER;	
 		m_controllerIndex[CLIMBER_MAN_ROTATE]			= ctrlNo;  
 		m_axisIDs[CLIMBER_MAN_ROTATE]	 				= IDragonGamePad::RIGHT_JOYSTICK_Y;	
-		// used to enable climber and disable what right-stick Y might be mapped to.
-		// used with CLIMBER_MAN_UP and CLIMBER_MAN_DOWN
 		m_controllerIndex[PREP_MIDBAR_CLIMB]			= ctrlNo;  
 		m_buttonIDs[PREP_MIDBAR_CLIMB]	 				= IDragonGamePad::START_BUTTON;
 		m_controllerIndex[ENABLE_CLIMBER]				= ctrlNo;
 		m_buttonIDs[ENABLE_CLIMBER]						= IDragonGamePad::LEFT_STICK_PRESSED;
-
-		//m_controllerIndex[CLIMB_AUTO]					= ctrlNo;  
-		//m_buttonIDs[CLIMB_AUTO]	 						= IDragonGamePad::A_BUTTON;
     }
     else
     {
-        Logger::GetLogger()->LogError( string("TeleopControl::TeleopControl"), string("No controller plugged into port 0"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("No controller plugged into port 0"));
     }
 
-/*
-	Co-Pilot NOTES FROM TANAY
-	Right Bumper - Right Intake         	INTAKE_RIGHT  RightIntakeStateMgr 
-	Left Bumper - Left Intake           	INTAKE_LEFT   LeftIntakeStateMgr 
-	A- Button - Auto Shoot              	AUTO_SHOOT    ShooterStateMgr
-	y- Button - Force Shoot             	MANUAL_SHOOT  ShooterStateMgr
-	B - Button - Manual Kicker          	MAN_KICKER    ???
-	Left Stick yAxis - Shooter hood manual  SHOOTER_HOOD_MAN  ShooterStateMgr 
-	start - shooter off						SHOOTER_OFF    ShooterStateMgr  
-	Down d-Pad - start shooter mtr	     	SHOOTER_MTR_ON ShooterStateMgr
-	Left d-Pad - Left Intake Expell     	EXPEL_LEFT     LeftIntakeStateMgr
-	Right d-Pad - Right Intake Expell   	EXPEL_RIGHT    RightIntakeStateMgr 
-*/
-
     ctrlNo = 1;
-    if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
+    if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
 
 		m_controllerIndex[INTAKE_LEFT] 		= ctrlNo;
@@ -186,8 +150,6 @@ TeleopControl::TeleopControl() : m_axisIDs(),
         //TODO needs hook for States
 		m_controllerIndex[AUTO_SHOOT_HIGH] 		= ctrlNo;
 		m_buttonIDs[AUTO_SHOOT_HIGH] 			= IDragonGamePad::A_BUTTON;	
-		//m_controllerIndex[AUTO_SHOOT_LOW] 		= ctrlNo;
-		//m_buttonIDs[AUTO_SHOOT_LOW] 			= IDragonGamePad::X_BUTTON;	
 		m_controllerIndex[INTAKE_DISABLE_LIMIT_SWITCHES] 		= ctrlNo;
 		m_buttonIDs[INTAKE_DISABLE_LIMIT_SWITCHES] 			= IDragonGamePad::X_BUTTON;
 
@@ -205,17 +167,17 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_axisIDs[SHOOTER_HOOD_MAN]			= IDragonGamePad::LEFT_JOYSTICK_Y;
 
 	}
-    else if ( m_controllers[ctrlNo] != nullptr )
+    else if ( m_controller[ctrlNo] != nullptr )
     {
 
 	}
 	else
 	{
-        Logger::GetLogger()->LogError( string("TeleopControl::TeleopControl"), string("Controller 1 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("Controller 1 not handled"));
     }
 
 	ctrlNo = 2;
-    if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
+    if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
 		m_controllerIndex[CLIMBER_STATE_STARTING] 		= ctrlNo;
 		m_buttonIDs[CLIMBER_STATE_STARTING] 			= IDragonGamePad::A_BUTTON;	
@@ -241,16 +203,16 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_controllerIndex[CLIMBER_STATE_ROTATE_ARM] 	= ctrlNo;
 		m_buttonIDs[CLIMBER_STATE_ROTATE_ARM]			= IDragonGamePad::RIGHT_BUMPER;	
 	}
-    else if ( m_controllers[ctrlNo] != nullptr )
+    else if ( m_controller[ctrlNo] != nullptr )
     {
 	}
 	else
 	{
-        Logger::GetLogger()->LogError( string("TeleopControl::TeleopControl"), string("Controller 2 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("Controller 2 not handled"));
     }
 
     ctrlNo = 3;
-    if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
+    if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
 		m_controllerIndex[CLIMBER_STATE_BACK_PREP] 		= ctrlNo;
 		m_buttonIDs[CLIMBER_STATE_BACK_PREP] 			= IDragonGamePad::A_BUTTON;	
@@ -266,37 +228,37 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		m_controllerIndex[CLIMBER_STATE_MANUAL] 	= ctrlNo;
 		m_buttonIDs[CLIMBER_STATE_MANUAL]			= IDragonGamePad::RIGHT_BUMPER;		
 	}
-    else if ( m_controllers[ctrlNo] != nullptr )
+    else if ( m_controller[ctrlNo] != nullptr )
     {
 	}
 	else
 	{
-		Logger::GetLogger()->LogError( string("TeleopControl::TeleopControl"), string("Controller 3 not handled"));
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("Controller 3 not handled"));
 
 	}
 
     ctrlNo = 4;
-    if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
+    if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
 	}
-    else if ( m_controllers[ctrlNo] != nullptr )
+    else if ( m_controller[ctrlNo] != nullptr )
     {
 	}
 	else
 	{
-        Logger::GetLogger()->LogError( string("TeleopControl::TeleopControl"), string("Controller 4 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("Controller 4 not handled"));
     }
 
     ctrlNo = 5;
-    if ( m_controllers[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
+    if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
 	}
-    else if ( m_controllers[ctrlNo] != nullptr )
+    else if ( m_controller[ctrlNo] != nullptr )
     {
 	}
 	else
 	{
-        Logger::GetLogger()->LogError( string("TeleopControl::TeleopControl"), string("Controller 5 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("Controller 5 not handled"));
     }
 }
 
@@ -321,9 +283,9 @@ void TeleopControl::SetAxisScaleFactor
 	IDragonGamePad::AXIS_IDENTIFIER axis = m_axisIDs[ function ];
     if ( ctlIndex > -1 && axis != IDragonGamePad::AXIS_IDENTIFIER::UNDEFINED_AXIS  )
     {
-    	if (m_controllers[ ctlIndex ] != nullptr)
+    	if (m_controller[ ctlIndex ] != nullptr)
     	{
-    		m_controllers[ ctlIndex ]->SetAxisScale( axis,scaleFactor);
+    		m_controller[ ctlIndex ]->SetAxisScale( axis,scaleFactor);
     	}
     }
 }
@@ -338,9 +300,9 @@ void TeleopControl::SetDeadBand
 	IDragonGamePad::AXIS_IDENTIFIER axis = m_axisIDs[ function ];
     if ( ctlIndex > -1 && axis != IDragonGamePad::AXIS_IDENTIFIER::UNDEFINED_AXIS  )
     {
-    	if (m_controllers[ ctlIndex ] != nullptr)
+    	if (m_controller[ ctlIndex ] != nullptr)
     	{
-    		m_controllers[ ctlIndex ]->SetAxisDeadband( axis,deadband);
+    		m_controller[ ctlIndex ]->SetAxisDeadband( axis,deadband);
     	}
     }}
 
@@ -360,9 +322,9 @@ void TeleopControl::SetAxisProfile
 	IDragonGamePad::AXIS_IDENTIFIER axis = m_axisIDs[ function ];
     if ( ctlIndex > -1 && axis != IDragonGamePad::AXIS_IDENTIFIER::UNDEFINED_AXIS  )
     {
-    	if (m_controllers[ ctlIndex ] != nullptr)
+    	if (m_controller[ ctlIndex ] != nullptr)
     	{
-    		m_controllers[ ctlIndex ]->SetAxisProfile( axis,profile);
+    		m_controller[ ctlIndex ]->SetAxisProfile( axis,profile);
     	}
     }
 }
@@ -383,9 +345,9 @@ double TeleopControl::GetAxisValue
 	IDragonGamePad::AXIS_IDENTIFIER axis = m_axisIDs[ function ];
     if ( ctlIndex > -1 && axis != IDragonGamePad::AXIS_IDENTIFIER::UNDEFINED_AXIS  )
     {
-    	if (m_controllers[ ctlIndex ] != nullptr)
+    	if (m_controller[ ctlIndex ] != nullptr)
     	{
-    		value = m_controllers[ ctlIndex ]->GetAxisValue( axis );
+    		value = m_controller[ ctlIndex ]->GetAxisValue( axis );
     	}
     }
     return value;
@@ -407,9 +369,9 @@ bool TeleopControl::IsButtonPressed
 	IDragonGamePad::BUTTON_IDENTIFIER btn = m_buttonIDs[ function ];
     if ( ctlIndex > -1 && btn != IDragonGamePad::BUTTON_IDENTIFIER::UNDEFINED_BUTTON  )
     {
-    	if (m_controllers[ ctlIndex ] != nullptr)
+    	if (m_controller[ ctlIndex ] != nullptr)
     	{
-    		isSelected = m_controllers[ ctlIndex ]->IsButtonPressed( btn );
+    		isSelected = m_controller[ ctlIndex ]->IsButtonPressed( btn );
     	}
     }
     return isSelected;

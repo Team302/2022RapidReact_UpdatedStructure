@@ -89,7 +89,7 @@ double AnalogAxis::GetAxisValue()
     else
     {
             string msg = "missing gamepad ";
-            Logger::GetLogger()->LogError( "AnalogAxis::GetAxisValue", msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, "AnalogAxis::GetAxisValue", msg );
     }
     return value;
 }
@@ -120,7 +120,7 @@ void AnalogAxis::SetDeadBand
 
         default:
             string msg = "invalid deadband specified ";
-            Logger::GetLogger()->LogError( "AnalogAxis::SetDeadBand", msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, "AnalogAxis::SetDeadBand", msg );
             break;
     }
 
@@ -153,7 +153,7 @@ void AnalogAxis::SetAxisProfile
 
         default:
             string msg = "invalid profile specified ";
-            Logger::GetLogger()->LogError( "AnalogAxis::SetAxisProfile", msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, "AnalogAxis::SetAxisProfile", msg );
             break;
     }
 }
@@ -187,7 +187,7 @@ double AnalogAxis::GetRawValue()
     else
     {
         string msg = "gamepad missing ";
-        Logger::GetLogger()->LogError( "AnalogAxis::GetRawValue", msg );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, "AnalogAxis::GetRawValue", msg );
     }
     return value;
 }

@@ -10,13 +10,14 @@
 
 #include <auton/CyclePrimitives.h>
 #include <gamepad/TeleopControl.h>
-#include <states/chassis/SwerveDrive.h>
-#include <states/climber/ClimberStateMgr.h>
-#include <states/indexer/IndexerStateMgr.h>
-#include <states/intake/IntakeStateMgr.h>
-#include <states/lift/LiftStateMgr.h>
-#include <states/shooter/ShooterStateMgr.h>
-#include <subsys/interfaces/IChassis.h>
+#include <chassis/swerve/SwerveDrive.h>
+#include <hw/DragonLimelight.h>
+#include <mechanisms/climber/ClimberStateMgr.h>
+#include <mechanisms/indexer/IndexerStateMgr.h>
+#include <mechanisms/intake/IntakeStateMgr.h>
+#include <mechanisms/lift/LiftStateMgr.h>
+#include <mechanisms/shooter/ShooterStateMgr.h>
+#include <chassis/IChassis.h>
 
 
 
@@ -47,4 +48,5 @@ class Robot : public frc::TimedRobot
   LiftStateMgr*         m_liftStateMgr;
   ShooterStateMgr*      m_shooterStateMgr;
   ClimberStateMgr*      m_climberStateMgr;
+  DragonLimelight*      m_dragonLimeLight;
 };

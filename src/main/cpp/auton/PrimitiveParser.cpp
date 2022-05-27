@@ -23,9 +23,9 @@
 #include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
 #include <auton/primitives/IPrimitive.h>
-#include <states/intake/LeftIntakeStateMgr.h>
-#include <states/intake/RightIntakeStateMgr.h>
-#include <states/shooter/ShooterStateMgr.h>
+#include <mechanisms/intake/LeftIntakeStateMgr.h>
+#include <mechanisms/intake/RightIntakeStateMgr.h>
+#include <mechanisms/shooter/ShooterStateMgr.h>
 #include <utils/Logger.h>
 
 #include <pugixml/pugixml.hpp>
@@ -106,7 +106,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                             }
                             else
                             {
-                                Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid id"), attr.value());
+                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid id"), attr.value());
                                 hasError = true;
                             }
                         }
@@ -127,7 +127,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                             }
                             else
                             {
-                                Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid heading option"), attr.value());
+                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid heading option"), attr.value());
                                 hasError = true;
                             }
                         }
@@ -164,7 +164,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                             }
                             else
                             {
-                                Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid left intake state"), attr.value());
+                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid left intake state"), attr.value());
                                 hasError = true;
                             }
                         }
@@ -177,7 +177,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                             }
                             else
                             {
-                                Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid right intake state"), attr.value());
+                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid right intake state"), attr.value());
                                 hasError = true;
                             }
                         }
@@ -190,13 +190,13 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                             }
                             else
                             {
-                                Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid shooter state"), attr.value());
+                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid shooter state"), attr.value());
                                 hasError = true;
                             }
                         }
                         else
                         {
-                            Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid attribute"), attr.name());
+                            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid attribute"), attr.name());
                             hasError = true;
                         }
                     }
@@ -235,7 +235,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                     }
                     else 
                     {
-                         Logger::GetLogger() -> LogError( string("PrimitiveParser::ParseXML"), string("Has Error"));
+                         Logger::GetLogger() -> LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML"), string("Has Error"));
                     }
                 }
             }
@@ -243,8 +243,8 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
     }
     else
     {
-        Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML error parsing file"), fileName );
-        Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML error message"), result.description() );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML error parsing file"), fileName );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML error message"), result.description() );
     }
     return paramVector;
 }

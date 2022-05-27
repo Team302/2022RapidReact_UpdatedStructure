@@ -26,7 +26,7 @@
 #include <frc/motorcontrol/MotorController.h>
 
 // Team 302 includes
-#include <controllers/ControlModes.h>
+#include <mechanisms/controllers/ControlModes.h>
 #include <hw/DragonFalcon.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/interfaces/IDragonMotorController.h>

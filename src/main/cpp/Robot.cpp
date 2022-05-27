@@ -2,30 +2,41 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+
 #include <Robot.h>
+
+#include <string>
+
 #include <cameraserver/CameraServer.h>
 
 #include <auton/CyclePrimitives.h>
+#include <chassis/ChassisFactory.h>
+#include <chassis/IChassis.h>
+#include <chassis/swerve/SwerveDrive.h>
 #include <gamepad/TeleopControl.h>
-#include <states/chassis/SwerveDrive.h>
-#include <states/climber/ClimberStateMgr.h>
-#include <states/indexer/IndexerStateMgr.h>
-#include <states/Intake/LeftIntakeStateMgr.h>
-#include <states/Intake/RightIntakeStateMgr.h>
-#include <states/shooter/ShooterStateMgr.h>
-#include <subsys/ChassisFactory.h>
-#include <subsys/interfaces/IChassis.h>
-#include <xmlhw/RobotDefn.h>
+#include <hw/DragonLimelight.h>
+#include <hw/factories/LimelightFactory.h>
+#include <mechanisms/climber/ClimberStateMgr.h>
+#include <mechanisms/indexer/IndexerStateMgr.h>
+#include <mechanisms/Intake/LeftIntakeStateMgr.h>
+#include <mechanisms/Intake/RightIntakeStateMgr.h>
+#include <mechanisms/shooter/ShooterStateMgr.h>
+#include <utils/Logger.h>
+#include <RobotXmlParser.h>
 
+using namespace std;
 
 void Robot::RobotInit() 
 {
+    Logger::GetLogger()->PutLoggingSelectionsOnDashboard();
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" RobotInit"));   
+
     //CameraServer::SetSize(CameraServer::kSize320x240);
     //CameraServer::StartAutomaticCapture();
 
     // Read the XML file to build the robot 
-    auto defn = new RobotDefn();
-    defn->ParseXML();
+    auto XmlParser = new RobotXmlParser();
+    XmlParser->ParseXML();
 
     // Get local copies of the teleop controller and the chassis
     m_controller = TeleopControl::GetInstance();
@@ -39,9 +50,10 @@ void Robot::RobotInit()
     m_liftStateMgr = LiftStateMgr::GetInstance();
     m_shooterStateMgr = ShooterStateMgr::GetInstance();
     m_climberStateMgr = ClimberStateMgr::GetInstance();
+    m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
 
     m_cyclePrims = new CyclePrimitives();
-}
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" end of RobotInit"));}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -57,6 +69,12 @@ void Robot::RobotPeriodic()
     {
         m_chassis->UpdateOdometry();
     }
+    if (m_dragonLimeLight != nullptr)
+    {
+        Logger::GetLogger()->ToNtTable(string("DragonLimelight"), string("horizontal angle "), m_dragonLimeLight->GetTargetHorizontalOffset().to<double>());
+        Logger::GetLogger()->ToNtTable(string("DragonLimelight"), string("distance "), m_dragonLimeLight->EstimateTargetDistance().to<double>());
+    }
+    Logger::GetLogger()->PeriodicLog();
 }
 
 /**
@@ -72,10 +90,12 @@ void Robot::RobotPeriodic()
  */
 void Robot::AutonomousInit() 
 {
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" AutonomousInit"));
     if (m_cyclePrims != nullptr)
     {
         m_cyclePrims->Init();
     }
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" end of AutonomousInit"));    
 }
 
 void Robot::AutonomousPeriodic() 
@@ -88,7 +108,7 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
-
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" TeleopInit"));
     if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
     {
         m_swerve->Init();
@@ -155,7 +175,7 @@ void Robot::TeleopPeriodic()
 
 void Robot::DisabledInit() 
 {
-
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" DisabledInit"));
 }
 
 void Robot::DisabledPeriodic() 
@@ -165,7 +185,7 @@ void Robot::DisabledPeriodic()
 
 void Robot::TestInit() 
 {
-
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" TestInit"));
 }
 
 void Robot::TestPeriodic() 

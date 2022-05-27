@@ -19,16 +19,15 @@
 #include <string>
 
 // FRC includes
-#include <frc/Timer.h>
-//#include <units/units.h>
 #include <frc/kinematics/ChassisSpeeds.h>
+#include <frc/Timer.h>
 
 // Team 302 includes
 #include <auton/primitives/DoNothing.h>
 #include <auton/PrimitiveParams.h>
 #include <auton/primitives/IPrimitive.h>
-#include <subsys/ChassisFactory.h>
-#include <controllers/ControlModes.h>
+#include <chassis/ChassisFactory.h>
+#include <mechanisms/controllers/ControlModes.h>
 #include <utils/Logger.h>
 
 // Third Party Includes
@@ -67,7 +66,6 @@ void DoNothing::Init(PrimitiveParams* params)
 /// @return void
 void DoNothing::Run() 
 {
-	Logger::GetLogger() -> LogError(string("DoNothing::Run()"), string("Arrived!"));
 	if ( m_chassis != nullptr )
 	{
 		ChassisSpeeds speeds;
@@ -85,7 +83,7 @@ void DoNothing::Run()
 	}
 	else
 	{
-		Logger::GetLogger()->LogError( string( "DoNothing::Run" ), string( "chassis not found") );
+		Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::PRINT_ONCE, string( "DoNothing::Run" ), string( "chassis not found") );
 	}
 }
 

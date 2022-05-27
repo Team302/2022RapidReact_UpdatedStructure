@@ -25,8 +25,8 @@
 #include <auton/primitives/DoNothing.h>
 #include <auton/PrimitiveParams.h>
 #include <auton/primitives/IPrimitive.h>
-#include <subsys/MechanismFactory.h>
-#include <controllers/ControlModes.h>
+#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/controllers/ControlModes.h>
 
 // Third Party Includes
 
@@ -68,7 +68,7 @@ void DriveToTarget::Init
     }
     else
     {
-        Logger::GetLogger()->LogError( string("DriveToTarget"), string("No Lidar") );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("DriveToTarget"), string("No Lidar") );
     }
 
 }

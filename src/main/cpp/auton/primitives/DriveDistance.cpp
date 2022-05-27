@@ -27,12 +27,12 @@
 #include <auton/primitives/DoNothing.h>
 #include <auton/primitives/DriveDistance.h>
 #include <auton/primitives/IPrimitive.h>
-#include <controllers/ControlModes.h>
+#include <chassis/ChassisFactory.h>
+#include <chassis/IChassis.h>
+#include <mechanisms/controllers/ControlModes.h>
 #include <hw/DragonPigeon.h>
 #include <hw/factories/PigeonFactory.h>
-#include <subsys/ChassisFactory.h>
-#include <subsys/interfaces/IChassis.h>
-#include <subsys/MechanismFactory.h>
+#include <mechanisms/adaptclass/MechanismFactory.h>
 
 // Third Party Includes
 

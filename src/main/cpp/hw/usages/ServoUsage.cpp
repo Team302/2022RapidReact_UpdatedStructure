@@ -23,6 +23,7 @@
 
 // Team 302 includes
 #include <hw/usages/ServoUsage.h>
+#include <utils/Logger.h>
 
 // Third Party Includes
 
@@ -54,6 +55,12 @@ ServoUsage::SERVO_USAGE ServoUsage::GetUsage
     const string              usageString
 )
 {
-    return m_usageMap.find(usageString)->second;
+    auto it = m_usageMap.find(usageString);
+    if (it != m_usageMap.end())
+    {
+        return it->second;
+    }
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("ServoUsage::GetUsage - unknown usage"), usageString);
+    return ServoUsage::SERVO_USAGE::UNKNOWN_SERVO_USAGE;
 }
 

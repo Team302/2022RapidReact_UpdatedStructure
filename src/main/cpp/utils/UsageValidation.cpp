@@ -69,7 +69,7 @@ IDragonSensor::SENSOR_USAGE UsageValidation::ValidateSensorUsage
     if ( usage == IDragonSensor::SENSOR_USAGE::UNKNOWN_SENSOR )
     {
         string errorMsg = "Invalid usage " + usageString;
-        Logger::GetLogger()->LogError( methodID, errorMsg );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, methodID, errorMsg );
     }
 
     return usage;

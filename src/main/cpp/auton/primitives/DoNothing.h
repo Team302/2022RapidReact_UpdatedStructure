@@ -23,7 +23,7 @@
 
 // Team 302 includes
 #include <auton/primitives/IPrimitive.h>
-#include <subsys/interfaces/IChassis.h>
+#include <chassis/IChassis.h>
 
 // Third Party Includes
 

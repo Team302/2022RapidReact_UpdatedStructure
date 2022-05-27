@@ -26,10 +26,10 @@
 #include <auton/PrimitiveParams.h>
 #include <auton/primitives/IPrimitive.h>
 #include <auton/primitives/SuperDrive.h>
-#include <controllers/ControlData.h>
-#include <controllers/ControlModes.h>
+#include <mechanisms/controllers/ControlData.h>
+#include <mechanisms/controllers/ControlModes.h>
 #include <hw/factories/PigeonFactory.h>
-#include <subsys/ChassisFactory.h>
+#include <chassis/ChassisFactory.h>
 
 // Third Party Includes
 

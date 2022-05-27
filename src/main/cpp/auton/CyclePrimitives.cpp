@@ -30,14 +30,14 @@
 #include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
 #include <auton/primitives/IPrimitive.h>
-#include <states/indexer/IndexerStateMgr.h>
-#include <states/intake/LeftIntakeStateMgr.h>
-#include <states/intake/RightIntakeStateMgr.h>
-#include <states/lift/LiftStateMgr.h>
-#include <states/shooter/ShooterStateMgr.h>
-#include <subsys/Intake.h>
-#include <subsys/MechanismFactory.h>
-#include <subsys/Shooter.h>
+#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/indexer/IndexerStateMgr.h>
+#include <mechanisms/intake/Intake.h>
+#include <mechanisms/intake/LeftIntakeStateMgr.h>
+#include <mechanisms/intake/RightIntakeStateMgr.h>
+#include <mechanisms/lift/LiftStateMgr.h>
+#include <mechanisms/shooter/Shooter.h>
+#include <mechanisms/shooter/ShooterStateMgr.h>
 #include <utils/Logger.h>
 
 // Third Party Includes

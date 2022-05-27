@@ -25,8 +25,8 @@
 #include <auton/primitives/DoNothing.h>
 #include <auton/PrimitiveParams.h>
 #include <auton/primitives/IPrimitive.h>
-#include <subsys/MechanismFactory.h>
-#include <controllers/ControlModes.h>
+#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/controllers/ControlModes.h>
 
 // Third Party Includes
 
@@ -39,7 +39,7 @@ using namespace frc;
 
 //Team302 includes
 #include <auton/primitives/DriveToWall.h>
-#include <subsys/ChassisFactory.h>
+#include <chassis/ChassisFactory.h>
 
 DriveToWall::DriveToWall() :
 	SuperDrive(),

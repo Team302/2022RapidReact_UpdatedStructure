@@ -22,7 +22,7 @@
 
 #include <frc/motorcontrol/MotorController.h>
 
-#include <controllers/ControlModes.h>
+#include <mechanisms/controllers/ControlModes.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/MotorControllerUsage.h>
 

@@ -25,8 +25,8 @@
 #include <auton/PrimitiveParams.h>
 #include <auton/primitives/HoldPosition.h>
 #include <auton/primitives/IPrimitive.h>
-#include <controllers/ControlModes.h>
-#include <subsys/ChassisFactory.h>
+#include <chassis/ChassisFactory.h>
+#include <mechanisms/controllers/ControlModes.h>
 
 // Third Party Includes
 

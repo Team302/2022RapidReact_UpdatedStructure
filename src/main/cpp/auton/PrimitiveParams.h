@@ -24,9 +24,9 @@
 
 // Team 302 includes
 #include <auton/PrimitiveEnums.h>
-#include <states/intake/IntakeStateMgr.h>
-#include <states/shooter/ShooterStateMgr.h>
-#include <subsys/interfaces/IChassis.h>
+#include <mechanisms/intake/IntakeStateMgr.h>
+#include <mechanisms/shooter/ShooterStateMgr.h>
+#include <chassis/IChassis.h>
 
 // Third Party Includes
 

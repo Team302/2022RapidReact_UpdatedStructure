@@ -89,7 +89,7 @@ void DragonSolenoid::Set
     }
     else
     {
-        Logger::GetLogger()->LogError( string("DragonSolenoid::Set"), string("solenoid ptr is nullptr"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonSolenoid::Set"), string("solenoid ptr is nullptr"));
     }
 }
 
@@ -122,7 +122,7 @@ void DragonSolenoid::Set
     }
     else
     {
-        Logger::GetLogger()->LogError( string("DragonSolenoid::Set"), string("solenoid ptr is nullptr"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonSolenoid::Set"), string("solenoid ptr is nullptr"));
     }
 }
 
@@ -172,7 +172,7 @@ bool DragonSolenoid::Get() const
     }
     else
     {
-        Logger::GetLogger()->LogError( string("DragonSolenoid::Get"), string("solenoid ptr is nullptr"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonSolenoid::Get"), string("solenoid ptr is nullptr"));
     }
     return val;
 }
@@ -189,7 +189,7 @@ bool DragonSolenoid::IsDisabled() const
     }
     else
     {
-        Logger::GetLogger()->LogError( string("DragonSolenoid::IsDisabled"), string("solenoid ptr is nullptr"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonSolenoid::IsDisabled"), string("solenoid ptr is nullptr"));
     }
     return val;
 }

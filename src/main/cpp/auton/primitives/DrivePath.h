@@ -20,9 +20,9 @@
 //Team302 Includes
 #include <auton/PrimitiveParams.h>
 #include <auton/primitives/IPrimitive.h>
-#include <states/chassis/DragonTargetFinder.h>
-#include <subsys/ChassisFactory.h>
-#include <subsys/interfaces/IChassis.h>
+#include <chassis/ChassisFactory.h>
+#include <chassis/DragonTargetFinder.h>
+#include <chassis/IChassis.h>
 
 //FRC,WPI Includes
 #include <frc/controller/HolonomicDriveController.h>

@@ -23,7 +23,7 @@
 #include <auton/primitives/ResetPosition.h>
 #include <auton/PrimitiveParams.h>
 #include <auton/primitives/IPrimitive.h>
-#include <subsys/ChassisFactory.h>
+#include <chassis/ChassisFactory.h>
 #include <hw/factories/PigeonFactory.h>
 #include <utils/Logger.h>
 
@@ -44,7 +44,7 @@ void ResetPosition::Init(PrimitiveParams* params)
         deployDir += "/paths/" + pathToLoad;
         m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);
 
-        m_chassis->ResetPosition(m_trajectory.InitialPose());
+        m_chassis->ResetPose(m_trajectory.InitialPose());
 
         Logger::GetLogger()->ToNtTable(string("Auton Info"), string("ResetPosX"), m_chassis.get()->GetPose().X().to<double>());
         Logger::GetLogger()->ToNtTable(string("Auton Info"), string("ResetPosY"), m_chassis.get()->GetPose().Y().to<double>());

@@ -31,7 +31,7 @@ DragonMotorControllerFactory::DragonMotorControllerFactory()
 {
 	for ( auto inx=0; inx<63; ++inx )
 	{
-		m_canControllers[inx] = nullptr;
+		m_canmotorControllers[inx] = nullptr;
 	}
     MotorControllerUsage::GetInstance();
     CreateTypeMap();
@@ -154,7 +154,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
 
     if ( !hasError )
     {
-        m_canControllers[ canID ] = controller;
+        m_canmotorControllers[ canID ] = controller;
     }
 	return controller;
 }
@@ -175,13 +175,13 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::GetController
 	shared_ptr<IDragonMotorController> controller;
 	if ( canID > -1 && canID < 63 )
 	{
-		controller = m_canControllers[ canID ];
+		controller = m_canmotorControllers[ canID ];
 	}
 	else
 	{
 	    string msg = "invalid CAN ID ";
 	    msg += to_string( canID );
-        Logger::GetLogger()->LogError( "DragonMotorControllerFactory::GetController", msg );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonMotorControllerFactory::GetController"), msg );
 	}
 	return controller;
 }

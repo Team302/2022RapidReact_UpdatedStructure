@@ -19,7 +19,7 @@
 //========================================================================================================
 ///
 /// File Description:
-///     This logs error messages
+///     This logs error messages, and can also be used to log non-error events.
 ///
 //========================================================================================================
 
@@ -33,6 +33,7 @@
 #include <networktables/NetworkTableInstance.h>
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableEntry.h>
+#include <frc/SmartDashboard/SendableChooser.h>
 
 // Team 302 includes
 
@@ -55,20 +56,28 @@ class Logger
         };
 
         /// @enum LOGGER_LEVEL
-        /// @brief Define what level the message is as well as this can be used to write only the messages of a certain level or worse.  The enum is ordered from worse to better and corresponds to the driver's station levels
+        /// @brief Define what level the message is as well as this can be used to write only the messages
+        /// @brief of a certain level or worse.
+        /// @brief The enum is ordered from worse to better and corresponds to the driver's station levels.        
         enum LOGGER_LEVEL
         {
-            ERROR,             ///< this is catastrophic 
-            ERROR_ONCE,        ///< this is catastrophic that we only want to see once
-            WARNING,           ///< this is a medium level error
-            WARNING_ONCE,      ///< this is a medium level error we only want to see once
-            PRINT,             ///< this is an information/debug message
-            PRINT_ONCE         ///< this is an information/debug message we only want to see once
+            ERROR_ONCE,     ///< this is catastrophic that we only want to see once
+            ERROR,          ///< this is catastrophic
+            WARNING_ONCE,   ///< this is a medium level error we only want to see once
+            WARNING,        ///< this is a medium level error
+            PRINT_ONCE,     ///< this is an information/debug message we only want to see once
+            PRINT           ///< this is an information/debug message
         };
 
         /// @brief Find or create the singleton logger
         /// @returns Logger* pointer to the logger
         static Logger* GetLogger();
+
+        /// @brief Display logging options on dashboard
+        void PutLoggingSelectionsOnDashboard();
+
+        /// @brief Read logging option from dashboard, but not every 20ms
+        void PeriodicLog();
 
         /// @brief set the option for where the logging messages should be displayed
         /// @param [in] LOGGER_OPTION:  logging option for where to log messages
@@ -85,44 +94,15 @@ class Logger
         );
 
         /// @brief log a message
-        /// @param [in] std::string: classname or object identifier
-        /// @param [in] std::string: message
-        void LogError
-        (
-            const std::string&      locationIdentifier,     
-            const std::string&      message                 
-        );
-
-        /// @brief log a message
         /// @param [in] LOGGER_LEVEL: message level
         /// @param [in] std::string: classname or object identifier
         /// @param [in] std::string: message
-        void LogError
+        void LogData
         (
             LOGGER_LEVEL            level,
             const std::string&      locationIdentifier,     
             const std::string&      message                 
         );
-
-
-        /// @brief Write a message to the dashboard
-        /// @param [in] std::string: classname or object identifier
-        /// @param [in] std::string: message
-        void OnDash
-        (
-            const std::string&   locationIdentifier,    
-            const std::string&   message  
-        );              
-
-        /// @brief Write a message to the dashboard
-        /// @param [in] std::string: classname or object identifier
-        /// @param [in] bool: boolean that should be written
-        void OnDash
-        (
-            const std::string&   locationIdentifier,     
-            bool                 value                 
-        );
-
 
         void ToNtTable
         (
@@ -160,12 +140,13 @@ class Logger
         Logger();
         ~Logger() = default;
 
-        LOGGER_OPTION           m_option;
-        LOGGER_LEVEL            m_level;
-        std::set<std::string>   m_alreadyDisplayed;
-        static Logger*          m_instance;
-
-
+        LOGGER_OPTION                           m_option;               // indicates where the message should go
+        LOGGER_LEVEL                            m_level;                // the level at which a message is important enough to send
+        std::set<std::string>                   m_alreadyDisplayed;
+        static Logger*                          m_instance;
+        int                                     m_cyclingCounter;       // count 20ms loops
+        frc::SendableChooser<LOGGER_OPTION>     m_optionChooser;
+        frc::SendableChooser<LOGGER_LEVEL>      m_levelChooser;
 };
 
 

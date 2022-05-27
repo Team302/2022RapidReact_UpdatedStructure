@@ -23,6 +23,7 @@
 
 // Team 302 includes
 #include <hw/usages/SolenoidUsage.h>
+#include <utils/Logger.h>
 
 // Third Party Includes
 
@@ -57,6 +58,12 @@ SolenoidUsage::SOLENOID_USAGE SolenoidUsage::GetUsage
     const string              usageString
 )
 {
-    return m_usageMap.find(usageString)->second;
+    auto it = m_usageMap.find(usageString);
+    if (it != m_usageMap.end())
+    {
+        return it->second;
+    }
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("Solenoid::GetUsage - unknown usage"), usageString);
+    return SolenoidUsage::SOLENOID_USAGE::UNKNOWN_SOLENOID_USAGE;
 }
 

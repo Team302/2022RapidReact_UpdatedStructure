@@ -21,7 +21,7 @@
 //========================================================================================================
 ///
 /// File Description:
-///     This is the factory for creating Motor Controllers
+///     This is the factory for creating Motor motorControllers
 ///
 //========================================================================================================
 
@@ -45,8 +45,8 @@
 
 //========================================================================================================
 ///	 Class:			DragonMotorControllerFactory
-///  Description:	This is a singleton that creates motor controllers (IDragonMotorController).  This 
-///				 	allows us to interact with motor controllers such as TalonSRX, Rev Spark Max without
+///  Description:	This is a singleton that creates motor motorControllers (IDragonMotorController).  This 
+///				 	allows us to interact with motor motorControllers such as TalonSRX, Rev Spark Max without
 ///					actually knowing what type is actually being used.
 //========================================================================================================
 class DragonMotorControllerFactory
@@ -120,7 +120,7 @@ class DragonMotorControllerFactory
 
         static DragonMotorControllerFactory*                                    m_instance;
 
-		std::array<std::shared_ptr<IDragonMotorController>,63>				    m_canControllers;
+		std::array<std::shared_ptr<IDragonMotorController>,63>				    m_canmotorControllers;
         std::map<std::string, DragonMotorControllerFactory::MOTOR_TYPE>         m_typeMap;
 
 

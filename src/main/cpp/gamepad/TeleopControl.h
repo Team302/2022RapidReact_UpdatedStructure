@@ -97,6 +97,10 @@ class TeleopControl
             CLIMBER_STATE_BACK_LIFT,
             CLIMBER_STATE_BACK_REST,
             // end of for testing
+
+            LOOK_LEFT,
+            LOOK_RIGHT,
+            SCAN,
             
             MAX_FUNCTIONS
         };
@@ -193,7 +197,7 @@ class TeleopControl
         std::vector<IDragonGamePad::BUTTON_IDENTIFIER>   m_buttonIDs;
         std::vector<int>							     m_controllerIndex;
 
-        IDragonGamePad*			            m_controllers[frc::DriverStation::kJoystickPorts];
+        IDragonGamePad*			            m_controller[frc::DriverStation::kJoystickPorts];
 
         mutable int                         m_count;
 };
