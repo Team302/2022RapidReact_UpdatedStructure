@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
@@ -14,63 +13,54 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-// C++ Includes
+//C++ Includes
 #include <memory>
 #include <string>
 
-// FRC includes
+#include <frc/Filesystem.h>
 
-// Team 302 includes
-#include <auton/PrimitiveFactory.h>
+//Team 302 includes
+#include <auton/drivePrimitives/ResetPosition.h>
 #include <auton/PrimitiveParams.h>
-#include <auton/primitives/HoldPosition.h>
-#include <auton/primitives/IPrimitive.h>
+#include <auton/drivePrimitives/IPrimitive.h>
 #include <chassis/ChassisFactory.h>
-#include <mechanisms/controllers/ControlModes.h>
-
-// Third Party Includes
-
+#include <hw/factories/PigeonFactory.h>
+#include <utils/Logger.h>
 
 using namespace std;
 using namespace frc;
 
-HoldPosition::HoldPosition() :
-		m_chassis( ChassisFactory::GetChassisFactory()->GetIChassis()), //Get chassis from chassis factory
-		m_timeRemaining(0.0)       //Value will be changed in init
+ResetPosition::ResetPosition() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChassis())
 {
 }
 
-void HoldPosition::Init(PrimitiveParams* params) {
+void ResetPosition::Init(PrimitiveParams* params)
+{
+    string pathToLoad = params->GetPathName();
 
-	//Get timeRemaining from m_params
-	m_timeRemaining = params->GetTime();
-	auto cd = make_shared<ControlData>( ControlModes::CONTROL_TYPE::POSITION_INCH, 
-							   			ControlModes::CONTROL_RUN_LOCS::MOTOR_CONTROLLER,
-							   			string("HoldPosition"),
-							   			10.0,
-							   			0.0,
-							   			0.0,
-							   			0.0,
-							   			0.0,
-							   			0.0,
-							   			0.0,
-							   			1.0,
-							  			0.0   );
-	//m_chassis->SetControlConstants( cd.get() );
-	//auto left = m_chassis->GetCurrentLeftPosition();
-	//auto right = m_chassis->GetCurrentRightPosition();
+    if (pathToLoad != "")
+    {
+ 	    auto deployDir = frc::filesystem::GetDeployDirectory();
+        deployDir += "/paths/" + pathToLoad;
+        m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);
 
-	//m_chassis->SetOutput( ControlModes::CONTROL_TYPE::POSITION_INCH, left, right );	
+        m_chassis->ResetPose(m_trajectory.InitialPose());
+
+        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("ResetPosX"), m_chassis.get()->GetPose().X().to<double>());
+        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("ResetPosY"), m_chassis.get()->GetPose().Y().to<double>());
+        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("InitialPoseX"), m_trajectory.InitialPose().X().to<double>());
+        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("InitialPoseY"), m_trajectory.InitialPose().Y().to<double>());
+        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("InitialPoseOmega"), m_trajectory.InitialPose().Rotation().Degrees().to<double>());
+        
+    }
 }
 
-void HoldPosition::Run() {
-	//Decrement time remaining
-	m_timeRemaining -= IPrimitive::LOOP_LENGTH;
+void ResetPosition::Run()
+{
 
 }
 
-bool HoldPosition::IsDone() {
-	//Return true when the time runs out
-	bool holdDone = ((m_timeRemaining <= (IPrimitive::LOOP_LENGTH / 2.0)));
-	return holdDone;
+bool ResetPosition::IsDone()
+{
+    return true;
 }

@@ -19,16 +19,16 @@
 #include <auton/PrimitiveEnums.h>
 #include <auton/PrimitiveFactory.h>
 #include <auton/PrimitiveParser.h>
-#include <auton/primitives/DoNothing.h>
-#include <auton/primitives/DriveDistance.h>
-#include <auton/primitives/DrivePath.h>
-#include <auton/primitives/DriveTime.h>
-#include <auton/primitives/DriveToTarget.h>
-#include <auton/primitives/DriveToWall.h>
-#include <auton/primitives/HoldPosition.h>
-#include <auton/primitives/IPrimitive.h>
-#include <auton/primitives/ResetPosition.h>
-#include <auton/primitives/TurnAngle.h>
+#include <auton/drivePrimitives/DoNothing.h>
+#include <auton/drivePrimitives/DriveDistance.h>
+#include <auton/drivePrimitives/DrivePath.h>
+#include <auton/drivePrimitives/DriveTime.h>
+#include <auton/drivePrimitives/DriveToTarget.h>
+#include <auton/drivePrimitives/DriveToWall.h>
+#include <auton/drivePrimitives/HoldPosition.h>
+#include <auton/drivePrimitives/IPrimitive.h>
+#include <auton/drivePrimitives/ResetPosition.h>
+#include <auton/drivePrimitives/TurnAngle.h>
 
 PrimitiveFactory* PrimitiveFactory::m_instance = nullptr;
 

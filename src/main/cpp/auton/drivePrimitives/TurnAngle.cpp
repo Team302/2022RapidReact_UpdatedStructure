@@ -26,8 +26,8 @@
 
 // Team 302 includes
 #include <auton/PrimitiveParams.h>
-#include <auton/primitives/IPrimitive.h>
-#include <auton/primitives/TurnAngle.h>
+#include <auton/drivePrimitives/IPrimitive.h>
+#include <auton/drivePrimitives/TurnAngle.h>
 #include <chassis/ChassisFactory.h>
 #include <chassis/IChassis.h>
 #include <mechanisms/controllers/ControlModes.h>

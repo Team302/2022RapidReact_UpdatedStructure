@@ -1,3 +1,4 @@
+
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
@@ -15,36 +16,60 @@
 
 #pragma once
 
-//C++ Includes
+// C++ Includes
 #include <memory>
 
-//FRC/WPI Includes
-#include <frc/trajectory/TrajectoryUtil.h>
-#include <frc/trajectory/TrajectoryConfig.h>
-#include <frc/Filesystem.h>
-#include <wpi/SmallString.h>
+// FRC includes
 
-//Team 302 Includes
-#include <auton/primitives/IPrimitive.h>
+// Team 302 includes
+#include <auton/drivePrimitives/IPrimitive.h>
+#include <chassis/IChassis.h>
 
-//Forward Declares
-class IChassis;
+// Third Party Includes
+
+// forward declares
 class PrimitiveParams;
 
-class ResetPosition : public IPrimitive
+
+namespace frc
 {
-    public:
-        ResetPosition();
+	class Timer;
+}
 
-        virtual ~ResetPosition() = default;
 
-        void Init(PrimitiveParams* params) override;
+//========================================================================================================
+/// @class  DoNothing
+/// @brief  This is an auton primitive that causes the chassis to not drive 
+//========================================================================================================
 
-        void Run() override;
+class DoNothing : public IPrimitive 
+{
+	public:
+		/// @brief constructor that creates/initializes the object
+		DoNothing();
 
-        bool IsDone() override;
-    
-    private:
-        std::shared_ptr<IChassis> m_chassis;
-        frc::Trajectory                m_trajectory;
+		/// @brief destructor, clean  up the memory from this object
+		virtual ~DoNothing() = default;
+
+		/// @brief initialize this usage of the primitive
+		/// @param PrimitiveParms* params the drive parameters
+		/// @return void
+		void Init(PrimitiveParams* params) override;
+		
+		/// @brief run the primitive (periodic routine)
+		/// @return void
+		void Run() override;
+
+		/// @brief check if the end condition has been met
+		/// @return bool true means the end condition was reached, false means it hasn't
+		bool IsDone() override;
+
+	private:
+		float m_maxTime;		//Target time
+		float m_currentTime;	//Time since init
+		std::shared_ptr<IChassis> m_chassis;	
+		std::unique_ptr<frc::Timer> m_timer;
+		double						m_heading;
+		IChassis::HEADING_OPTION	m_headingOption;
 };
+

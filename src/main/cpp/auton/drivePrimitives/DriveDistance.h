@@ -24,27 +24,42 @@
 
 // Third Party Includes
 
-
-
-#include <auton/primitives/SuperDrive.h>
+#include <auton/drivePrimitives/SuperDrive.h>
 
 class PrimitiveParams;
 
-class DriveToWall : public SuperDrive 
+class DriveDistance : public SuperDrive 
 {
 public:
 	bool IsDone() override;
 	void Init(PrimitiveParams* params) override;
 	void Run() override;
-	DriveToWall();
-	virtual ~DriveToWall() = default;
+	DriveDistance();
+	virtual ~DriveDistance() = default;
 
+protected:
+    void SetDistance
+    (
+        double distance
+    );
 private:
-	float m_minimumTime;
-	float m_timeRemaining;
-	int m_underSpeedCounts;
-	const float SPEED_THRESHOLD = 3;
-	const int UNDER_SPEED_COUNT_THRESHOLD = 2;
+	void CalculateSlowDownDistance();
+	PrimitiveParams* m_params;
 
+	double m_targetDistance;
+	double m_initialDistance;
+	double m_timeRemaining;
+
+	double m_minSpeedCountTime;
+	int m_underSpeedCounts;
+	double m_startHeading;
+	double m_endHeading;
+	double m_minSpeed;
+	bool m_arcing;
+
+	const double SPEED_THRESHOLD = 1.5;
+	const double MIN_SPEED_COUNT_TIME = 0.5; //seconds before we start checking for wall collisions
+	const int UNDER_SPEED_COUNT_THRESHOLD = 4;
+	const double DECEL_TIME_MULTIPLIER = 0.85; //0.75
 };
 

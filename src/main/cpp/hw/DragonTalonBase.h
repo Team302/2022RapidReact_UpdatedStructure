@@ -32,13 +32,13 @@
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
 
 
-class DragonTalon : public IDragonMotorController
+class DragonTalonBase : public IDragonMotorController
 {
     public:
 
         // Constructors
-        DragonTalon() = delete;
-        DragonTalon
+        DragonTalonBase() = delete;
+        DragonTalonBase
         (
             MotorControllerUsage::MOTOR_CONTROLLER_USAGE deviceType, 
             int deviceID, 
@@ -50,7 +50,7 @@ class DragonTalon : public IDragonMotorController
             IDragonMotorController::MOTOR_TYPE motortype
 
         );
-        virtual ~DragonTalon() = default;
+        virtual ~DragonTalonBase() = default;
 
 
         // Getters (override)
@@ -171,4 +171,4 @@ class DragonTalon : public IDragonMotorController
         IDragonMotorController::MOTOR_TYPE m_motorType;
 };
 
-typedef std::vector<DragonTalon*> DragonTalonVector;
+typedef std::vector<DragonTalonBase*> DragonTalonBaseVector;

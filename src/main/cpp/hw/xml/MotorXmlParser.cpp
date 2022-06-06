@@ -27,7 +27,7 @@
 // FRC includes
 
 // Team 302 includes
-#include <hw/DragonTalon.h>
+#include <hw/DragonTalonSRX.h>
 #include <hw/factories/DragonMotorControllerFactory.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <utils/HardwareIDValidation.h>

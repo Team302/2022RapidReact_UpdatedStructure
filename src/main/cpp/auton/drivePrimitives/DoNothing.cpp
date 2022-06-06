@@ -23,9 +23,9 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
-#include <auton/primitives/DoNothing.h>
+#include <auton/drivePrimitives/DoNothing.h>
 #include <auton/PrimitiveParams.h>
-#include <auton/primitives/IPrimitive.h>
+#include <auton/drivePrimitives/IPrimitive.h>
 #include <chassis/ChassisFactory.h>
 #include <mechanisms/controllers/ControlModes.h>
 #include <utils/Logger.h>

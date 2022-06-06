@@ -29,7 +29,7 @@
 #include <auton/PrimitiveFactory.h>
 #include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
-#include <auton/primitives/IPrimitive.h>
+#include <auton/drivePrimitives/IPrimitive.h>
 #include <mechanisms/adaptclass/MechanismFactory.h>
 #include <mechanisms/indexer/IndexerStateMgr.h>
 #include <mechanisms/intake/Intake.h>

@@ -14,65 +14,33 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+#pragma once
+
 // C++ Includes
-#include <memory>
-#include <string>
 
 // FRC includes
-#include <frc/Timer.h>
 
 // Team 302 includes
-#include <auton/primitives/DoNothing.h>
-#include <auton/PrimitiveParams.h>
-#include <auton/primitives/IPrimitive.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
-#include <mechanisms/controllers/ControlModes.h>
 
 // Third Party Includes
 
-
-using namespace std;
-using namespace frc;
-
 //Includes
-#include <cmath>
-
 //Team302 includes
-#include <auton/primitives/DriveToWall.h>
-#include <chassis/ChassisFactory.h>
+#include <auton/drivePrimitives/SuperDrive.h>
 
-DriveToWall::DriveToWall() :
-	SuperDrive(),
-	m_minimumTime(0),
-	m_timeRemaining(0),
-	m_underSpeedCounts(0)
+class PrimitiveParams;
+
+class DriveTime: public SuperDrive 
 {
-}
+public:
+	DriveTime();
+	virtual ~DriveTime() = default;
+	void Init(PrimitiveParams* params) override;
+	void Run() override;
+	bool IsDone() override;
 
-void DriveToWall::Init(PrimitiveParams* params) 
-{
-	SuperDrive::Init(params);
-	m_timeRemaining = params->GetTime();
-	m_underSpeedCounts = 0;
-	m_minimumTime = 0.3;
-}
+private:
+	float m_timeRemaining;          //In seconds
 
-void DriveToWall::Run() 
-{
-	if (m_minimumTime <= 0) 
-	{
-		//if (abs( ChassisFactory::GetChassisFactory()->GetIChassis()->GetCurrentSpeed()) < SPEED_THRESHOLD) 
-		//{
-		//	m_underSpeedCounts++;
-		//}
-	}
-
-	m_minimumTime -= IPrimitive::LOOP_LENGTH;
-	m_timeRemaining -= IPrimitive::LOOP_LENGTH;
-}
-
-bool DriveToWall::IsDone() 
-{
-	return (m_underSpeedCounts >= UNDER_SPEED_COUNT_THRESHOLD) && m_timeRemaining <= 0;
-}
+};
 

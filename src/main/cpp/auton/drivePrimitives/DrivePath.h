@@ -19,7 +19,7 @@
 
 //Team302 Includes
 #include <auton/PrimitiveParams.h>
-#include <auton/primitives/IPrimitive.h>
+#include <auton/drivePrimitives/IPrimitive.h>
 #include <chassis/ChassisFactory.h>
 #include <chassis/DragonTargetFinder.h>
 #include <chassis/IChassis.h>

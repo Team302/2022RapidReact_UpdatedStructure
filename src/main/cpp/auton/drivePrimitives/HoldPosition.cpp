@@ -14,57 +14,63 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
-
 // C++ Includes
 #include <memory>
+#include <string>
 
 // FRC includes
 
 // Team 302 includes
-#include <auton/primitives/IPrimitive.h>
-#include <hw/DragonPigeon.h>
+#include <auton/PrimitiveFactory.h>
+#include <auton/PrimitiveParams.h>
+#include <auton/drivePrimitives/HoldPosition.h>
+#include <auton/drivePrimitives/IPrimitive.h>
+#include <chassis/ChassisFactory.h>
+#include <mechanisms/controllers/ControlModes.h>
 
 // Third Party Includes
 
-class IChassis;
-namespace frc
+
+using namespace std;
+using namespace frc;
+
+HoldPosition::HoldPosition() :
+		m_chassis( ChassisFactory::GetChassisFactory()->GetIChassis()), //Get chassis from chassis factory
+		m_timeRemaining(0.0)       //Value will be changed in init
 {
-    class Timer;
 }
 
+void HoldPosition::Init(PrimitiveParams* params) {
 
-class TurnAngle : public IPrimitive 
-{
-    public:
-        TurnAngle();
-        virtual ~TurnAngle() = default;
+	//Get timeRemaining from m_params
+	m_timeRemaining = params->GetTime();
+	auto cd = make_shared<ControlData>( ControlModes::CONTROL_TYPE::POSITION_INCH, 
+							   			ControlModes::CONTROL_RUN_LOCS::MOTOR_CONTROLLER,
+							   			string("HoldPosition"),
+							   			10.0,
+							   			0.0,
+							   			0.0,
+							   			0.0,
+							   			0.0,
+							   			0.0,
+							   			0.0,
+							   			1.0,
+							  			0.0   );
+	//m_chassis->SetControlConstants( cd.get() );
+	//auto left = m_chassis->GetCurrentLeftPosition();
+	//auto right = m_chassis->GetCurrentRightPosition();
 
-        void Init(PrimitiveParams* params) override;
-        void Run() override;
-        bool IsDone() override;
+	//m_chassis->SetOutput( ControlModes::CONTROL_TYPE::POSITION_INCH, left, right );	
+}
 
-    private:
-        const double PROPORTIONAL_COEFF  = 3.0; //0.5
-        const double INTREGRAL_COEFF     = 0.0;
-        const double DERIVATIVE_COEFF    = 0.0;
-        const double FEET_FORWARD_COEFF  = 0.0;
+void HoldPosition::Run() {
+	//Decrement time remaining
+	m_timeRemaining -= IPrimitive::LOOP_LENGTH;
 
-        std::shared_ptr<IChassis> m_chassis;
-   		std::unique_ptr<frc::Timer> m_timer;
+}
 
-        double m_targetAngle;
-        double m_maxTime;
-        double m_leftPos;
-        double m_rightPos;
-        bool m_isDone;
-
-        const double ANGLE_THRESH = 2; // +/- threshold for being at angle
-        const double MAX_VELOCITY = 20; //inches per second
-        const double MIN_VELOCITY = 4;
-        const double ANGLE_DIFFERENCE_VELOCITY_MULTIPLIER = 0.7;
-
-        DragonPigeon*                   m_pigeon;
-        double                          m_heading;
-};
-
+bool HoldPosition::IsDone() {
+	//Return true when the time runs out
+	bool holdDone = ((m_timeRemaining <= (IPrimitive::LOOP_LENGTH / 2.0)));
+	return holdDone;
+}

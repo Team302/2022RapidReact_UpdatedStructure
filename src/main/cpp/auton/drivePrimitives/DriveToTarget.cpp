@@ -22,9 +22,9 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
-#include <auton/primitives/DoNothing.h>
+#include <auton/drivePrimitives/DoNothing.h>
 #include <auton/PrimitiveParams.h>
-#include <auton/primitives/IPrimitive.h>
+#include <auton/drivePrimitives/IPrimitive.h>
 #include <mechanisms/adaptclass/MechanismFactory.h>
 #include <mechanisms/controllers/ControlModes.h>
 
@@ -34,8 +34,8 @@
 using namespace std;
 using namespace frc;
 
-#include <auton/primitives/DriveDistance.h>
-#include <auton/primitives/DriveToTarget.h>
+#include <auton/drivePrimitives/DriveDistance.h>
+#include <auton/drivePrimitives/DriveToTarget.h>
 #include <auton/PrimitiveParams.h>
 #include <hw/interfaces/IDragonDistanceSensor.h>
 #include <utils/Logger.h>

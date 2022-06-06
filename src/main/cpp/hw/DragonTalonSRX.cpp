@@ -27,7 +27,7 @@
 
 // Team 302 includes
 #include <hw/interfaces/IDragonMotorController.h>
-#include <hw/DragonTalon.h>
+#include <hw/DragonTalonSRX.h>
 #include <hw/factories/PDPFactory.h>
 //#include <hw/DragonPDP.h>
 #include <hw/usages/MotorControllerUsage.h>
@@ -47,7 +47,7 @@ using namespace ctre::phoenix::motorcontrol;
 using namespace ctre::phoenix::motorcontrol::can;
 
 
-DragonTalon::DragonTalon
+DragonTalonSRX::DragonTalonSRX
 (
 	MotorControllerUsage::MOTOR_CONTROLLER_USAGE deviceType, 
 	int deviceID, 
@@ -281,7 +281,7 @@ DragonTalon::DragonTalon
 	}
 }
 
-double DragonTalon::GetRotations() const
+double DragonTalonSRX::GetRotations() const
 {
 	if (m_countsPerDegree > 0.01)
 	{
@@ -290,7 +290,7 @@ double DragonTalon::GetRotations() const
 	return (ConversionUtils::CountsToRevolutions( (m_talon.get()->GetSelectedSensorPosition()), m_countsPerRev) / m_gearRatio);
 }
 
-double DragonTalon::GetRPS() const
+double DragonTalonSRX::GetRPS() const
 {
 	if (m_countsPerDegree > 0.01)
 	{
@@ -299,17 +299,17 @@ double DragonTalon::GetRPS() const
 	return (ConversionUtils::CountsPer100msToRPS( m_talon.get()->GetSelectedSensorVelocity(), m_countsPerRev) / m_gearRatio);
 }
 
-void DragonTalon::SetControlMode(ControlModes::CONTROL_TYPE mode)
+void DragonTalonSRX::SetControlMode(ControlModes::CONTROL_TYPE mode)
 { 
 	m_controlMode = mode;
 }
 
-shared_ptr<MotorController> DragonTalon::GetSpeedController() const
+shared_ptr<MotorController> DragonTalonSRX::GetSpeedController() const
 {
 	return m_talon;
 }
 
-double DragonTalon::GetCurrent() const
+double DragonTalonSRX::GetCurrent() const
 {
 	auto pdp = PDPFactory::GetFactory()->GetPDP();
 	if (pdp != nullptr)
@@ -319,7 +319,7 @@ double DragonTalon::GetCurrent() const
 	return 0.0;
 }
 
-void DragonTalon::UpdateFramePeriods
+void DragonTalonSRX::UpdateFramePeriods
 (
 	ctre::phoenix::motorcontrol::StatusFrameEnhanced	frame,
 	uint8_t												milliseconds
@@ -327,7 +327,7 @@ void DragonTalon::UpdateFramePeriods
 {
 	m_talon.get()->SetStatusFramePeriod( frame, milliseconds, 0 );
 }
-void DragonTalon::SetFramePeriodPriority
+void DragonTalonSRX::SetFramePeriodPriority
 (
 	MOTOR_PRIORITY              priority
 )
@@ -385,7 +385,7 @@ void DragonTalon::SetFramePeriodPriority
 	}
 }
 
-void DragonTalon::Set(std::shared_ptr<nt::NetworkTable> nt, double value)
+void DragonTalonSRX::Set(std::shared_ptr<nt::NetworkTable> nt, double value)
 {
 	Logger::GetLogger()->ToNtTable(nt, string("motor id"), m_talon.get()->GetDeviceID());
 
@@ -434,7 +434,7 @@ void DragonTalon::Set(std::shared_ptr<nt::NetworkTable> nt, double value)
 				break;
 
 			default:
-				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonTalon::SetControlMode"), string("Invalid Control Mode"));
+				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonTalonSRX::SetControlMode"), string("Invalid Control Mode"));
 				ctreMode = ctre::phoenix::motorcontrol::ControlMode::PercentOutput;
 				break;
 		}	
@@ -510,7 +510,7 @@ void DragonTalon::Set(std::shared_ptr<nt::NetworkTable> nt, double value)
 	Logger::GetLogger()->ToNtTable(nt, string("motor current RPS"), GetRPS() );
 }
 
-void DragonTalon::Set(double value)
+void DragonTalonSRX::Set(double value)
 {
 	auto id = m_talon.get()->GetDeviceID();
 	auto ntName = std::string("MotorOutput");
@@ -518,13 +518,13 @@ void DragonTalon::Set(double value)
 	auto nt = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
 	Set(nt, value);
 }
-void DragonTalon::SetRotationOffset(double rotations)
+void DragonTalonSRX::SetRotationOffset(double rotations)
 {
-//	double newRotations = -rotations + DragonTalon::GetRotations();
+//	double newRotations = -rotations + DragonTalonSRX::GetRotations();
 //	m_tickOffset += (int) (newRotations * m_countsPerRev / m_gearRatio);
 }
 
-void DragonTalon::SetVoltageRamping(double ramping, double rampingClosedLoop)
+void DragonTalonSRX::SetVoltageRamping(double ramping, double rampingClosedLoop)
 {
     m_talon.get()->ConfigOpenloopRamp(ramping);
 
@@ -535,32 +535,32 @@ void DragonTalon::SetVoltageRamping(double ramping, double rampingClosedLoop)
 }
 
 
-void DragonTalon::EnableCurrentLimiting(bool enabled)
+void DragonTalonSRX::EnableCurrentLimiting(bool enabled)
 {
     m_talon.get()->EnableCurrentLimit(enabled);
 }
 
-void DragonTalon::EnableBrakeMode(bool enabled)
+void DragonTalonSRX::EnableBrakeMode(bool enabled)
 {
     m_talon.get()->SetNeutralMode(enabled ? ctre::phoenix::motorcontrol::NeutralMode::Brake : ctre::phoenix::motorcontrol::NeutralMode::Coast);
 }
 
-void DragonTalon::Invert(bool inverted)
+void DragonTalonSRX::Invert(bool inverted)
 {
     m_talon.get()->SetInverted(inverted);
 }
 
-void DragonTalon::SetSensorInverted(bool inverted)
+void DragonTalonSRX::SetSensorInverted(bool inverted)
 {
     m_talon.get()->SetSensorPhase(inverted);
 }
 
-MotorControllerUsage::MOTOR_CONTROLLER_USAGE DragonTalon::GetType() const
+MotorControllerUsage::MOTOR_CONTROLLER_USAGE DragonTalonSRX::GetType() const
 {
 	return m_type;
 }
 
-int DragonTalon::GetID() const
+int DragonTalonSRX::GetID() const
 {
 	return m_id;
 }
@@ -570,7 +570,7 @@ int DragonTalon::GetID() const
 // Description:	Selects which profile slot to use for closed-loop control
 // Returns:		void
 //------------------------------------------------------------------------------
-void DragonTalon::SelectClosedLoopProfile
+void DragonTalonSRX::SelectClosedLoopProfile
 (
 	int	   slot,			// <I> - profile slot to select
 	int    pidIndex			// <I> - 0 for primary closed loop, 1 for cascaded closed-loop
@@ -586,7 +586,7 @@ void DragonTalon::SelectClosedLoopProfile
 }
 
 
-int DragonTalon::ConfigSelectedFeedbackSensor
+int DragonTalonSRX::ConfigSelectedFeedbackSensor
 (
 	FeedbackDevice feedbackDevice,
 	int pidIdx,
@@ -601,7 +601,7 @@ int DragonTalon::ConfigSelectedFeedbackSensor
 	return error;
 }
 
-int DragonTalon::ConfigSelectedFeedbackSensor
+int DragonTalonSRX::ConfigSelectedFeedbackSensor
 (
 	RemoteFeedbackDevice feedbackDevice,
 	int pidIdx,
@@ -616,7 +616,7 @@ int DragonTalon::ConfigSelectedFeedbackSensor
 	return error;
 }
 
-int DragonTalon::ConfigPeakCurrentLimit
+int DragonTalonSRX::ConfigPeakCurrentLimit
 (
 	int amps,
 	int timeoutMs
@@ -630,7 +630,7 @@ int DragonTalon::ConfigPeakCurrentLimit
 	return error;
 }
 
-int DragonTalon::ConfigPeakCurrentDuration
+int DragonTalonSRX::ConfigPeakCurrentDuration
 (
 	int milliseconds,
 	int timeoutMs
@@ -644,7 +644,7 @@ int DragonTalon::ConfigPeakCurrentDuration
 	return error;
 }
 
-int DragonTalon::ConfigContinuousCurrentLimit
+int DragonTalonSRX::ConfigContinuousCurrentLimit
 (
 	int amps,
 	int timeoutMs
@@ -658,7 +658,7 @@ int DragonTalon::ConfigContinuousCurrentLimit
 	return error;
 }
 
-void DragonTalon::SetAsFollowerMotor
+void DragonTalonSRX::SetAsFollowerMotor
 (
     int         masterCANID         // <I> - master motor
 )
@@ -671,7 +671,7 @@ void DragonTalon::SetAsFollowerMotor
 /// @param [in] int             slot - hardware slot to use
 /// @param [in] ControlData*    pid - the control constants
 /// @return void
-void DragonTalon::SetControlConstants(int slot, ControlData* controlInfo)
+void DragonTalonSRX::SetControlConstants(int slot, ControlData* controlInfo)
 {
 	SetControlMode(controlInfo->GetMode());
 
@@ -771,7 +771,7 @@ void DragonTalon::SetControlConstants(int slot, ControlData* controlInfo)
 	}
 }
 
-void DragonTalon::SetForwardLimitSwitch
+void DragonTalonSRX::SetForwardLimitSwitch
 ( 
 	bool normallyOpen
 )
@@ -781,7 +781,7 @@ void DragonTalon::SetForwardLimitSwitch
 	m_talon.get()->OverrideLimitSwitchesEnable(true);
 }
 
-void DragonTalon::SetReverseLimitSwitch
+void DragonTalonSRX::SetReverseLimitSwitch
 (
 	bool normallyOpen
 )
@@ -792,7 +792,7 @@ void DragonTalon::SetReverseLimitSwitch
 }
 
 
-void DragonTalon::SetRemoteSensor
+void DragonTalonSRX::SetRemoteSensor
 (
     int                                             canID,
     ctre::phoenix::motorcontrol::RemoteSensorSource deviceType
@@ -802,7 +802,7 @@ void DragonTalon::SetRemoteSensor
 	m_talon.get()->ConfigSelectedFeedbackSensor( RemoteFeedbackDevice::RemoteFeedbackDevice_RemoteSensor0, 0, 0 );
 }
 
-void DragonTalon::SetDiameter
+void DragonTalonSRX::SetDiameter
 (
 	double 	diameter
 )
@@ -810,7 +810,7 @@ void DragonTalon::SetDiameter
 	m_diameter = diameter;
 }
 
-void DragonTalon::SetVoltage
+void DragonTalonSRX::SetVoltage
 (
 	units::volt_t output
 )
@@ -819,27 +819,27 @@ void DragonTalon::SetVoltage
 }
 
 
- bool DragonTalon::IsForwardLimitSwitchClosed() const
+ bool DragonTalonSRX::IsForwardLimitSwitchClosed() const
  {
 	auto sensors = m_talon.get()->GetSensorCollection();
 	auto closed = sensors.IsFwdLimitSwitchClosed();
 	return closed == 1;
 }
 
-bool DragonTalon::IsReverseLimitSwitchClosed() const
+bool DragonTalonSRX::IsReverseLimitSwitchClosed() const
 {
 	auto sensors = m_talon.get()->GetSensorCollection();
 	auto closed = sensors.IsRevLimitSwitchClosed();
 	return closed == 1;
 }
 
-void DragonTalon::EnableVoltageCompensation( double fullvoltage) 
+void DragonTalonSRX::EnableVoltageCompensation( double fullvoltage) 
 {
 	m_talon.get()->ConfigVoltageCompSaturation(fullvoltage);
 	m_talon.get()->EnableVoltageCompensation(true);
 }
 
-void DragonTalon::SetSelectedSensorPosition
+void DragonTalonSRX::SetSelectedSensorPosition
 (
 	double  initialPosition
 ) 
@@ -847,31 +847,31 @@ void DragonTalon::SetSelectedSensorPosition
 	m_talon.get()->SetSelectedSensorPosition(initialPosition, 0, 50);
 }
         
-double DragonTalon::GetCountsPerInch() const 
+double DragonTalonSRX::GetCountsPerInch() const 
 {
 	return m_countsPerInch;
 }
-double DragonTalon::GetCountsPerDegree() const 
+double DragonTalonSRX::GetCountsPerDegree() const 
 {
 	return m_countsPerDegree;
 }
 
-ControlModes::CONTROL_TYPE DragonTalon::GetControlMode() const
+ControlModes::CONTROL_TYPE DragonTalonSRX::GetControlMode() const
 {
 	return m_controlMode;
 }
 
-double DragonTalon::GetCounts() const 
+double DragonTalonSRX::GetCounts() const 
 {
 	return m_talon.get()->GetSelectedSensorPosition();
 }
 
-IDragonMotorController::MOTOR_TYPE DragonTalon::GetMotorType() const
+IDragonMotorController::MOTOR_TYPE DragonTalonSRX::GetMotorType() const
 {
 	return m_motorType;
 }
 
-void DragonTalon::EnableDisableLimitSwitches
+void DragonTalonSRX::EnableDisableLimitSwitches
 (
 	bool enable
 )

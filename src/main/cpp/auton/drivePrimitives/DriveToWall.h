@@ -17,7 +17,6 @@
 #pragma once
 
 // C++ Includes
-#include <memory>
 
 // FRC includes
 
@@ -27,32 +26,25 @@
 
 
 
-#include <auton/primitives/DriveDistance.h>
+#include <auton/drivePrimitives/SuperDrive.h>
 
-class IDragonDistanceSensor;
 class PrimitiveParams;
 
-class DriveToTarget: public DriveDistance
+class DriveToWall : public SuperDrive 
 {
-    public:
-        DriveToTarget();
-        virtual ~DriveToTarget() = default;
+public:
+	bool IsDone() override;
+	void Init(PrimitiveParams* params) override;
+	void Run() override;
+	DriveToWall();
+	virtual ~DriveToWall() = default;
 
-        bool IsDone() override;
-        void Run() override;
-        void Init(PrimitiveParams* params) override;
-
-    private:
-    // Objects
-    std::shared_ptr<IDragonDistanceSensor>            m_sensor;
-
-    // Vars
-    int m_underDistanceCounts;						// # of counts that the robot has a cube
-    float m_minTimeToRun;								// Forces the drive to run for at least this long
-
-    // Consts
-    const float MIN_CUBE_DISTANCE = 3.0;				// Min Distance in inches to a cube to be counted as in the robot
-    const int UNDER_DISTANCE_COUNT_THRESHOLD = 4;			// # of counts to determine we have a cube.... or a wall
+private:
+	float m_minimumTime;
+	float m_timeRemaining;
+	int m_underSpeedCounts;
+	const float SPEED_THRESHOLD = 3;
+	const int UNDER_SPEED_COUNT_THRESHOLD = 2;
 
 };
 

@@ -22,7 +22,7 @@
 #include <auton/PrimitiveEnums.h>
 #include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
-#include <auton/primitives/IPrimitive.h>
+#include <auton/drivePrimitives/IPrimitive.h>
 #include <mechanisms/intake/LeftIntakeStateMgr.h>
 #include <mechanisms/intake/RightIntakeStateMgr.h>
 #include <mechanisms/shooter/ShooterStateMgr.h>

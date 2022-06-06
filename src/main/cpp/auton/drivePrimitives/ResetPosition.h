@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
@@ -16,50 +15,36 @@
 
 #pragma once
 
-// C++ Includes
+//C++ Includes
+#include <memory>
 
-// FRC includes
+//FRC/WPI Includes
+#include <frc/trajectory/TrajectoryUtil.h>
+#include <frc/trajectory/TrajectoryConfig.h>
+#include <frc/Filesystem.h>
+#include <wpi/SmallString.h>
 
-// Team 302 includes
+//Team 302 Includes
+#include <auton/drivePrimitives/IPrimitive.h>
 
-// Third Party Includes
-
-#include <auton/primitives/SuperDrive.h>
-
+//Forward Declares
+class IChassis;
 class PrimitiveParams;
 
-class DriveDistance : public SuperDrive 
+class ResetPosition : public IPrimitive
 {
-public:
-	bool IsDone() override;
-	void Init(PrimitiveParams* params) override;
-	void Run() override;
-	DriveDistance();
-	virtual ~DriveDistance() = default;
+    public:
+        ResetPosition();
 
-protected:
-    void SetDistance
-    (
-        double distance
-    );
-private:
-	void CalculateSlowDownDistance();
-	PrimitiveParams* m_params;
+        virtual ~ResetPosition() = default;
 
-	double m_targetDistance;
-	double m_initialDistance;
-	double m_timeRemaining;
+        void Init(PrimitiveParams* params) override;
 
-	double m_minSpeedCountTime;
-	int m_underSpeedCounts;
-	double m_startHeading;
-	double m_endHeading;
-	double m_minSpeed;
-	bool m_arcing;
+        void Run() override;
 
-	const double SPEED_THRESHOLD = 1.5;
-	const double MIN_SPEED_COUNT_TIME = 0.5; //seconds before we start checking for wall collisions
-	const int UNDER_SPEED_COUNT_THRESHOLD = 4;
-	const double DECEL_TIME_MULTIPLIER = 0.85; //0.75
+        bool IsDone() override;
+    
+    private:
+        std::shared_ptr<IChassis> m_chassis;
+        frc::Trajectory                m_trajectory;
 };
-

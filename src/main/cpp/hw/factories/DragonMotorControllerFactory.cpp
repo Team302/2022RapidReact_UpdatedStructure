@@ -4,7 +4,7 @@
 
 #include <hw/factories/DragonMotorControllerFactory.h>        
 #include <hw/usages/MotorControllerUsage.h>
-#include <hw/DragonTalon.h>
+#include <hw/DragonTalonSRX.h>
 #include <hw/DragonFalcon.h>
 #include <utils/Logger.h>
 
@@ -78,7 +78,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
     auto type = m_typeMap.find(mtype)->second;
     if ( type == MOTOR_TYPE::TALONSRX )
     {
-        auto talon = new DragonTalon( MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, countsPerRev, gearRatio, countsPerInch, countsPerDegree, motorType);
+        auto talon = new DragonTalonSRX( MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, countsPerRev, gearRatio, countsPerInch, countsPerDegree, motorType);
         talon->EnableBrakeMode( brakeMode );
         talon->Invert( inverted );
         talon->SetSensorInverted( sensorInverted );

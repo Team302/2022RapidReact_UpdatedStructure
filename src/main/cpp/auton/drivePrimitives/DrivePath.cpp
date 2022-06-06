@@ -25,7 +25,7 @@
 #include <wpi/fs.h>
 
 // 302 Includes
-#include <auton/primitives/DrivePath.h>
+#include <auton/drivePrimitives/DrivePath.h>
 #include <chassis/ChassisFactory.h>
 #include <utils/Logger.h>
 

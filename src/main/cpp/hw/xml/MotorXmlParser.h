@@ -49,9 +49,9 @@ class MotorXmlParser
 
         ///-----------------------------------------------------------------------
         /// Method:      ParseXML
-        /// Description: Parse a motor XML element and create a DragonTalon from
+        /// Description: Parse a motor XML element and create a DragonTalonSRX from
         ///              its definition.
-        /// Returns:     DragonTalon*        motor controller (or nullptr if XML
+        /// Returns:     DragonTalonSRX*        motor controller (or nullptr if XML
         ///                                  is ill-formed)
         ///-----------------------------------------------------------------------
         std::shared_ptr<IDragonMotorController> ParseXML

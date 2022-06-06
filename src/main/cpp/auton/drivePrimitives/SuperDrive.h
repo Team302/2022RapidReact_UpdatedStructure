@@ -20,32 +20,62 @@
 #include <memory>
 
 // FRC includes
+#include <frc/kinematics/DifferentialDriveKinematics.h>
 
 // Team 302 includes
+#include <auton/drivePrimitives/IPrimitive.h>
 
 // Third Party Includes
 
-#include <auton/primitives/IPrimitive.h>
 
 class IChassis;
-class PrimitiveParams;
-
-class HoldPosition : public IPrimitive 
+namespace frc
 {
-public:
-	void Init(PrimitiveParams*	params) override;
-	void Run() override;
-	bool IsDone() override;
-	HoldPosition();
-	virtual ~HoldPosition() = default;
+	class Timer;
+}
 
-private:
-	const float kP = 10; //50, /75
-	const float kI = 0.0;
-	const float kD = 0.0;
-	const float kF = 0.0;
-	//Objects
-	std::shared_ptr<IChassis> m_chassis;
-	double m_timeRemaining; //In seconds
+
+class SuperDrive : public IPrimitive 
+{
+	public:
+		void Init(PrimitiveParams* params) override;
+		void Run() override;
+		bool IsDone() override;
+		void SlowDown();
+		bool ReachedTargetSpeed();
+
+		const double GYRO_CORRECTION_CONSTANT = 0.001;//0.1//6; //2.3
+		const double INCHES_PER_SECOND_SECOND = 120; //120
+		const double MIN_SPEED_SLOWDOWN       = 13;
+
+protected: 
+		SuperDrive();
+		virtual ~SuperDrive() = default;
+
+	private:
+		const double PROPORTIONAL_COEFF  = 12.0; //16
+		const double INTREGRAL_COEFF     = 0;
+		const double DERIVATIVE_COEFF    = 0.0; //.16
+		const double FEET_FORWARD_COEFF  = 0.0;
+
+        std::shared_ptr<IChassis> m_chassis;
+   		std::unique_ptr<frc::Timer> m_timer;
+
+		double m_targetSpeed;
+		double m_currentSpeed;
+		double m_speedOffset;
+
+		double m_leftSpeed;
+		double m_rightSpeed;
+
+		double m_currentHeading;
+		double m_startHeading;
+
+		bool m_slowingDown;
+		bool m_reachedTargetSpeed;
+		double m_accelDecelTime;
+		double m_currentTime;
+		double m_minSpeedSlowdown;
+		frc::DifferentialDriveKinematics* m_kinematics;
 };
 

@@ -37,7 +37,7 @@ using namespace pugi;
 
 //-----------------------------------------------------------------------
 // Method:      ParseXML
-// Description: Parse a motor XML element and create a DragonTalon from
+// Description: Parse a motor XML element and create a DragonTalonSRX from
 //              its definition.
 //
 // Returns:     DragonDigitalInput*

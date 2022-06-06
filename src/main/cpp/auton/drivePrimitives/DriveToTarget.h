@@ -14,55 +14,45 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+#pragma once
+
 // C++ Includes
 #include <memory>
-#include <string>
 
 // FRC includes
-#include <frc/Timer.h>
 
 // Team 302 includes
-#include <auton/primitives/DoNothing.h>
-#include <auton/PrimitiveParams.h>
-#include <auton/primitives/IPrimitive.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
-#include <mechanisms/controllers/ControlModes.h>
 
 // Third Party Includes
 
 
-using namespace std;
-using namespace frc;
 
-//Includes
-//Team302 includes
-#include <auton/primitives/DriveTime.h>
-#include <auton/PrimitiveFactory.h>
-#include <auton/PrimitiveParams.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <auton/drivePrimitives/DriveDistance.h>
 
-DriveTime::DriveTime() :
-		SuperDrive(),
-		m_timeRemaining(0.0)       //Value will changed in init
+class IDragonDistanceSensor;
+class PrimitiveParams;
 
+class DriveToTarget: public DriveDistance
 {
-}
+    public:
+        DriveToTarget();
+        virtual ~DriveToTarget() = default;
 
-void DriveTime::Init(PrimitiveParams* params) 
-{
-	SuperDrive::Init(params);
-	//Get timeRemaining from m_params
-	m_timeRemaining = params->GetTime();
-}
+        bool IsDone() override;
+        void Run() override;
+        void Init(PrimitiveParams* params) override;
 
-void DriveTime::Run() 
-{
-	SuperDrive::Run();
-}
+    private:
+    // Objects
+    std::shared_ptr<IDragonDistanceSensor>            m_sensor;
 
+    // Vars
+    int m_underDistanceCounts;						// # of counts that the robot has a cube
+    float m_minTimeToRun;								// Forces the drive to run for at least this long
 
-bool DriveTime::IsDone() 
-{
-	m_timeRemaining -= LOOP_LENGTH;						// Decrement time remaining
-	return ((m_timeRemaining <= (LOOP_LENGTH / 2.0)));	// Return true when time runs out
-}
+    // Consts
+    const float MIN_CUBE_DISTANCE = 3.0;				// Min Distance in inches to a cube to be counted as in the robot
+    const int UNDER_DISTANCE_COUNT_THRESHOLD = 4;			// # of counts to determine we have a cube.... or a wall
+
+};
+

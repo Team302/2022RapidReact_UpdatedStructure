@@ -1,3 +1,4 @@
+
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
@@ -13,54 +14,65 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-//C++ Includes
+// C++ Includes
 #include <memory>
 #include <string>
 
-#include <frc/Filesystem.h>
+// FRC includes
+#include <frc/Timer.h>
 
-//Team 302 includes
-#include <auton/primitives/ResetPosition.h>
+// Team 302 includes
+#include <auton/drivePrimitives/DoNothing.h>
 #include <auton/PrimitiveParams.h>
-#include <auton/primitives/IPrimitive.h>
-#include <chassis/ChassisFactory.h>
-#include <hw/factories/PigeonFactory.h>
-#include <utils/Logger.h>
+#include <auton/drivePrimitives/IPrimitive.h>
+#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/controllers/ControlModes.h>
+
+// Third Party Includes
+
 
 using namespace std;
 using namespace frc;
 
-ResetPosition::ResetPosition() : m_chassis(ChassisFactory::GetChassisFactory()->GetIChassis())
+//Includes
+#include <cmath>
+
+//Team302 includes
+#include <auton/drivePrimitives/DriveToWall.h>
+#include <chassis/ChassisFactory.h>
+
+DriveToWall::DriveToWall() :
+	SuperDrive(),
+	m_minimumTime(0),
+	m_timeRemaining(0),
+	m_underSpeedCounts(0)
 {
 }
 
-void ResetPosition::Init(PrimitiveParams* params)
+void DriveToWall::Init(PrimitiveParams* params) 
 {
-    string pathToLoad = params->GetPathName();
-
-    if (pathToLoad != "")
-    {
- 	    auto deployDir = frc::filesystem::GetDeployDirectory();
-        deployDir += "/paths/" + pathToLoad;
-        m_trajectory = frc::TrajectoryUtil::FromPathweaverJson(deployDir);
-
-        m_chassis->ResetPose(m_trajectory.InitialPose());
-
-        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("ResetPosX"), m_chassis.get()->GetPose().X().to<double>());
-        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("ResetPosY"), m_chassis.get()->GetPose().Y().to<double>());
-        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("InitialPoseX"), m_trajectory.InitialPose().X().to<double>());
-        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("InitialPoseY"), m_trajectory.InitialPose().Y().to<double>());
-        Logger::GetLogger()->ToNtTable(string("Auton Info"), string("InitialPoseOmega"), m_trajectory.InitialPose().Rotation().Degrees().to<double>());
-        
-    }
+	SuperDrive::Init(params);
+	m_timeRemaining = params->GetTime();
+	m_underSpeedCounts = 0;
+	m_minimumTime = 0.3;
 }
 
-void ResetPosition::Run()
+void DriveToWall::Run() 
 {
+	if (m_minimumTime <= 0) 
+	{
+		//if (abs( ChassisFactory::GetChassisFactory()->GetIChassis()->GetCurrentSpeed()) < SPEED_THRESHOLD) 
+		//{
+		//	m_underSpeedCounts++;
+		//}
+	}
 
+	m_minimumTime -= IPrimitive::LOOP_LENGTH;
+	m_timeRemaining -= IPrimitive::LOOP_LENGTH;
 }
 
-bool ResetPosition::IsDone()
+bool DriveToWall::IsDone() 
 {
-    return true;
+	return (m_underSpeedCounts >= UNDER_SPEED_COUNT_THRESHOLD) && m_timeRemaining <= 0;
 }
+

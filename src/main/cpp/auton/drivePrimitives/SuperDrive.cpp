@@ -24,8 +24,8 @@
 
 // Team 302 includes
 #include <auton/PrimitiveParams.h>
-#include <auton/primitives/IPrimitive.h>
-#include <auton/primitives/SuperDrive.h>
+#include <auton/drivePrimitives/IPrimitive.h>
+#include <auton/drivePrimitives/SuperDrive.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/ControlModes.h>
 #include <hw/factories/PigeonFactory.h>

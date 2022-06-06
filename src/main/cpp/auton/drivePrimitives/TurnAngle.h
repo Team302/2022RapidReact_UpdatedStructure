@@ -20,62 +20,51 @@
 #include <memory>
 
 // FRC includes
-#include <frc/kinematics/DifferentialDriveKinematics.h>
 
 // Team 302 includes
-#include <auton/primitives/IPrimitive.h>
+#include <auton/drivePrimitives/IPrimitive.h>
+#include <hw/DragonPigeon.h>
 
 // Third Party Includes
-
 
 class IChassis;
 namespace frc
 {
-	class Timer;
+    class Timer;
 }
 
 
-class SuperDrive : public IPrimitive 
+class TurnAngle : public IPrimitive 
 {
-	public:
-		void Init(PrimitiveParams* params) override;
-		void Run() override;
-		bool IsDone() override;
-		void SlowDown();
-		bool ReachedTargetSpeed();
+    public:
+        TurnAngle();
+        virtual ~TurnAngle() = default;
 
-		const double GYRO_CORRECTION_CONSTANT = 0.001;//0.1//6; //2.3
-		const double INCHES_PER_SECOND_SECOND = 120; //120
-		const double MIN_SPEED_SLOWDOWN       = 13;
+        void Init(PrimitiveParams* params) override;
+        void Run() override;
+        bool IsDone() override;
 
-protected: 
-		SuperDrive();
-		virtual ~SuperDrive() = default;
-
-	private:
-		const double PROPORTIONAL_COEFF  = 12.0; //16
-		const double INTREGRAL_COEFF     = 0;
-		const double DERIVATIVE_COEFF    = 0.0; //.16
-		const double FEET_FORWARD_COEFF  = 0.0;
+    private:
+        const double PROPORTIONAL_COEFF  = 3.0; //0.5
+        const double INTREGRAL_COEFF     = 0.0;
+        const double DERIVATIVE_COEFF    = 0.0;
+        const double FEET_FORWARD_COEFF  = 0.0;
 
         std::shared_ptr<IChassis> m_chassis;
    		std::unique_ptr<frc::Timer> m_timer;
 
-		double m_targetSpeed;
-		double m_currentSpeed;
-		double m_speedOffset;
+        double m_targetAngle;
+        double m_maxTime;
+        double m_leftPos;
+        double m_rightPos;
+        bool m_isDone;
 
-		double m_leftSpeed;
-		double m_rightSpeed;
+        const double ANGLE_THRESH = 2; // +/- threshold for being at angle
+        const double MAX_VELOCITY = 20; //inches per second
+        const double MIN_VELOCITY = 4;
+        const double ANGLE_DIFFERENCE_VELOCITY_MULTIPLIER = 0.7;
 
-		double m_currentHeading;
-		double m_startHeading;
-
-		bool m_slowingDown;
-		bool m_reachedTargetSpeed;
-		double m_accelDecelTime;
-		double m_currentTime;
-		double m_minSpeedSlowdown;
-		frc::DifferentialDriveKinematics* m_kinematics;
+        DragonPigeon*                   m_pigeon;
+        double                          m_heading;
 };
 
