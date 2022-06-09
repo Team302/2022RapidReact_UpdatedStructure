@@ -38,7 +38,7 @@
 #include <hw/usages/DragonSolenoidMap.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/ServoMap.h>
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <mechanisms/MechanismTypes.h>
 #include <mechanisms/cameraServo/CameraServo.h>
 #include <mechanisms/climber/Climber.h>
 #include <mechanisms/indexer/Indexer.h>

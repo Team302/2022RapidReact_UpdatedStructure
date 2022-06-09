@@ -21,15 +21,15 @@
 // FRC includes
 
 // Team 302 includes
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <mechanisms/indexer/IndexerStateMgr.h>
 #include <mechanisms/Intake/IntakeStateMgr.h>
 #include <mechanisms/Intake/LeftIntakeStateMgr.h>
 #include <mechanisms/Intake/RightIntakeStateMgr.h>
-#include <mechanisms/adaptclass/StateMgr.h>
-#include <mechanisms/adaptclass/StateStruc.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <mechanisms/StateMgr.h>
+#include <mechanisms/StateStruc.h>
+#include <mechanisms/MechanismFactory.h>
+#include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
 
 // Third Party Includes

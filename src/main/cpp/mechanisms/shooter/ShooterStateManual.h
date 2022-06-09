@@ -14,7 +14,7 @@
 //====================================================================================================================================================
 #pragma once
 
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <mechanisms/interfaces/IState.h>
 #include <mechanisms/shooter/Shooter.h>
 

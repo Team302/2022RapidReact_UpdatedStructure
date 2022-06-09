@@ -22,7 +22,7 @@
 
 // Team 302 includes
 #include <mechanisms/intake/IntakeStateMgr.h>
-#include <mechanisms/adaptclass/StateStruc.h>
+#include <mechanisms/StateStruc.h>
 
 
 

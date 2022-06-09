@@ -21,13 +21,13 @@
 
 // Team 302 includes
 #include <mechanisms/interfaces/IState.h>
-#include <mechanisms/baseclasses/Mech2MotorState.h>
+#include <basemechanisms/Mech2MotorState.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <mechanisms/interfaces/IMech2IndMotors.h>
 #include <utils/Logger.h>
 
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 
 // Third Party Includes
 

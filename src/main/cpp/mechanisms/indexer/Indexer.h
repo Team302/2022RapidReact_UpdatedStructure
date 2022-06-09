@@ -24,7 +24,7 @@
 //Team 302 Includes
 #include <hw/DragonDigitalInput.h>
 #include <hw/interfaces/IDragonMotorController.h>
-#include <mechanisms/baseclasses/Mech2IndMotors.h>
+#include <basemechanisms/Mech2IndMotors.h>
 
 class IDragonMotorController;
 

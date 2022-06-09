@@ -21,8 +21,8 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
-#include <mechanisms/baseclasses/Mech.h>
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <basemechanisms/Mech.h>
+#include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
 
 // Third Party Includes

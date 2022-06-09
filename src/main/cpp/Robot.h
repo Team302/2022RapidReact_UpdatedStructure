@@ -9,7 +9,7 @@
 #include <frc/TimedRobot.h>
 
 #include <auton/CyclePrimitives.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <chassis/swerve/SwerveDrive.h>
 #include <hw/DragonLimelight.h>
 #include <mechanisms/climber/ClimberStateMgr.h>

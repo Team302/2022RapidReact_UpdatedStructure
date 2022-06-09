@@ -15,7 +15,7 @@
 //====================================================================================================================================================
 
 #include <mechanisms/controllers/ControlData.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <mechanisms/intake/Intake.h>
 #include <mechanisms/intake/IntakeState.h>

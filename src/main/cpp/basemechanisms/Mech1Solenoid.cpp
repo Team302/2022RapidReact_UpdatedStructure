@@ -21,7 +21,7 @@
 
 // Team 302 includes
 
-#include <mechanisms/baseclasses/Mech1Solenoid.h>
+#include <basemechanisms/Mech1Solenoid.h>
 #include <mechanisms/interfaces/IMech1Solenoid.h>
 #include <hw/DragonSolenoid.h>
 #include <utils/Logger.h>

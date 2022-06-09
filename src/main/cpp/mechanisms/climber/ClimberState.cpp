@@ -20,8 +20,8 @@
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <hw/factories/PigeonFactory.h>
 #include <mechanisms/Climber/ClimberState.h>
-#include <mechanisms/baseclasses/Mech2MotorState.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <basemechanisms/Mech2MotorState.h>
+#include <mechanisms/MechanismFactory.h>
 
 using namespace std;
 

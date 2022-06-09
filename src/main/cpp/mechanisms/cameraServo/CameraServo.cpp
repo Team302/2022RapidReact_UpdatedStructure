@@ -21,7 +21,7 @@
 
 // Team 302 includes
 #include <mechanisms/cameraServo/CameraServo.h>
-#include <mechanisms/baseclasses/Mech1Servo.h>
+#include <basemechanisms/Mech1Servo.h>
 #include <hw/DragonServo.h>
 
 // Third Party Includes

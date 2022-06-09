@@ -21,8 +21,8 @@
 // Team 302 includes
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/shooter/ShooterState.h>
-#include <mechanisms/baseclasses/Mech2MotorState.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <basemechanisms/Mech2MotorState.h>
+#include <mechanisms/MechanismFactory.h>
 
 // Third Party Includes
 

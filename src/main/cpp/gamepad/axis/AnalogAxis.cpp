@@ -33,7 +33,6 @@
 #include <gamepad/axis/LinearProfile.h>
 #include <gamepad/axis/CubedProfile.h>
 #include <gamepad/axis/DeadbandValue.h>
-#include <gamepad/axis/FlippedAxis.h>
 #include <gamepad/axis/NoDeadbandValue.h>
 #include <gamepad/axis/ScaledDeadbandValue.h>
 #include <gamepad/axis/SquaredProfile.h>

@@ -170,6 +170,19 @@ class TeleopControl
             TeleopControl::FUNCTION_IDENTIFIER button   // <I> - button number to query
         ) const;
 
+        void SetRumble
+        (
+            TeleopControl::FUNCTION_IDENTIFIER  button,         // <I> - controller with this function
+            bool                                leftRumble,     // <I> - rumble left
+            bool                                rightRumble     // <I> - rumble right
+        ) const;
+
+        void SetRumble
+        (
+            int                                 controller,     // <I> - controller to rumble
+            bool                                leftRumble,     // <I> - rumble left
+            bool                                rightRumble     // <I> - rumble right
+        ) const;
 
     private:
         //----------------------------------------------------------------------------------

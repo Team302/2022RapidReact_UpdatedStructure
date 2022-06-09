@@ -26,7 +26,7 @@
 #include <chassis/swerve/SwerveDrive.h>
 #include <hw/DragonPigeon.h>
 #include <gamepad/IDragonGamePad.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <mechanisms/interfaces/IState.h>
 #include <chassis/ChassisFactory.h>
 #include <hw/factories/PigeonFactory.h>

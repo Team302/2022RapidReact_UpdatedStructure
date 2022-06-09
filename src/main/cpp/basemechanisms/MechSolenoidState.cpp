@@ -21,11 +21,11 @@
 
 // Team 302 includes
 #include <mechanisms/interfaces/IState.h>
-#include <mechanisms/baseclasses/MechSolenoidState.h>
+#include <basemechanisms/MechSolenoidState.h>
 #include <mechanisms/interfaces/IMech1Solenoid.h>
 #include <utils/Logger.h>
 
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 
 // Third Party Includes
 

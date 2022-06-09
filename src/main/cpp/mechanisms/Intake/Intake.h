@@ -23,7 +23,7 @@
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/baseclasses/Mech2IndMotors.h>
+#include <basemechanisms/Mech2IndMotors.h>
 
 // Third Party Includes
 

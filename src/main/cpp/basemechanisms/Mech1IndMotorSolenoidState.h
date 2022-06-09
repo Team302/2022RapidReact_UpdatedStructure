@@ -21,8 +21,8 @@
 #include <mechanisms/interfaces/IState.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <mechanisms/baseclasses/Mech1MotorState.h>
-#include <mechanisms/baseclasses/MechSolenoidState.h>
+#include <basemechanisms/Mech1MotorState.h>
+#include <basemechanisms/MechSolenoidState.h>
 #include <mechanisms/interfaces/IMech1IndMotorSolenoid.h>
 
 class Mech1IndMotorSolenoidState : public IState

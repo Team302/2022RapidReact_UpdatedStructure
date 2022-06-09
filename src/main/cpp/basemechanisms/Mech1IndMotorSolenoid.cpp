@@ -26,9 +26,9 @@
 #include <mechanisms/controllers/ControlData.h>
 #include <hw/DragonSolenoid.h>
 #include <hw/interfaces/IDragonMotorController.h>
-#include <mechanisms/baseclasses/Mech1IndMotor.h>
-#include <mechanisms/baseclasses/Mech1IndMotorSolenoid.h>
-#include <mechanisms/baseclasses/Mech1Solenoid.h>
+#include <basemechanisms/Mech1IndMotor.h>
+#include <basemechanisms/Mech1IndMotorSolenoid.h>
+#include <basemechanisms/Mech1Solenoid.h>
 #include <mechanisms/interfaces/IMech1IndMotor.h>
 #include <mechanisms/interfaces/IMech1IndMotorSolenoid.h>
 #include <mechanisms/interfaces/IMech1Solenoid.h>

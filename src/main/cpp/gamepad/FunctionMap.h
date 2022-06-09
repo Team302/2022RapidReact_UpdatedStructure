@@ -26,7 +26,7 @@
 
 // Third Party Includes
 #include <gamepad/IDragonGamePad.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 
 class FunctionMap
 {

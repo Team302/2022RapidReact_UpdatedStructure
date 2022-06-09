@@ -19,10 +19,10 @@
 // FRC includes
 
 // Team 302 includes
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <mechanisms/interfaces/IState.h>
 #include <mechanisms/shooter/ShooterStateManual.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/MechanismFactory.h>
 #include <mechanisms/shooter/Shooter.h>
 
 // Third Party Includes

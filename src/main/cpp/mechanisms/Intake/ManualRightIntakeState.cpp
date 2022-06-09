@@ -19,7 +19,7 @@
 #include <mechanisms/intake/ManualRightIntakeState.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/intake/Intake.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 
 ManualRightIntakeState::ManualRightIntakeState
 (

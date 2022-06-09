@@ -17,7 +17,7 @@
 #pragma once
 #include <vector>
 
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <mechanisms/MechanismTypes.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
 
 //========================================================================================================

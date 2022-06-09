@@ -19,7 +19,7 @@
 #include <memory>
 
 //Team 302 Includes
-#include <mechanisms/baseclasses/Mech2IndMotors.h>
+#include <basemechanisms/Mech2IndMotors.h>
 
 class IDragonMotorController;
 class DragonDigitalInput;

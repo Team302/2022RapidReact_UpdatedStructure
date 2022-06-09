@@ -27,8 +27,8 @@
 
 // Team 302 includes
 #include <mechanisms/interfaces/IState.h>
-#include <mechanisms/adaptclass/StateMgr.h>
-#include <mechanisms/adaptclass/StateStruc.h>
+#include <mechanisms/StateMgr.h>
+#include <mechanisms/StateStruc.h>
 #include <mechanisms/climber/Climber.h>
 
 // Third Party Includes

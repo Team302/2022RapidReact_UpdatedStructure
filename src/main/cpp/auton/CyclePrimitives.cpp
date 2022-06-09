@@ -30,7 +30,7 @@
 #include <auton/PrimitiveParams.h>
 #include <auton/PrimitiveParser.h>
 #include <auton/drivePrimitives/IPrimitive.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/MechanismFactory.h>
 #include <mechanisms/indexer/IndexerStateMgr.h>
 #include <mechanisms/intake/Intake.h>
 #include <mechanisms/intake/LeftIntakeStateMgr.h>

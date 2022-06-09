@@ -18,7 +18,7 @@
 #include <memory>
 
 //Team 302 Includes
-#include <mechanisms/baseclasses/Mech1IndMotor.h>
+#include <basemechanisms/Mech1IndMotor.h>
 
 class IDragonMotorController;
 

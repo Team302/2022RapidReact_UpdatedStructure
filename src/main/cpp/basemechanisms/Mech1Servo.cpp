@@ -23,7 +23,7 @@
 
 // Team 302 includes
 #include <hw/DragonServo.h>
-#include <mechanisms/baseclasses/Mech1Servo.h>
+#include <basemechanisms/Mech1Servo.h>
 #include <mechanisms/interfaces/IMech1Servo.h>
 #include <utils/Logger.h>
 

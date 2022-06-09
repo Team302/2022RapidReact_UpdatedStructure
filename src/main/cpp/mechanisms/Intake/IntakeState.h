@@ -15,7 +15,7 @@
 //====================================================================================================================================================
 
 #pragma once
-#include <mechanisms/baseclasses/Mech2MotorState.h>
+#include <basemechanisms/Mech2MotorState.h>
 
 class ControlData;
 class Intake;

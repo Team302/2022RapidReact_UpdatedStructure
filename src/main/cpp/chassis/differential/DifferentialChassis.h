@@ -62,7 +62,6 @@ class DifferentialChassis : public IChassis {
         units::angular_velocity::radians_per_second_t GetMaxAngularSpeed() const override;
         units::length::inch_t GetWheelDiameter() const override ;
         units::length::inch_t GetTrack() const override;
-        bool IsMoving() const override;
         units::angle::degree_t GetYaw() const override;
         void SetTargetHeading(units::angle::degree_t targetYaw) override;
         void SetEncodersToZero() override;

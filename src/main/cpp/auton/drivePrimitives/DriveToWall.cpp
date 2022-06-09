@@ -25,7 +25,7 @@
 #include <auton/drivePrimitives/DoNothing.h>
 #include <auton/PrimitiveParams.h>
 #include <auton/drivePrimitives/IPrimitive.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/MechanismFactory.h>
 #include <mechanisms/controllers/ControlModes.h>
 
 // Third Party Includes

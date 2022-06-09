@@ -21,7 +21,7 @@
 
 // Team 302 includes
 #include <hw/interfaces/IDragonMotorController.h>
-#include <mechanisms/baseclasses/Mech2IndMotors.h>
+#include <basemechanisms/Mech2IndMotors.h>
 #include <mechanisms/shooter/Shooter.h>
 
 // Third Party Includes

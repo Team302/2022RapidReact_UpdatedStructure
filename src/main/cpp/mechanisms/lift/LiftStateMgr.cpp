@@ -22,11 +22,11 @@
 // Team 302 includes
 #include <mechanisms/lift/LiftStateMgr.h>
 #include <mechanisms/lift/LiftState.h>
-#include <mechanisms/adaptclass/StateStruc.h>
-#include <mechanisms/adaptclass/StateMgr.h>
+#include <mechanisms/StateStruc.h>
+#include <mechanisms/StateMgr.h>
 
-#include <mechanisms/adaptclass/MechanismFactory.h>
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <mechanisms/MechanismFactory.h>
+#include <mechanisms/MechanismTypes.h>
 
 #include <utils/Logger.h>
 

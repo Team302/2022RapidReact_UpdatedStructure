@@ -41,8 +41,8 @@
 // Team 302 includes
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <mechanisms/MechanismFactory.h>
+#include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
 #include <mechanisms/controllers/ControlDataXmlParser.h>
 #include <mechanisms/controllers/MechanismTargetXmlParser.h>

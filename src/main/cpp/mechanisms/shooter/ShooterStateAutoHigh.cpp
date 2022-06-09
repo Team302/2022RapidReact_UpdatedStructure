@@ -24,7 +24,7 @@
 #include <hw/factories/LimelightFactory.h>
 #include <mechanisms/interfaces/IState.h>
 #include <mechanisms/shooter/ShooterStateAutoHigh.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/MechanismFactory.h>
 #include <mechanisms/shooter/Shooter.h>
 #include <utils/Logger.h>
 

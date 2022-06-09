@@ -27,7 +27,7 @@
 #include <gamepad/IDragonGamePad.h>
 #include <gamepad/DragonXBox.h>
 #include <gamepad/DragonGamePad.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <frc/DriverStation.h>
 #include <utils/Logger.h>
 
@@ -377,4 +377,32 @@ bool TeleopControl::IsButtonPressed
     return isSelected;
 }
 
+
+
+void TeleopControl::SetRumble
+(
+	TeleopControl::FUNCTION_IDENTIFIER  function,       // <I> - controller with this function
+	bool                                leftRumble,     // <I> - rumble left
+	bool                                rightRumble     // <I> - rumble right
+) const
+{
+	int ctlIndex = m_controllerIndex[ function];
+    if ( ctlIndex > -1 )
+    {
+		SetRumble(ctlIndex, leftRumble, rightRumble);
+	}
+}
+
+void TeleopControl::SetRumble
+(
+	int                                 controller,     // <I> - controller to rumble
+	bool                                leftRumble,     // <I> - rumble left
+	bool                                rightRumble     // <I> - rumble right
+) const
+{
+	if (m_controller[ controller ] != nullptr)
+	{
+	//	m_controller[ controller ]->SetRumble( controller, leftRumble, rightRumble );
+	}
+}
 

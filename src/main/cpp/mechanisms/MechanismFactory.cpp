@@ -41,9 +41,9 @@
 #include <hw/DragonAnalogInput.h>
 #include <hw/DragonDigitalInput.h>
 #include <mechanisms/cameraServo/CameraServo.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/MechanismFactory.h>
 #include <mechanisms/interfaces/IMech.h>
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
 
 // Third Party Includes

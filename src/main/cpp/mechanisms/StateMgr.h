@@ -24,9 +24,9 @@
 
 // Team 302 includes
 #include <mechanisms/interfaces/IState.h>
-#include <mechanisms/adaptclass/StateStruc.h>
+#include <mechanisms/StateStruc.h>
 #include <mechanisms/interfaces/IMech.h>
-#include <mechanisms/baseclasses/Mech2MotorState.h>
+#include <basemechanisms/Mech2MotorState.h>
 
 
 // Third Party Includes

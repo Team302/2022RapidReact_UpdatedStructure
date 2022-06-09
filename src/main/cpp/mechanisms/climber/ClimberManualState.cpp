@@ -22,11 +22,11 @@
 // Team 302 includes
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <mechanisms/climber/ClimberManualState.h>
 #include <mechanisms/interfaces/IState.h>
 #include <mechanisms/interfaces/IMech2IndMotors.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/MechanismFactory.h>
 #include <utils/Logger.h>
 
 

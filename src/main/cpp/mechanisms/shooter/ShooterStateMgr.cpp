@@ -23,13 +23,13 @@
 
 // Team 302 includes
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <hw/DragonLimelight.h>
 #include <hw/factories/LimelightFactory.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
-#include <mechanisms/adaptclass/MechanismTypes.h>
-#include <mechanisms/adaptclass/StateMgr.h>
-#include <mechanisms/adaptclass/StateStruc.h>
+#include <mechanisms/MechanismFactory.h>
+#include <mechanisms/MechanismTypes.h>
+#include <mechanisms/StateMgr.h>
+#include <mechanisms/StateStruc.h>
 #include <mechanisms/interfaces/IState.h>
 #include <mechanisms/shooter/Shooter.h>
 #include <mechanisms/shooter/ShooterState.h>

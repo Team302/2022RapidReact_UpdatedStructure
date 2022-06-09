@@ -25,9 +25,9 @@
 
 // Team 302 includes
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
-#include <mechanisms/adaptclass/StateMgr.h>
-#include <mechanisms/adaptclass/StateStruc.h>
+#include <mechanisms/MechanismFactory.h>
+#include <mechanisms/StateMgr.h>
+#include <mechanisms/StateStruc.h>
 #include <mechanisms/cameraServo/CameraServoState.h>
 #include <mechanisms/climber/ClimberManualState.h>
 #include <mechanisms/climber/ClimberState.h>

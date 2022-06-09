@@ -31,7 +31,7 @@
 #include <mechanisms/interfaces/IMech.h>
 #include <mechanisms/interfaces/IMech1IndMotor.h>
 #include <mechanisms/interfaces/IMech1Solenoid.h>
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <mechanisms/MechanismTypes.h>
 #include <mechanisms/controllers/ControlData.h>
 // Third Party Includes
 

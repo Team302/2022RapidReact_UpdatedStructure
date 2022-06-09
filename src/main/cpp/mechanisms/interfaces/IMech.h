@@ -28,7 +28,7 @@
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <mechanisms/MechanismTypes.h>
 
 // Third Party Includes
 #include <units/time.h>

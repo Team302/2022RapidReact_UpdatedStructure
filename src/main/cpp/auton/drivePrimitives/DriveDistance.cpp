@@ -32,7 +32,7 @@
 #include <mechanisms/controllers/ControlModes.h>
 #include <hw/DragonPigeon.h>
 #include <hw/factories/PigeonFactory.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/MechanismFactory.h>
 
 // Third Party Includes
 

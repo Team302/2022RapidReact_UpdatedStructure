@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
@@ -14,46 +13,48 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
+#pragma once 
 
 // C++ Includes
 #include <memory>
-#include <string>
 
 // FRC includes
-#include <frc/Timer.h>
 
 // Team 302 includes
-#include <mechanisms/interfaces/IMech1IndMotor.h>
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <mechanisms/interfaces/IMech1Solenoid.h>
+#include <mechanisms/MechanismTypes.h>
+#include <hw/DragonSolenoid.h>
 
 // Third Party Includes
-//#include <units/units.h>
-#include <units/time.h>
 
 
-// forward declares
-class ControlModes;
-class IDragonMotorController;
-class ControlData;
-
-class Mech1IndMotor : public IMech1IndMotor
+class Mech1Solenoid : public IMech1Solenoid
 {
-	public:
-        /// @brief Create a generic mechanism wiht 1 independent motor 
-        /// @param [in] MechanismTypes::MECHANISM_TYPE the type of mechansim
-        /// @param [in] std::string the name of the file that will set control parameters for this mechanism
-        /// @param [in] std::string the name of the network table for logging information
-        /// @param [in] std::shared_ptr<IDragonMotorController> motor controller used by this mechanism
-        Mech1IndMotor
+    public:
+        /// @brief Create a generic mechanism wiht 1 solenoid 
+        /// @param [in] std::shared_ptr<DragonSolenoid> solenoid used by this mechanism
+         Mech1Solenoid
         (
             MechanismTypes::MECHANISM_TYPE              type,
             std::string                                 controlFileName,
             std::string                                 networkTableName,
-            std::shared_ptr<IDragonMotorController>     motorController
+            std::shared_ptr<DragonSolenoid>             solenoid
         );
-	    Mech1IndMotor() = delete;
-	    ~Mech1IndMotor() override = default;
+
+        Mech1Solenoid() = delete;
+        virtual ~Mech1Solenoid() = default;
+
+        /// @brief      Activate/deactivate pneumatic solenoid
+        /// @param [in] bool - true == extend, false == retract
+        /// @return     void 
+        void ActivateSolenoid
+        (
+            bool     activate
+        ) override;
+
+        /// @brief      Check if the pneumatic solenoid is activated
+        /// @return     bool - true == extended, false == retracted
+        bool IsSolenoidActivated() const override;
 
         /// @brief          Indicates the type of mechanism this is
         /// @return         MechanismTypes::MECHANISM_TYPE
@@ -67,50 +68,13 @@ class Mech1IndMotor : public IMech1IndMotor
         /// @return std::string the name of the network table 
         std::string GetNetworkTableName() const override;
 
-
         /// @brief log data to the network table if it is activated and time period has past
         void LogData() override;
 
-        /// @brief update the output to the mechanism using the current controller and target value(s)
-        /// @return void 
-        void Update() override;
-
-        void UpdateTarget
-        (
-            double      target
-        ) override;
-
-        /// @brief  Return the current position of the mechanism.  The value is in inches or degrees.
-        /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
-        double GetPosition() const override;
-
-        /// @brief  Get the current speed of the mechanism.  The value is in inches per second or degrees per second.
-        /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        double GetSpeed() const override;
-
-        /// @brief  Set the control constants (e.g. PIDF values).
-        /// @param [in] ControlData*                                   pid:  the control constants
-        /// @return void
-        void SetControlConstants
-        (
-            int                                         slot,
-            ControlData*                                pid                 
-        ) override;
-
-        double GetTarget() const { return m_target; }
-        std::shared_ptr<IDragonMotorController> GetMotor() const {return m_motor;}
-
     private:
+        std::shared_ptr<DragonSolenoid>             m_solenoid;
         MechanismTypes::MECHANISM_TYPE              m_type;
         std::string                                 m_controlFile;
         std::string                                 m_ntName;
         bool                                        m_logging;
-        units::second_t                             m_milliSecondsBetweenLogging;
-        units::second_t                             m_lastTime;
-        std::unique_ptr<frc::Timer>                 m_timer;
-        std::shared_ptr<IDragonMotorController>     m_motor;
-        double                                      m_target;
 };
-
-
-

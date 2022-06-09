@@ -42,7 +42,7 @@
 #include <hw/xml/CameraXmlParser.h>
 #include <chassis/ChassisXmlParser.h>
 #include <hw/xml/LimelightXmlParser.h>
-#include <mechanisms/baseclasses/MechanismXmlParser.h>
+#include <basemechanisms/MechanismXmlParser.h>
 #include <hw/xml/PDPXmlParser.h>
 #include <hw/xml/PigeonXmlParser.h>
 #include <RobotXmlParser.h>

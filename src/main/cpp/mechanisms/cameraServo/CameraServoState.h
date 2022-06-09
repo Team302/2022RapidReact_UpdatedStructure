@@ -18,7 +18,7 @@
 
 //Team 302 Includes
 #include <mechanisms/interfaces/IState.h>
-#include <mechanisms/baseclasses/Mech1Servo.h>
+#include <basemechanisms/Mech1Servo.h>
 #include <mechanisms/interfaces/IMech1Servo.h>
 
 class CameraServoState : public IState

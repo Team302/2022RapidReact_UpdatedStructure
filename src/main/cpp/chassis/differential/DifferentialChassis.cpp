@@ -115,10 +115,6 @@ units::length::inch_t DifferentialChassis::GetTrack() const
 {
     return m_track;
 }
-bool DifferentialChassis::IsMoving() const
-{
-    return false;
-}
 
 units::angle::degree_t DifferentialChassis::GetYaw() const
 {

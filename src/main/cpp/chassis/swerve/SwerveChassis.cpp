@@ -37,7 +37,7 @@
 // Team 302 includes
 #include <chassis/PoseEstimatorEnum.h>
 #include <chassis/swerve/SwerveChassis.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <hw/DragonLimelight.h>
 #include <hw/factories/LimelightFactory.h>
 #include <utils/AngleUtils.h>
@@ -92,7 +92,6 @@ SwerveChassis::SwerveChassis
     m_maxAngularAcceleration(maxAngularAcceleration), //Not used at the moment
     m_pigeon(PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT)),
     m_accel(BuiltInAccelerometer()),
-    m_isMoving(false),
     m_runWPI(false),
     m_poseOpt(PoseEstimatorEnum::WPI),
     m_pose(),
@@ -223,8 +222,6 @@ void SwerveChassis::Drive
         m_drive = units::velocity::meters_per_second_t(0.0);
         m_steer = units::velocity::meters_per_second_t(0.0);
         m_rotate = units::angular_velocity::radians_per_second_t(0.0);
-
-        m_isMoving = false;
     }
     else
     {   
@@ -268,13 +265,6 @@ void SwerveChassis::Drive
             m_frontRight.get()->SetDesiredState(fr);
             m_backLeft.get()->SetDesiredState(bl);
             m_backRight.get()->SetDesiredState(br); 
-
-            //Is moving check
-            auto ax = m_accel.GetX();
-            auto ay = m_accel.GetY();
-            auto az = m_accel.GetZ();
-
-            m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
         }
         else
         {
@@ -299,7 +289,7 @@ void SwerveChassis::Drive
            }
 
             //Hold position / lock wheels in 'X' configuration
-            if(m_hold && !m_isMoving)
+            if(m_hold)
             {
                 m_flState.angle = {units::angle::degree_t(45)};
                 m_frState.angle = {units::angle::degree_t(-45)};
@@ -319,8 +309,6 @@ void SwerveChassis::Drive
             Logger::GetLogger()->ToNtTable(std::string("Swerve Chassis"), std::string("AccelX"), ax);
             Logger::GetLogger()->ToNtTable(std::string("Swerve Chassis"), std::string("AccelY"), ay);
             Logger::GetLogger()->ToNtTable(std::string("Swerve Chassis"), std::string("AccelZ"), az);
-
-            m_isMoving = (abs(ax) > 0.0 || abs(ay) > 0.0 || abs(az) > 0.0 );
         }
     }    
 }

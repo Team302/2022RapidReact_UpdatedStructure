@@ -15,10 +15,10 @@
 
 // Team 302 includes
 #include <mechanisms/cameraServo/CameraServoState.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
+#include <mechanisms/MechanismFactory.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <mechanisms/baseclasses/Mech1Servo.h>
+#include <basemechanisms/Mech1Servo.h>
 // Third Party Includes
 
 

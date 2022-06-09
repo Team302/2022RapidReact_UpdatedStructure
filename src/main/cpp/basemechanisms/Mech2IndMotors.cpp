@@ -25,8 +25,8 @@
 #include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
-#include <mechanisms/baseclasses/Mech1IndMotor.h>
-#include <mechanisms/baseclasses/Mech2IndMotors.h>
+#include <basemechanisms/Mech1IndMotor.h>
+#include <basemechanisms/Mech2IndMotors.h>
 #include <mechanisms/interfaces/IMech2IndMotors.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <hw/interfaces/IDragonMotorController.h>

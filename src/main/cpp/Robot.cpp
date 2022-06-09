@@ -13,7 +13,7 @@
 #include <chassis/ChassisFactory.h>
 #include <chassis/IChassis.h>
 #include <chassis/swerve/SwerveDrive.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <hw/DragonLimelight.h>
 #include <hw/factories/LimelightFactory.h>
 #include <mechanisms/climber/ClimberStateMgr.h>

@@ -22,7 +22,7 @@
 
 // Team 302 includes
 #include <mechanisms/intake/Intake.h>
-#include <mechanisms/baseclasses/Mech2IndMotors.h>
+#include <basemechanisms/Mech2IndMotors.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/MotorData.h>
 

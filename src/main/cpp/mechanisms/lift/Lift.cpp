@@ -20,7 +20,7 @@
 //Team 302 Includes
 #include <mechanisms/lift/Lift.h>
 #include <hw/interfaces/IDragonMotorController.h>
-#include <mechanisms/baseclasses/Mech1IndMotor.h>
+#include <basemechanisms/Mech1IndMotor.h>
 
 using namespace std;
 

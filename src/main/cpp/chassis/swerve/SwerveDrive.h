@@ -24,7 +24,7 @@
 #include <chassis/DragonTargetFinder.h> //target finder point to target centet
 #include <chassis/swerve/SwerveChassis.h>
 #include <chassis/TurnToAngle.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <hw/DragonPigeon.h>
 #include <mechanisms/interfaces/IState.h>
 

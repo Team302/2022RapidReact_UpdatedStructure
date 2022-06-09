@@ -277,8 +277,7 @@ bool DrivePath::IsDone() //Default primitive function to determine if the primit
  
         if (m_PosChgTimer.get()->Get() > 1_s)//This if statement makes sure that we aren't checking for position change right at the start
         {                                    //caused problems that would signal we are done when the path hasn't started
-           //auto moving = !IsSamePose(curPos, m_PrevPos, 7.5);
-            auto moving = m_chassis.get()->IsMoving();  //Is moving checks to make sure we are moving
+            auto moving = !IsSamePose(curPos, m_PrevPos, 7.5);
             if (!moving && m_wasMoving)  //If we aren't moving and last state we were moving, then...
             {
                     isDone = true;

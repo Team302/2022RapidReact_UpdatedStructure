@@ -14,7 +14,7 @@
 //====================================================================================================================================================
 
 #pragma once
-#include <mechanisms/baseclasses/Mech1MotorState.h>
+#include <basemechanisms/Mech1MotorState.h>
 
 class ControlData;
 class Lift;

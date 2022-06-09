@@ -35,13 +35,13 @@
 #include <hw/usages/ServoMap.h>
 #include <hw/DragonAnalogInput.h>
 #include <mechanisms/interfaces/IMech.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <mechanisms/MechanismFactory.h>
+#include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
 #include <hw/xml/AnalogInputXmlParser.h>
 #include <hw/xml/CancoderXmlParser.h>
 #include <hw/xml/DigitalInputXmlParser.h>
-#include <mechanisms/baseclasses/MechanismXmlParser.h>
+#include <basemechanisms/MechanismXmlParser.h>
 #include <hw/xml/MotorXmlParser.h>
 #include <hw/xml/ServoXmlParser.h> 
 #include <hw/xml/SolenoidXmlParser.h>

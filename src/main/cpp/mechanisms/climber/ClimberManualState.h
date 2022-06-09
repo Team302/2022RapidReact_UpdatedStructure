@@ -18,7 +18,7 @@
 #include <memory>
 
 #include <mechanisms/controllers/ControlData.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <mechanisms/climber/Climber.h>
 #include <mechanisms/interfaces/IState.h>

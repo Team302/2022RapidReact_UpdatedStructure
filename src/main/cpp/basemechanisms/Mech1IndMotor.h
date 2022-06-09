@@ -16,43 +16,44 @@
 
 #pragma once
 
-
 // C++ Includes
 #include <memory>
 #include <string>
 
 // FRC includes
+#include <frc/Timer.h>
 
 // Team 302 includes
-#include <mechanisms/interfaces/IMech2IndMotors.h>
-#include <mechanisms/baseclasses/Mech1IndMotor.h>
+#include <mechanisms/interfaces/IMech1IndMotor.h>
+#include <mechanisms/MechanismTypes.h>
 
 // Third Party Includes
 //#include <units/units.h>
 #include <units/time.h>
 
-class ControlData;
-class IDragonMotorController;
 
-class Mech2IndMotors : public IMech2IndMotors
+// forward declares
+class ControlModes;
+class IDragonMotorController;
+class ControlData;
+
+class Mech1IndMotor : public IMech1IndMotor
 {
 	public:
-        /// @brief Create a generic mechanism wiht 2 independent motors 
+        /// @brief Create a generic mechanism wiht 1 independent motor 
         /// @param [in] MechanismTypes::MECHANISM_TYPE the type of mechansim
         /// @param [in] std::string the name of the file that will set control parameters for this mechanism
         /// @param [in] std::string the name of the network table for logging information
-        /// @param [in] std::shared_ptr<IDragonMotorController> primary motor used by this mechanism
-        /// @param [in] std::shared_ptr<IDragonMotorController> secondary motor used by this mechanism
-         Mech2IndMotors
+        /// @param [in] std::shared_ptr<IDragonMotorController> motor controller used by this mechanism
+        Mech1IndMotor
         (
             MechanismTypes::MECHANISM_TYPE              type,
             std::string                                 controlFileName,
             std::string                                 networkTableName,
-            std::shared_ptr<IDragonMotorController>     spinMotor,
-            std::shared_ptr<IDragonMotorController>     liftMotor
+            std::shared_ptr<IDragonMotorController>     motorController
         );
-	    Mech2IndMotors() = delete;
-	    ~Mech2IndMotors() = default;
+	    Mech1IndMotor() = delete;
+	    ~Mech1IndMotor() override = default;
 
         /// @brief          Indicates the type of mechanism this is
         /// @return         MechanismTypes::MECHANISM_TYPE
@@ -66,6 +67,7 @@ class Mech2IndMotors : public IMech2IndMotors
         /// @return std::string the name of the network table 
         std::string GetNetworkTableName() const override;
 
+
         /// @brief log data to the network table if it is activated and time period has past
         void LogData() override;
 
@@ -73,27 +75,18 @@ class Mech2IndMotors : public IMech2IndMotors
         /// @return void 
         void Update() override;
 
-        void UpdateTargets
+        void UpdateTarget
         (
-            double      primary,
-            double      secondary
+            double      target
         ) override;
 
-        /// @brief  Return the current position of the primary motor in the mechanism.  The value is in inches or degrees.
+        /// @brief  Return the current position of the mechanism.  The value is in inches or degrees.
         /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
-        double GetPrimaryPosition() const override;
+        double GetPosition() const override;
 
-        /// @brief  Return the current position of the secondary motor in the mechanism.  The value is in inches or degrees.
-        /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
-        double GetSecondaryPosition() const override;
-
-        /// @brief  Get the current speed of the primary motor in the mechanism.  The value is in inches per second or degrees per second.
+        /// @brief  Get the current speed of the mechanism.  The value is in inches per second or degrees per second.
         /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        double GetPrimarySpeed() const override;
-
-        /// @brief  Get the current speed of the secondary motor in the mechanism.  The value is in inches per second or degrees per second.
-        /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        double GetSecondarySpeed() const override;
+        double GetSpeed() const override;
 
         /// @brief  Set the control constants (e.g. PIDF values).
         /// @param [in] ControlData*                                   pid:  the control constants
@@ -103,27 +96,20 @@ class Mech2IndMotors : public IMech2IndMotors
             int                                         slot,
             ControlData*                                pid                 
         ) override;
-        void SetSecondaryControlConstants
-        (
-            int                                         slot,
-            ControlData*                                pid                 
-        ) override;
 
-        double GetPrimaryTarget() const { return m_primaryTarget; }
-        double GetSecondaryTarget() const { return m_secondaryTarget; }
+        double GetTarget() const { return m_target; }
+        std::shared_ptr<IDragonMotorController> GetMotor() const {return m_motor;}
 
-        inline std::shared_ptr<IDragonMotorController> GetPrimaryMotor() const {return m_primary;};
-        inline std::shared_ptr<IDragonMotorController> GetSecondaryMotor() const {return m_secondary;};
-
-    private: 
+    private:
         MechanismTypes::MECHANISM_TYPE              m_type;
         std::string                                 m_controlFile;
         std::string                                 m_ntName;
-        std::shared_ptr<IDragonMotorController>     m_primary;
-        std::shared_ptr<IDragonMotorController>     m_secondary;
-        double                                      m_primaryTarget;
-        double                                      m_secondaryTarget;
-        
+        bool                                        m_logging;
+        units::second_t                             m_milliSecondsBetweenLogging;
+        units::second_t                             m_lastTime;
+        std::unique_ptr<frc::Timer>                 m_timer;
+        std::shared_ptr<IDragonMotorController>     m_motor;
+        double                                      m_target;
 };
 
 

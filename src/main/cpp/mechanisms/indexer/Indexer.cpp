@@ -19,7 +19,7 @@
 
 //Team 302 Inlcudes
 #include <hw/interfaces/IDragonMotorController.h>
-#include <mechanisms/baseclasses/Mech2IndMotors.h>
+#include <basemechanisms/Mech2IndMotors.h>
 #include <mechanisms/indexer/Indexer.h>
 
 using namespace std;

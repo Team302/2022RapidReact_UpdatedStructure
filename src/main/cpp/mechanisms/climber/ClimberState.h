@@ -20,7 +20,7 @@
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/DragonPID.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <mechanisms/baseclasses/Mech2MotorState.h>
+#include <basemechanisms/Mech2MotorState.h>
 #include <mechanisms/climber/Climber.h>
 
 class ControlData;

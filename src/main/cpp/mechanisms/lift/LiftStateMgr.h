@@ -21,8 +21,8 @@
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/adaptclass/StateMgr.h>
-#include <mechanisms/adaptclass/StateStruc.h>
+#include <mechanisms/StateMgr.h>
+#include <mechanisms/StateStruc.h>
 #include <mechanisms/lift/Lift.h>
 #include <mechanisms/shooter/Shooter.h>
 #include <mechanisms/shooter/ShooterStateMgr.h>

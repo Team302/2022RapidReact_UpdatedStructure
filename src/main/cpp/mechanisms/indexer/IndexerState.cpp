@@ -15,8 +15,8 @@
 //====================================================================================================================================================
 
 #include <mechanisms/controllers/ControlData.h>
-#include <mechanisms/adaptclass/MechanismFactory.h>
-#include <mechanisms/baseclasses/Mech2MotorState.h>
+#include <mechanisms/MechanismFactory.h>
+#include <basemechanisms/Mech2MotorState.h>
 #include <mechanisms/indexer/Indexer.h>
 #include <mechanisms/indexer/IndexerState.h>
 #include <mechanisms/interfaces/IMech2IndMotors.h>

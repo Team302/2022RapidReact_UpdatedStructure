@@ -25,7 +25,7 @@
 
 // Team 302 includes
 #include <mechanisms/interfaces/IMech.h>
-#include <mechanisms/adaptclass/MechanismTypes.h>
+#include <mechanisms/MechanismTypes.h>
 
 // Third Party Includes
 //#include <units/units.h>

@@ -21,7 +21,7 @@
 
 // Team 302 includes
 #include <gamepad/IDragonGamePad.h>
-#include <gamepad/TeleopControl.h>
+#include <TeleopControl.h>
 #include <gamepad/FunctionMap.h>
 
 // Third Party Includes

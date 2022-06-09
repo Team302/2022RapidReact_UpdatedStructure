@@ -22,8 +22,8 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
-#include <mechanisms/adaptclass/StateMgr.h>
-#include <mechanisms/adaptclass/StateStruc.h>
+#include <mechanisms/StateMgr.h>
+#include <mechanisms/StateStruc.h>
 #include <hw/DragonLimelight.h>
 #include <mechanisms/shooter/Shooter.h>
 

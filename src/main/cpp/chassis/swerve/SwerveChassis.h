@@ -159,7 +159,6 @@ class SwerveChassis : public IChassis
 
         void RunWPIAlgorithm(bool runWPI ) { m_runWPI = runWPI; }
         void SetPoseEstOption(PoseEstimatorEnum opt ) { m_poseOpt = opt; }
-        bool IsMoving() const { return m_isMoving;}
         double GetodometryComplianceCoefficient() const { return m_odometryComplianceCoefficient; }
         void SetTargetHeading(units::angle::degree_t targetYaw) override;
 
@@ -237,7 +236,6 @@ class SwerveChassis : public IChassis
 
         DragonPigeon*                                               m_pigeon;
         frc::BuiltInAccelerometer                                   m_accel;
-        bool                                                        m_isMoving;
         bool                                                        m_runWPI;
         PoseEstimatorEnum                                           m_poseOpt;
         frc::Pose2d                                                 m_pose;
