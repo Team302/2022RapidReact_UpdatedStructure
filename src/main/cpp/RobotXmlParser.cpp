@@ -41,6 +41,7 @@
 #include <utils/Logger.h>
 #include <hw/xml/CameraXmlParser.h>
 #include <chassis/ChassisXmlParser.h>
+#include <hw/xml/ledXmlParser.h>
 #include <hw/xml/LimelightXmlParser.h>
 #include <basemechanisms/MechanismXmlParser.h>
 #include <hw/xml/PDPXmlParser.h>
@@ -79,6 +80,7 @@ void RobotXmlParser::ParseXML()
             unique_ptr<ChassisXmlParser> chassisXML = make_unique<ChassisXmlParser>();
             unique_ptr<MechanismXmlParser> mechanismXML = make_unique<MechanismXmlParser>();
             unique_ptr<PigeonXmlParser> pigeonXML = make_unique<PigeonXmlParser>();
+            unique_ptr<LedXmlParser> ledXML = make_unique<LedXmlParser>();
             unique_ptr<LimelightXmlParser> limelightXML = make_unique<LimelightXmlParser>();
             unique_ptr<PDPXmlParser> pdpXML = make_unique<PDPXmlParser>();
 
@@ -112,6 +114,10 @@ void RobotXmlParser::ParseXML()
                     else if ( strcmp(child.name(), "limelight") == 0 )
                     {
                         limelightXML.get()->ParseXML( child);
+                    }
+                    else if ( strcmp(child.name(), "led") == 0 )
+                    {
+                        ledXML.get()->ParseXML(child);
                     }
                     else
                     {

@@ -191,6 +191,9 @@ class TeleopControl
         //----------------------------------------------------------------------------------
         TeleopControl();
 
+        void Initialize();
+        bool IsInitialized() const;
+
         //----------------------------------------------------------------------------------
         // Method:      ~OperatorInterface <<destructor>>
         // Description: This will clean up the object
@@ -206,12 +209,11 @@ class TeleopControl
         std::map<FUNCTION_IDENTIFIER, IDragonGamePad::BUTTON_IDENTIFIER> m_buttonMap;
         std::map<FUNCTION_IDENTIFIER, int> m_controllerMap;
 
-        std::vector<IDragonGamePad::AXIS_IDENTIFIER>     m_axisIDs;
-        std::vector<IDragonGamePad::BUTTON_IDENTIFIER>   m_buttonIDs;
-        std::vector<int>							     m_controllerIndex;
+        std::vector<IDragonGamePad::AXIS_IDENTIFIER>    m_axisIDs;
+        std::vector<IDragonGamePad::BUTTON_IDENTIFIER>  m_buttonIDs;
+        std::vector<int>							    m_controllerIndex;
+        int                                             m_numControllers;
 
-        IDragonGamePad*			            m_controller[frc::DriverStation::kJoystickPorts];
-
-        mutable int                         m_count;
+        IDragonGamePad*			                        m_controller[frc::DriverStation::kJoystickPorts];
 };
 

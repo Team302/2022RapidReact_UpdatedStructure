@@ -278,3 +278,17 @@ bool DragonGamepad::WasButtonReleased
     }
 	return isPressed;
 }
+
+
+void DragonGamepad::SetRumble
+(
+    bool                                leftRumble,     // <I> - rumble left
+    bool                                rightRumble     // <I> - rumble right
+) const 
+{
+    double lrum = leftRumble ? 1.0 : 0.0;
+    double rrum = rightRumble ? 1.0 : 0.0;
+
+    m_gamepad->SetRumble(GenericHID::RumbleType::kLeftRumble, lrum);
+    m_gamepad->SetRumble(GenericHID::RumbleType::kRightRumble, rrum);
+}

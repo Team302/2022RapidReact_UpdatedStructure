@@ -252,5 +252,11 @@ class IDragonGamePad
             BUTTON_IDENTIFIER button, /// <I> - button to check
             BUTTON_MODE mode          /// <I> - button behavior
         ) = 0;
+
+        virtual void SetRumble
+        (
+            bool                                leftRumble,     // <I> - rumble left
+            bool                                rightRumble     // <I> - rumble right
+        ) const = 0;
 };
 

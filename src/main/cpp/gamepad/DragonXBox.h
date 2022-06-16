@@ -164,6 +164,12 @@ class DragonXBox : public IDragonGamePad
             BUTTON_MODE mode          /// <I> - button behavior
         ) override;
 
+        void SetRumble
+        (
+            bool                                leftRumble,     // <I> - rumble left
+            bool                                rightRumble     // <I> - rumble right
+        ) const override;
+        
     private:
         frc::XboxController*        m_xbox;
         AnalogAxis*                 m_axis[MAX_AXIS];

@@ -47,6 +47,10 @@ TeleopControl* TeleopControl::GetInstance()
     {
         TeleopControl::m_instance = new TeleopControl();
     }
+	if (TeleopControl::m_instance != nullptr && !TeleopControl::m_instance->IsInitialized())
+	{
+		TeleopControl::m_instance->Initialize();
+	}
     return TeleopControl::m_instance;
 }
 //----------------------------------------------------------------------------------
@@ -57,9 +61,19 @@ TeleopControl* TeleopControl::GetInstance()
 TeleopControl::TeleopControl() : m_axisIDs(),
 								 m_buttonIDs(),
 								 m_controllerIndex(),
-								 m_controller(),
-								 m_count( 0 )
+								 m_numControllers(0),
+								 m_controller()
 {
+	Initialize();
+}
+
+bool TeleopControl::IsInitialized() const
+{
+	return m_numControllers > 0;
+}
+void TeleopControl::Initialize()
+{
+	m_numControllers = 0;
 	for ( int inx=0; inx<DriverStation::kJoystickPorts; ++inx )
 	{
 		m_controller[inx] = nullptr;
@@ -67,11 +81,13 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 		{
             auto xbox = new DragonXBox( inx );
 			m_controller[inx] = xbox;
+			m_numControllers++;
 		}
 		else if ( DriverStation::GetJoystickType( inx ) == GenericHID::kHID1stPerson )
 		{
             auto gamepad = new DragonGamepad( inx );
 			m_controller[inx] = gamepad;
+			m_numControllers++;
 		}
 	}
 
@@ -122,7 +138,7 @@ TeleopControl::TeleopControl() : m_axisIDs(),
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("No controller plugged into port 0"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("No controller plugged into port 0"));
     }
 
     ctrlNo = 1;
@@ -173,7 +189,7 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("Controller 1 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("Controller 1 not handled"));
     }
 
 	ctrlNo = 2;
@@ -208,7 +224,7 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("Controller 2 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("Controller 2 not handled"));
     }
 
     ctrlNo = 3;
@@ -233,7 +249,7 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 	}
 	else
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("Controller 3 not handled"));
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("Controller 3 not handled"));
 
 	}
 
@@ -246,7 +262,7 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("Controller 4 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("Controller 4 not handled"));
     }
 
     ctrlNo = 5;
@@ -258,7 +274,7 @@ TeleopControl::TeleopControl() : m_axisIDs(),
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::TeleopControl"), string("Controller 5 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("Controller 5 not handled"));
     }
 }
 
@@ -402,7 +418,7 @@ void TeleopControl::SetRumble
 {
 	if (m_controller[ controller ] != nullptr)
 	{
-	//	m_controller[ controller ]->SetRumble( controller, leftRumble, rightRumble );
+		m_controller[ controller ]->SetRumble(leftRumble, rightRumble);
 	}
 }
 

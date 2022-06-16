@@ -30,6 +30,7 @@
 #include <utils/Logger.h>
 
  using namespace std;
+ using namespace frc;
  
  /// @brief Wrapper for an XBOX controller used to control the robot in teleop mode.
 
@@ -238,32 +239,43 @@ void DragonXBox::SetAxisDeadband
 
 
 
-    //==================================================================================
-    /// <summary>
-    /// Method:         SetButtonMode
-    /// Description:    Specify how the button should behave.  Examples include (but
-    ///                 not limited to):
-    ///                 - pressed / not pressed
-    ///                 - toggle
-    /// Returns:        void
-    /// </summary>
-    //==================================================================================
-    void DragonXBox::SetButtonMode
-    (
-        BUTTON_IDENTIFIER button, /// <I> - button to check
-        BUTTON_MODE mode          /// <I> - button behavior
-    )
+//==================================================================================
+/// <summary>
+/// Method:         SetButtonMode
+/// Description:    Specify how the button should behave.  Examples include (but
+///                 not limited to):
+///                 - pressed / not pressed
+///                 - toggle
+/// Returns:        void
+/// </summary>
+//==================================================================================
+void DragonXBox::SetButtonMode
+(
+    BUTTON_IDENTIFIER button, /// <I> - button to check
+    BUTTON_MODE mode          /// <I> - button behavior
+)
+{
+    if ( m_button[button] != nullptr )
     {
-        if ( m_button[button] != nullptr )
+        if ( mode == BUTTON_MODE::TOGGLE)
         {
-            if ( mode == BUTTON_MODE::TOGGLE)
-            {
-                auto btn = new ToggleButton( m_button[button] );
-                m_button[button] = btn;
-            }
-            // TODO: should have else to re-create the button or remove the toggle decorator
+            auto btn = new ToggleButton( m_button[button] );
+            m_button[button] = btn;
         }
+        // TODO: should have else to re-create the button or remove the toggle decorator
     }
+}
 
 
+void DragonXBox::SetRumble
+(
+    bool                                leftRumble,     // <I> - rumble left
+    bool                                rightRumble     // <I> - rumble right
+) const 
+{
+    double lrum = leftRumble ? 1.0 : 0.0;
+    double rrum = rightRumble ? 1.0 : 0.0;
 
+    m_xbox->SetRumble(GenericHID::RumbleType::kLeftRumble, lrum);
+    m_xbox->SetRumble(GenericHID::RumbleType::kRightRumble, rrum);
+}

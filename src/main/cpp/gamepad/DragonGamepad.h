@@ -90,6 +90,11 @@ class DragonGamepad : public IDragonGamePad
             BUTTON_IDENTIFIER button
         ) const override;
 
+        void SetRumble
+        (
+            bool                                leftRumble,     // <I> - rumble left
+            bool                                rightRumble     // <I> - rumble right
+        ) const override;
 
     private:
         frc::Joystick* m_gamepad;
