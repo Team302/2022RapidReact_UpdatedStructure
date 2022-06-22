@@ -128,7 +128,6 @@ void Robot::TeleopInit()
     if (m_climberStateMgr != nullptr)
     {
         m_climberStateMgr->RunCurrentState();
-    //    m_climberStateMgr->SetCurrentState(ClimberStateMgr::CLIMBER_STATE::CLIMB_MID_BAR, true);
     }
     if (m_indexerStateMgr != nullptr)
     {
