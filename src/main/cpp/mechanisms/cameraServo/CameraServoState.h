@@ -17,9 +17,9 @@
 #pragma once
 
 //Team 302 Includes
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <basemechanisms/Mech1Servo.h>
-#include <mechanisms/interfaces/IMech1Servo.h>
+#include <basemechanisms/interfaces/IMech1Servo.h>
 
 class CameraServoState : public IState
 {

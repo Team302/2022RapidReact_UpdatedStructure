@@ -16,6 +16,7 @@
 #pragma once
 
 // C++ Includes
+#include <string>
 
 // FRC includes
 #include <networktables/NetworkTable.h>
@@ -76,8 +77,8 @@ class ShooterStateMgr : public StateMgr
         
         DragonLimelight* m_dragonLimeLight;
         Shooter*                                m_shooter;
-        std::shared_ptr<nt::NetworkTable>       m_nt;
-        bool m_buttonTriggerStateChange;
+        std::string                             m_nt;
+        bool                                    m_buttonTriggerStateChange;
 
 
         const double m_CHANGE_STATE_TARGET = 120.0; 

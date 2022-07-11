@@ -22,7 +22,7 @@
 // Team 302 includes
 
 #include <basemechanisms/Mech1Solenoid.h>
-#include <mechanisms/interfaces/IMech1Solenoid.h>
+#include <basemechanisms/interfaces/IMech1Solenoid.h>
 #include <hw/DragonSolenoid.h>
 #include <utils/Logger.h>
 
@@ -50,7 +50,7 @@ Mech1Solenoid::Mech1Solenoid
 {
     if (m_solenoid.get() == nullptr )
     {
-        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, string( "Mech1Solenoid constructor" ), string( "solenoid is nullptr" ) );
+        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, string( "Mech1Solenoid" ),  string( "constructor" ), string( "solenoid is nullptr" ) );
     }
 }
 

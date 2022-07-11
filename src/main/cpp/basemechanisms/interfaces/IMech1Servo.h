@@ -26,7 +26,7 @@
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/interfaces/IMech.h>
+#include <basemechanisms/interfaces/IMech.h>
 
 
 // Third Party Includes

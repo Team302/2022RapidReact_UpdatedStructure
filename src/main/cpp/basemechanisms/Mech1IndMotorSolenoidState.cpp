@@ -20,11 +20,11 @@
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <basemechanisms/Mech1IndMotorSolenoidState.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <mechanisms/interfaces/IMech1IndMotorSolenoid.h>
+#include <basemechanisms/interfaces/IMech1IndMotorSolenoid.h>
 #include <utils/Logger.h>
 
 #include <TeleopControl.h>
@@ -49,12 +49,12 @@ Mech1IndMotorSolenoidState::Mech1IndMotorSolenoidState
 {
     if ( control == nullptr )
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("Mech1IndMotorSolenoidState::Mech1IndMotorSolenoidState"), string("no control data"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mechanism->GetNetworkTableName(), ("Mech1IndMotorSolenoidState::Mech1IndMotorSolenoidState"), string("no control data"));
     }
 
     if ( mechanism == nullptr )
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("Mech1IndMotorSolenoidState::Mech1IndMotorSolenoidState"), string("no mechanism"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("Bad Pointer"), string("Mech1IndMotorSolenoidState::Mech1IndMotorSolenoidState"), string("no mechanism"));
     }    
 }
 

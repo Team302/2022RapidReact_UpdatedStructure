@@ -93,7 +93,7 @@ DragonPigeon* PigeonXmlParser::ParseXML
         {
             string msg("Invalid attribute ");
             msg += attr.name();
-            Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR, string("PigeonXmlParser::ParseXML"), msg );
+            Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR, string("PigeonXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
 

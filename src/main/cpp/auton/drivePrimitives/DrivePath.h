@@ -83,6 +83,7 @@ private:
     double                                  m_heading;
     DragonTargetFinder                      m_targetFinder;
     double                                  m_maxTime;
+    std::string                             m_ntName;
 
  
 };

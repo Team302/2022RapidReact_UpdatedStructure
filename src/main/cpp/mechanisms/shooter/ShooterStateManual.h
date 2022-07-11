@@ -15,7 +15,7 @@
 #pragma once
 
 #include <TeleopControl.h>
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <mechanisms/shooter/Shooter.h>
 
 class ShooterStateManual : public IState

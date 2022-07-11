@@ -30,9 +30,11 @@ class Climber : public Mech2IndMotors
     public:
         Climber
         (
-            std::shared_ptr<IDragonMotorController> reachMotor,
-            std::shared_ptr<IDragonMotorController> rotateMotor,
-            std::shared_ptr<DragonDigitalInput>     armBackSw//,
+            std::string                                 controlFileName,
+            std::string                                 ntName,
+            std::shared_ptr<IDragonMotorController>     reachMotor,
+            std::shared_ptr<IDragonMotorController>     rotateMotor,
+            std::shared_ptr<DragonDigitalInput>         armBackSw//,
             //DragonAnalogInput*                      elevatorHeight
         );
 

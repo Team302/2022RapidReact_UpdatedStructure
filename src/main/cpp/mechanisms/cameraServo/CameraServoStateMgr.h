@@ -78,6 +78,4 @@ class CameraServoStateMgr : public StateMgr
         double m_increment = 30;
 
         CameraServo* m_camera;
-
-        bool HasBall() const;
 };

@@ -19,7 +19,7 @@
 #include <basemechanisms/Mech2MotorState.h>
 #include <mechanisms/indexer/Indexer.h>
 #include <mechanisms/indexer/IndexerState.h>
-#include <mechanisms/interfaces/IMech2IndMotors.h>
+#include <basemechanisms/interfaces/IMech2IndMotors.h>
 
 IndexerState::IndexerState
 (

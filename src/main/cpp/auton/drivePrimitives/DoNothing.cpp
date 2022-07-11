@@ -83,7 +83,7 @@ void DoNothing::Run()
 	}
 	else
 	{
-		Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::PRINT_ONCE, string( "DoNothing::Run" ), string( "chassis not found") );
+		Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::PRINT_ONCE, string("DoNothing"), string( "DoNothing::Run" ), string( "chassis not found") );
 	}
 }
 

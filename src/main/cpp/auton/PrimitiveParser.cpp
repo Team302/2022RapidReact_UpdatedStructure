@@ -106,7 +106,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                             }
                             else
                             {
-                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid id"), attr.value());
+                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML invalid id"), attr.value());
                                 hasError = true;
                             }
                         }
@@ -127,7 +127,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                             }
                             else
                             {
-                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid heading option"), attr.value());
+                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML invalid heading option"), attr.value());
                                 hasError = true;
                             }
                         }
@@ -164,7 +164,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                             }
                             else
                             {
-                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid left intake state"), attr.value());
+                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML invalid left intake state"), attr.value());
                                 hasError = true;
                             }
                         }
@@ -177,7 +177,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                             }
                             else
                             {
-                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid right intake state"), attr.value());
+                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML invalid right intake state"), attr.value());
                                 hasError = true;
                             }
                         }
@@ -190,13 +190,13 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                             }
                             else
                             {
-                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid shooter state"), attr.value());
+                                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML invalid shooter state"), attr.value());
                                 hasError = true;
                             }
                         }
                         else
                         {
-                            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML invalid attribute"), attr.name());
+                            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML invalid attribute"), attr.name());
                             hasError = true;
                         }
                     }
@@ -219,23 +219,23 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                         int slot = paramVector.size() - 1;
                         auto logger = Logger::GetLogger();
                         auto param = paramVector[slot];
-                        logger->ToNtTable(ntName, string("Primitive ID"), to_string(param->GetID()));
-                        logger->ToNtTable(ntName, string("Time"), param->GetTime());
-                        logger->ToNtTable(ntName, string("Distance"), param->GetDistance());
-                        logger->ToNtTable(ntName, string("X Location"), param->GetXLocation());
-                        logger->ToNtTable(ntName, string("Y Location"), param->GetYLocation());
-                        logger->ToNtTable(ntName, string("Heading Option"), to_string(param->GetHeadingOption()));
-                        logger->ToNtTable(ntName, string("Heading"), param->GetHeading());
-                        logger->ToNtTable(ntName, string("Drive Speed"), param->GetDriveSpeed());
-                        logger->ToNtTable(ntName, string("End Drive Speed"), param->GetEndDriveSpeed());
-                        logger->ToNtTable(ntName, string("Path Name"), param->GetPathName());
-                        logger->ToNtTable(ntName, string("Left Intake"), to_string(param->GetLeftIntakeState()));
-                        logger->ToNtTable(ntName, string("Right Intake"), to_string(param->GetRightIntakeState()));
-                        logger->ToNtTable(ntName, string("Shooter"), to_string(param->GetShooterState()));
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Primitive ID"), to_string(param->GetID()));
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Time"), param->GetTime());
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Distance"), param->GetDistance());
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("X Location"), param->GetXLocation());
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Y Location"), param->GetYLocation());
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Heading Option"), to_string(param->GetHeadingOption()));
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Heading"), param->GetHeading());
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Drive Speed"), param->GetDriveSpeed());
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("End Drive Speed"), param->GetEndDriveSpeed());
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Path Name"), param->GetPathName());
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Left Intake"), to_string(param->GetLeftIntakeState()));
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Right Intake"), to_string(param->GetRightIntakeState()));
+                        logger->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Shooter"), to_string(param->GetShooterState()));
                     }
                     else 
                     {
-                         Logger::GetLogger() -> LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML"), string("Has Error"));
+                         Logger::GetLogger() -> LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML"), string("Has Error"));
                     }
                 }
             }
@@ -243,8 +243,8 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML error parsing file"), fileName );
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser::ParseXML error message"), result.description() );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML error parsing file"), fileName );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("PrimitiveParser"), string("ParseXML error message"), result.description() );
     }
     return paramVector;
 }

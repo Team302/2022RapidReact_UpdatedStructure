@@ -149,7 +149,7 @@ double DragonGamepad::GetAxisValue
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad::GetAxisValue no axis"), to_string(axis) );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad"), string("GetAxisValue no axis"), to_string(axis) );
     }
     return value;
 }
@@ -166,7 +166,7 @@ bool DragonGamepad::IsButtonPressed
     }
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad::IsButtonPressed no button"), to_string(button) );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad"), string("IsButtonPressed no button"), to_string(button) );
 	}
     return isPressed;
 }
@@ -183,7 +183,7 @@ void DragonGamepad::SetAxisDeadband
     }        
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad::SetAxisDeadband no axis"), to_string(axis) );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad"), string("SetAxisDeadband no axis"), to_string(axis) );
     }
 }
 
@@ -199,7 +199,7 @@ void DragonGamepad::SetAxisProfile
     }        
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad::SetAxisProfile no axis"), to_string(axis) );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad"), string("SetAxisProfile no axis"), to_string(axis) );
     }
 }
 
@@ -215,7 +215,7 @@ void DragonGamepad::SetAxisScale
     }        
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad::SetAxisScale no axis"), to_string(axis) );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad"), string("SetAxisScale no axis"), to_string(axis) );
     }
 }
 
@@ -239,7 +239,7 @@ void DragonGamepad::SetButtonMode
 	}
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad::SetButtonMode no button"), to_string(button) );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad"), string("SetButtonMode no button"), to_string(button) );
     }
 
 }
@@ -257,7 +257,7 @@ bool DragonGamepad::WasButtonPressed
 	}
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad::WasButtonPressed no button"), to_string(button) );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad"), string("WasButtonPressed no button"), to_string(button) );
     }
 	return isPressed;
 }
@@ -274,7 +274,7 @@ bool DragonGamepad::WasButtonReleased
 	}
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad::WasButtonReleased no button"), to_string(button) );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonGamepad"), string("WasButtonReleased no button"), to_string(button) );
     }
 	return isPressed;
 }

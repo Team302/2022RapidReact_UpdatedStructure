@@ -68,7 +68,7 @@ void DriveToTarget::Init
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("DriveToTarget"), string("No Lidar") );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("DriveToTarget"), string("DriveToTarget"), string("No Lidar") );
     }
 
 }

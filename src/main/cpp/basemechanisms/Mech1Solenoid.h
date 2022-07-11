@@ -21,7 +21,7 @@
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/interfaces/IMech1Solenoid.h>
+#include <basemechanisms/interfaces/IMech1Solenoid.h>
 #include <mechanisms/MechanismTypes.h>
 #include <hw/DragonSolenoid.h>
 

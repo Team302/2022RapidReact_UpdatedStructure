@@ -81,7 +81,7 @@ using namespace std;
             {
                 string msg = "unknown attribute ";
                 msg += attr.name();
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("ServoXmlParser"), msg );
+                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("ServoXmlParser"), string("ParseXML"), msg );
                 hasError = true;
             }
         }

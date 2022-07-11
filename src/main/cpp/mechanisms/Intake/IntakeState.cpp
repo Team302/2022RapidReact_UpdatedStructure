@@ -18,7 +18,7 @@
 #include <basemechanisms/Mech2MotorState.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/controllers/ControlData.h>
-#include <mechanisms/interfaces/IMech2IndMotors.h>
+#include <basemechanisms/interfaces/IMech2IndMotors.h>
 #include <mechanisms/intake/Intake.h>
 
 IntakeState::IntakeState

@@ -45,7 +45,7 @@ shared_ptr<frc::Encoder> ThroughBoreEncoderXmlParser::ParseXML
             }
             else
             {
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("==>> ThroughBoreEncoderXmlParser::ParseXML invalid PWN ID \n"), string("iVal"));
+                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("ThroughBoreEncoderXmlParser::ParseXML"),string("invalid PWN ID \n"), string("iVal"));
                 hasError = true;
             }
         }

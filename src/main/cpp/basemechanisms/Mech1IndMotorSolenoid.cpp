@@ -29,9 +29,9 @@
 #include <basemechanisms/Mech1IndMotor.h>
 #include <basemechanisms/Mech1IndMotorSolenoid.h>
 #include <basemechanisms/Mech1Solenoid.h>
-#include <mechanisms/interfaces/IMech1IndMotor.h>
-#include <mechanisms/interfaces/IMech1IndMotorSolenoid.h>
-#include <mechanisms/interfaces/IMech1Solenoid.h>
+#include <basemechanisms/interfaces/IMech1IndMotor.h>
+#include <basemechanisms/interfaces/IMech1IndMotorSolenoid.h>
+#include <basemechanisms/interfaces/IMech1Solenoid.h>
 
 // Third Party Includes
 #include <units/time.h>

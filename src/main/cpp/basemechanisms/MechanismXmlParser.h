@@ -21,7 +21,7 @@
 // FRC includes
 
 // Team302 includes
-#include <mechanisms/interfaces/IMech.h>
+#include <basemechanisms/interfaces/IMech.h>
 
 // Third Party includes
 #include <pugixml/pugixml.hpp>

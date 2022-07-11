@@ -27,7 +27,7 @@
 #include <hw/DragonPigeon.h>
 #include <gamepad/IDragonGamePad.h>
 #include <TeleopControl.h>
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <chassis/ChassisFactory.h>
 #include <hw/factories/PigeonFactory.h>
 #include <utils/Logger.h>
@@ -43,12 +43,12 @@ SwerveDrive::SwerveDrive() : IState(),
 {
     if (m_controller == nullptr)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("SwerveDrive::SwerveDrive"), string("TeleopControl is nullptr"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("SwerveDrive"), string("Constructor"), string("TeleopControl is nullptr"));
     }
 
     if (m_chassis.get() == nullptr)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("SwerveDrive::SwerveDrive"), string("Chassis is nullptr"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("SwerveDrive"), string("Constructor"), string("Chassis is nullptr"));
     }
 }
 

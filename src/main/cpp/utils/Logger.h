@@ -73,12 +73,84 @@ class Logger
         /// @returns Logger* pointer to the logger
         static Logger* GetLogger();
 
+
+        /// @brief log a message
+        /// @param [in] LOGGER_LEVEL: message level
+        /// @param [in] std::string: network table name or classname to group messages.  If logging option is DASHBOARD, this will be the network table name
+        /// @param [in] std::string: message identifier: within a grouping multiple messages may be displayed this is the prefix/look up key
+        /// @param [in] std::string: message - text of the message       
+        void LogData
+        (
+            LOGGER_LEVEL            level,
+            const std::string&      group,
+            const std::string&      identifier,     
+            const std::string&      message                 
+        );
+
+        /// @brief log a message
+        /// @param [in] LOGGER_LEVEL: message level
+        /// @param [in] std::string: network table name or classname to group messages.  If logging option is DASHBOARD, this will be the network table name
+        /// @param [in] std::string: message identifier: within a grouping multiple messages may be displayed this is the prefix/look up key
+        /// @param [in] double: value to display       
+        void LogData
+        (
+            LOGGER_LEVEL            level,
+            const std::string&      group,
+            const std::string&      identifier,     
+            double                  value                 
+        );
+
+
+        /// @brief log a message
+        /// @param [in] LOGGER_LEVEL: message level
+        /// @param [in] std::string: network table name or classname to group messages.  If logging option is DASHBOARD, this will be the network table name
+        /// @param [in] std::string: message identifier: within a grouping multiple messages may be displayed this is the prefix/look up key
+        /// @param [in] bool: value to display       
+        void LogData
+        (
+            LOGGER_LEVEL            level,   
+            const std::string&      group,
+            const std::string&      identifier,     
+            bool                    value                 
+        );
+
+        /// @brief log a message
+        /// @param [in] LOGGER_LEVEL: message level
+        /// @param [in] std::string: network table name or classname to group messages.  If logging option is DASHBOARD, this will be the network table name
+        /// @param [in] std::string: message identifier: within a grouping multiple messages may be displayed this is the prefix/look up key
+        /// @param [in] int: value to display       
+        void LogData
+        (
+            LOGGER_LEVEL            level,   
+            const std::string&      group,
+            const std::string&      identifier,     
+            int                     value                 
+        );
         /// @brief Display logging options on dashboard
         void PutLoggingSelectionsOnDashboard();
 
         /// @brief Read logging option from dashboard, but not every 20ms
         void PeriodicLog();
 
+
+    protected:
+
+
+    private:
+        /// @brief Determines whether a message should be displayed or not.   For instance if EAT_IT is the logging option, this will return false or if the level is xxx_ONCE, it may return false if the message was already logged.
+        /// @param [in] LOGGER_LEVEL: message level
+        /// @param [in] std::string: network table name or classname to group messages.  If logging option is DASHBOARD, this will be the network table name
+        /// @param [in] std::string: message identifier: within a grouping multiple messages may be displayed this is the prefix/look up key
+        /// @param [in] std::string: message/value
+        /// @returns bool: true - display the message, false - don't display the message
+        bool ShouldDisplayIt
+        (
+            LOGGER_LEVEL            level,
+            const std::string&      group,
+            const std::string&      identifier,     
+            const std::string&      message  
+        );
+        
         /// @brief set the option for where the logging messages should be displayed
         /// @param [in] LOGGER_OPTION:  logging option for where to log messages
         void SetLoggingOption
@@ -93,50 +165,7 @@ class Logger
             LOGGER_LEVEL level    // <I> - Logging level
         );
 
-        /// @brief log a message
-        /// @param [in] LOGGER_LEVEL: message level
-        /// @param [in] std::string: classname or object identifier
-        /// @param [in] std::string: message
-        void LogData
-        (
-            LOGGER_LEVEL            level,
-            const std::string&      locationIdentifier,     
-            const std::string&      message                 
-        );
 
-        void ToNtTable
-        (
-            const std::string&  ntName,
-            const std::string&  identifier,
-            const std::string&  string 
-        );
-
-        void ToNtTable
-        (
-            const std::string&  ntName,
-            const std::string&  identifier,
-            double              value 
-        );
-
-        void ToNtTable
-        (
-            std::shared_ptr<nt::NetworkTable>   ntable,
-            const std::string&                  identifier,
-            const std::string&                  msg 
-        );
-        void ToNtTable
-        (
-            std::shared_ptr<nt::NetworkTable>   ntable,
-            const std::string&                  identifier,
-            double                              value 
-        );
-
-
-
-    protected:
-
-
-    private:
         Logger();
         ~Logger() = default;
 

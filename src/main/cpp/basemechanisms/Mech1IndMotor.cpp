@@ -25,7 +25,7 @@
 // Team 302 includes
 #include <mechanisms/controllers/ControlData.h>
 #include <basemechanisms/Mech1IndMotor.h>
-#include <mechanisms/interfaces/IMech1IndMotor.h>
+#include <basemechanisms/interfaces/IMech1IndMotor.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <utils/Logger.h>
 
@@ -55,7 +55,7 @@ Mech1IndMotor::Mech1IndMotor
 {
     if (m_motor.get() == nullptr )
     {
-        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, string( "Mech1IndMotor constructor" ), string( "motorController is nullptr" ) );
+        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech1IndMotor constructor" ), string( "motorController is nullptr" ) );
     }
 }
 
@@ -85,13 +85,9 @@ std::string Mech1IndMotor::GetNetworkTableName() const
 void Mech1IndMotor::LogData()
 {
     auto ntName = GetNetworkTableName();
-    auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
-
-    Logger::GetLogger()->ToNtTable(table, "Speed - Primary", GetSpeed() );
-    
-    Logger::GetLogger()->ToNtTable(table, "Position - Primary", GetPosition() );
-    
-    Logger::GetLogger()->ToNtTable(table, "Target - Primary", GetTarget() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Speed", GetSpeed() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Position", GetPosition() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Target", GetTarget() );
 }
 
 void Mech1IndMotor::Update()
@@ -99,8 +95,7 @@ void Mech1IndMotor::Update()
     if ( m_motor.get() != nullptr )
     {
         auto ntName = GetNetworkTableName();
-        auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
-        m_motor.get()->Set( table, m_target );
+        m_motor.get()->Set(ntName, m_target );
     }
     LogData();
 }

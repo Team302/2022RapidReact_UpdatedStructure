@@ -23,9 +23,9 @@
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <mechanisms/StateStruc.h>
-#include <mechanisms/interfaces/IMech.h>
+#include <basemechanisms/interfaces/IMech.h>
 #include <basemechanisms/Mech2MotorState.h>
 
 

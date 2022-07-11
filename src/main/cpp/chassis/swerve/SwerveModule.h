@@ -18,6 +18,7 @@
 
 //C++ Includes
 #include <memory>
+#include <string>
 
 // FRC Includes
 #include <frc/Encoder.h>
@@ -143,7 +144,7 @@ class SwerveModule
 
         units::length::inch_t                               m_wheelDiameter;
 
-        std::shared_ptr<nt::NetworkTable>                   m_nt;     
+        std::string                                         m_nt;     
 
         frc::SwerveModuleState                              m_activeState;
         frc::Pose2d                                         m_currentPose;

@@ -102,7 +102,7 @@ double DragonXBox::GetAxisValue
     {
         string msg = string("No axis ");
         msg += to_string(axis);
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonXBox::GetAxisValue"), msg );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonXBox"), string("DragonXBox::GetAxisValue"), msg );
     }
     return value;
 }

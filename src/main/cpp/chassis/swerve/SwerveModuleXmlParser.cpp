@@ -98,7 +98,7 @@ std::shared_ptr<SwerveModule> SwerveModuleXmlParser::ParseXML
             {
                 string msg = "unknown position ";
                 msg += attr.name();
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("SwerveChassisXmlParser::ParseXML"), msg );
+                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("SwerveChassisXmlParser"),string("ParseXML"), msg );
                 hasError = true;
             }
         }
@@ -138,7 +138,7 @@ std::shared_ptr<SwerveModule> SwerveModuleXmlParser::ParseXML
         {
             string msg = "unknown attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("SwerveChassisXmlParser::ParseXML"), msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("SwerveChassisXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
     }
@@ -170,7 +170,7 @@ std::shared_ptr<SwerveModule> SwerveModuleXmlParser::ParseXML
     	{
             string msg = "unknown child ";
             msg += child.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("SwerveModuleXmlParser::ParseXML"), msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("SwerveModuleXmlParser"), string("ParseXML"), msg );
             hasError = true;
     	}
     }

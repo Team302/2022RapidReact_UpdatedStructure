@@ -18,15 +18,14 @@
 
 // C++ Includes
 #include <map>
+#include <string>
 #include <vector>
 
 // FRC includes
-#include <networktables/NetworkTableInstance.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
+
 
 // Team 302 includes
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <mechanisms/StateMgr.h>
 #include <mechanisms/StateStruc.h>
 #include <mechanisms/climber/Climber.h>
@@ -83,7 +82,7 @@ class ClimberStateMgr : public StateMgr
 
     private:
         Climber*                                m_climber;
-        std::shared_ptr<nt::NetworkTable>       m_nt;     
+        std::string                             m_nt;     
         bool                                    m_wasAutoClimb;
         CLIMBER_STATE                           m_prevState;
 

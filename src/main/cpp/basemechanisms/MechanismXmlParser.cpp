@@ -34,7 +34,7 @@
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <hw/usages/ServoMap.h>
 #include <hw/DragonAnalogInput.h>
-#include <mechanisms/interfaces/IMech.h>
+#include <basemechanisms/interfaces/IMech.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
@@ -93,7 +93,7 @@ void MechanismXmlParser::ParseXML
         {
             string msg = "invalid attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismXmlParser::ParseXML"), msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
     }
@@ -163,7 +163,7 @@ void MechanismXmlParser::ParseXML
         {
             string msg = "unknown child ";
             msg += child.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismXmlParser"), msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismXmlParser"), string("unknown child"), msg );
         }
     }
 

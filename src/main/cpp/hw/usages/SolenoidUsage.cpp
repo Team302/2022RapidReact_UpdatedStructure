@@ -63,7 +63,7 @@ SolenoidUsage::SOLENOID_USAGE SolenoidUsage::GetUsage
     {
         return it->second;
     }
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("Solenoid::GetUsage - unknown usage"), usageString);
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("Solenoid::GetUsage"), string("unknown usage"), usageString);
     return SolenoidUsage::SOLENOID_USAGE::UNKNOWN_SOLENOID_USAGE;
 }
 

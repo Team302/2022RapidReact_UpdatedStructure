@@ -17,7 +17,7 @@
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/MechanismFactory.h>
 #include <basemechanisms/Mech1MotorState.h>
-#include <mechanisms/interfaces/IMech1IndMotor.h>
+#include <basemechanisms/interfaces/IMech1IndMotor.h>
 #include <mechanisms/lift/Lift.h>
 #include <mechanisms/lift/LiftState.h>
 

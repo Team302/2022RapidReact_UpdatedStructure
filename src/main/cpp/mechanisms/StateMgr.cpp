@@ -35,8 +35,8 @@
 #include <mechanisms/intake/IntakeState.h>
 #include <mechanisms/intake/ManualLeftIntakeState.h>
 #include <mechanisms/intake/ManualRightIntakeState.h>
-#include <mechanisms/interfaces/IMech.h>
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IMech.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <mechanisms/lift/LiftState.h>
 #include <mechanisms/shooter/ShooterState.h>
 #include <mechanisms/shooter/ShooterStateAutoHigh.h>
@@ -74,7 +74,7 @@ void StateMgr::Init
 
         if (targetData.empty())
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, mech->GetControlFileName(), string("No states"));
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, mech->GetNetworkTableName(), mech->GetControlFileName(), string("No states"));
         }
         else
         {
@@ -187,7 +187,7 @@ void StateMgr::Init
                                 break;
 
                     	    default:
-                        	    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("StateMgr::StateMgr"), string("unknown state"));
+                        	    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("unknown state"));
                     	        break;
                 	    }
                 	    if (thisState != nullptr)
@@ -203,12 +203,12 @@ void StateMgr::Init
             	    }
             	    else
             	    {
-                	    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("StateMgr::StateMgr"), string("multiple mechanism state info for state"));
+                	    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("multiple mechanism state info for state"));
             	    }
         	    }
         	    else
         	    {
-            	    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("StateMgr::StateMgr"), string("state not found"));
+            	    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("state not found"));
                 }
             }
         }

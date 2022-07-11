@@ -114,9 +114,6 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::CreateMotorCont
         auto talon = new DragonFalcon( MotorControllerUsage::GetInstance()->GetUsage(usage), canID, pdpID, countsPerRev, gearRatio, countsPerInch, countsPerDegree, motorType);
         talon->EnableBrakeMode( brakeMode );
         talon->Invert( inverted );
-        /**
-        talon->SetSensorInverted( sensorInverted );
-        **/
         talon->ConfigSelectedFeedbackSensor( feedbackDevice, 0, 50 );
         talon->ConfigSelectedFeedbackSensor( feedbackDevice, 1, 50 );
 
@@ -181,7 +178,7 @@ shared_ptr<IDragonMotorController> DragonMotorControllerFactory::GetController
 	{
 	    string msg = "invalid CAN ID ";
 	    msg += to_string( canID );
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonMotorControllerFactory::GetController"), msg );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DragonMotorControllerFactory"), string("GetController"), msg );
 	}
 	return controller;
 }

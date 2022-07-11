@@ -27,7 +27,7 @@
 // Team 302 includes
 #include <basemechanisms/Mech1IndMotor.h>
 #include <basemechanisms/Mech2IndMotors.h>
-#include <mechanisms/interfaces/IMech2IndMotors.h>
+#include <basemechanisms/interfaces/IMech2IndMotors.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <utils/Logger.h>
@@ -61,12 +61,12 @@ Mech2IndMotors::Mech2IndMotors
 {
     if ( primaryMotor.get() == nullptr )
     {
-        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, string( "Mech2IndMotors constructor" ), string( "failed to create primary control" ) );
+        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech2IndMotors constructor" ), string( "failed to create primary control" ) );
     }    
     
     if ( secondaryMotor.get() == nullptr )
     {
-        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, string( "Mech2IndMotors constructor" ), string( "failed to create secondary control" ) );
+        Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech2IndMotors constructor" ), string( "failed to create secondary control" ) );
     }
 }
 
@@ -96,16 +96,13 @@ std::string Mech2IndMotors::GetNetworkTableName() const
 void Mech2IndMotors::LogData()
 {
     auto ntName = GetNetworkTableName();
-    auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
 
-    Logger::GetLogger()->ToNtTable(table, "Speed - Primary", GetPrimarySpeed() );
-    Logger::GetLogger()->ToNtTable(table, "Speed - Secondary", GetSecondarySpeed() );
-    
-    Logger::GetLogger()->ToNtTable(table, "Position - Primary", GetPrimaryPosition() );
-    Logger::GetLogger()->ToNtTable(table, "Position - Secondary", GetSecondaryPosition() );
-    
-    Logger::GetLogger()->ToNtTable(table, "Target - Primary", m_primaryTarget);
-    Logger::GetLogger()->ToNtTable(table, "Target - Secondary", m_secondaryTarget);
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Speed - Primary", GetPrimarySpeed() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Speed - Secondary", GetSecondarySpeed() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Position - Primary", GetPrimaryPosition() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Position - Secondary", GetSecondaryPosition() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Target - Primary", m_primaryTarget);
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, "Target - Secondary", m_secondaryTarget);
 }
 
 /// @brief update the output to the mechanism using the current controller and target value(s)
@@ -113,14 +110,13 @@ void Mech2IndMotors::LogData()
 void Mech2IndMotors::Update()
 {
     auto ntName = GetNetworkTableName();
-    auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
     if ( m_primary.get() != nullptr )
     {
-        m_primary.get()->Set(table, m_primaryTarget);
+        m_primary.get()->Set(ntName, m_primaryTarget);
     }
     if ( m_secondary.get() != nullptr )
     {
-        m_secondary.get()->Set(table, m_secondaryTarget);
+        m_secondary.get()->Set(ntName, m_secondaryTarget);
     }
 
     LogData();

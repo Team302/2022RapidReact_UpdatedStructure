@@ -29,7 +29,7 @@ using namespace std;
 void Robot::RobotInit() 
 {
     Logger::GetLogger()->PutLoggingSelectionsOnDashboard();
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" RobotInit"));   
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("arrived"));   
 
     //CameraServer::SetSize(CameraServer::kSize320x240);
     //CameraServer::StartAutomaticCapture();
@@ -53,7 +53,7 @@ void Robot::RobotInit()
     m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
 
     m_cyclePrims = new CyclePrimitives();
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" end of RobotInit"));}
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("end"));}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -71,8 +71,8 @@ void Robot::RobotPeriodic()
     }
     if (m_dragonLimeLight != nullptr)
     {
-        Logger::GetLogger()->ToNtTable(string("DragonLimelight"), string("horizontal angle "), m_dragonLimeLight->GetTargetHorizontalOffset().to<double>());
-        Logger::GetLogger()->ToNtTable(string("DragonLimelight"), string("distance "), m_dragonLimeLight->EstimateTargetDistance().to<double>());
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("DragonLimelight"), string("horizontal angle "), m_dragonLimeLight->GetTargetHorizontalOffset().to<double>());
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("DragonLimelight"), string("distance "), m_dragonLimeLight->EstimateTargetDistance().to<double>());
     }
     Logger::GetLogger()->PeriodicLog();
 }
@@ -90,12 +90,12 @@ void Robot::RobotPeriodic()
  */
 void Robot::AutonomousInit() 
 {
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" AutonomousInit"));
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("AutonomousInit"), string("arrived"));   
     if (m_cyclePrims != nullptr)
     {
         m_cyclePrims->Init();
     }
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" end of AutonomousInit"));    
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("AutonomousInit"), string("end"));
 }
 
 void Robot::AutonomousPeriodic() 
@@ -108,7 +108,7 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit() 
 {
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" TeleopInit"));
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopInit"), string("arrived"));   
     if (m_chassis != nullptr && m_controller != nullptr && m_swerve != nullptr)
     {
         m_swerve->Init();
@@ -137,6 +137,7 @@ void Robot::TeleopInit()
     {
         m_liftStateMgr->RunCurrentState();
     }
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopInit"), string("end"));
 }
 
 void Robot::TeleopPeriodic() 
@@ -174,7 +175,7 @@ void Robot::TeleopPeriodic()
 
 void Robot::DisabledInit() 
 {
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" DisabledInit"));
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("DisabledInit"), string("arrived"));   
 }
 
 void Robot::DisabledPeriodic() 
@@ -184,7 +185,7 @@ void Robot::DisabledPeriodic()
 
 void Robot::TestInit() 
 {
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("Arrived At"), string(" TestInit"));
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TestInit"), string("arrived"));   
 }
 
 void Robot::TestPeriodic() 

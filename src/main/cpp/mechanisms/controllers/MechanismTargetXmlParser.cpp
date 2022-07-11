@@ -125,14 +125,14 @@ MechanismTargetData*  MechanismTargetXmlParser::ParseXML
             }
             else
             {
-                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser::ParseXML"), string("solenoid enum"));
+                Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser"), string("ParseXML"), string("solenoid enum"));
             }
         }
         else
         {
             string msg = "unknown attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser::ParseXML"), msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
     }
@@ -151,7 +151,7 @@ MechanismTargetData*  MechanismTargetXmlParser::ParseXML
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser::ParseXML"), string("incomplete date"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismTargetXmlParser"), string("ParseXML"), string("incomplete date"));
     }
 
     return mechData;

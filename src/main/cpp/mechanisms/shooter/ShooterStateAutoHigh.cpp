@@ -22,7 +22,7 @@
 // Team 302 includes
 #include <hw/DragonLimelight.h>
 #include <hw/factories/LimelightFactory.h>
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <mechanisms/shooter/ShooterStateAutoHigh.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/shooter/Shooter.h>
@@ -98,21 +98,21 @@ void ShooterStateAutoHigh::Init()
         auto cd = GetPrimaryControlData();
         auto cd2 = GetSecondaryControlData();
 
-        logger->ToNtTable(nt, string("control data Mode1"), cd->GetMode());
-        logger->ToNtTable(nt, string("control data Identifier1"), cd->GetIdentifier());
-        logger->ToNtTable(nt, string("control data p1"), cd->GetP());
-        logger->ToNtTable(nt, string("control data i1"), cd->GetI());
-        logger->ToNtTable(nt, string("control data d1"), cd->GetD());
-        logger->ToNtTable(nt, string("control data f1"), cd->GetF());
-        logger->ToNtTable(nt, string("target 1"), shooterTarget);
+        logger->LogData(nt, string("control data Mode1"), cd->GetMode());
+        logger->LogData(nt, string("control data Identifier1"), cd->GetIdentifier());
+        logger->LogData(nt, string("control data p1"), cd->GetP());
+        logger->LogData(nt, string("control data i1"), cd->GetI());
+        logger->LogData(nt, string("control data d1"), cd->GetD());
+        logger->LogData(nt, string("control data f1"), cd->GetF());
+        logger->LogData(nt, string("target 1"), shooterTarget);
 
-        logger->ToNtTable(nt, string("control data Mode2"), cd2->GetMode());
-        logger->ToNtTable(nt, string("control data Identifier2"), cd2->GetIdentifier());
-        logger->ToNtTable(nt, string("control data p2"), cd2->GetP());
-        logger->ToNtTable(nt, string("control data i2"), cd2->GetI());
-        logger->ToNtTable(nt, string("control data d2"), cd2->GetD());
-        logger->ToNtTable(nt, string("control data f2"), cd2->GetF());
-        logger->ToNtTable(nt, string("target 2"), shooterTarget2);
+        logger->LogData(nt, string("control data Mode2"), cd2->GetMode());
+        logger->LogData(nt, string("control data Identifier2"), cd2->GetIdentifier());
+        logger->LogData(nt, string("control data p2"), cd2->GetP());
+        logger->LogData(nt, string("control data i2"), cd2->GetI());
+        logger->LogData(nt, string("control data d2"), cd2->GetD());
+        logger->LogData(nt, string("control data f2"), cd2->GetF());
+        logger->LogData(nt, string("target 2"), shooterTarget2);
         */
         
         shooter->SetControlConstants(0, GetPrimaryControlData());

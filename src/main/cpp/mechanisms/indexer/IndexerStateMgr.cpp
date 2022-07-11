@@ -87,7 +87,7 @@ void IndexerStateMgr::CheckForStateTransition()
 
         auto controller = TeleopControl::GetInstance();
 
-        Logger::GetLogger()->ToNtTable(m_indexer->GetNetworkTableName(), string("Ball Present"), ballPresent ? string("true") : string("false"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_indexer->GetNetworkTableName(), string("Ball Present"), ballPresent ? string("true") : string("false"));
 
         if (controller != nullptr && controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::MANUAL_INDEX))
         {

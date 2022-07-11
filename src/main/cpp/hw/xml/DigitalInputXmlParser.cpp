@@ -79,7 +79,7 @@ shared_ptr<DragonDigitalInput> DigitalInputXmlParser::ParseXML
         {
             string msg = "unknown attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DigitalInputXmlParser "), msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DigitalInputXmlParser "), string("ParseXML "), msg );
         }
     }
 

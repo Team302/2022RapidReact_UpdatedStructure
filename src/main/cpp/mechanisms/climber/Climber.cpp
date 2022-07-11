@@ -35,10 +35,12 @@ using namespace std;
 
 Climber::Climber
 (
+    string                                  controlFileName,
+    string                                  ntName,
     shared_ptr<IDragonMotorController>      liftMotor,
     shared_ptr<IDragonMotorController>      rotateMotor,
     std::shared_ptr<DragonDigitalInput>     armBackSw
-) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::CLIMBER,  string("climber.xml"),  string("ClimberNT"), liftMotor, rotateMotor ),
+) : Mech2IndMotors( MechanismTypes::MECHANISM_TYPE::CLIMBER, controlFileName,  ntName, liftMotor, rotateMotor ),
     m_reachMin(GetPositionInInches(liftMotor)),
     m_reachMax(m_reachMin+19.25),
     m_rotateMin(GetPositionInDegrees(rotateMotor)),
@@ -58,7 +60,6 @@ Climber::Climber
 void Climber::Update()
 {
     auto ntName = GetNetworkTableName();
-    auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
 
     auto liftMotor = GetPrimaryMotor();
     if ( liftMotor.get() != nullptr )
@@ -75,7 +76,7 @@ void Climber::Update()
         }
         else
         {
-            liftMotor.get()->Set(table, liftTarget);
+            liftMotor.get()->Set(ntName, liftTarget);
         }
         /** **/    
    }
@@ -93,7 +94,7 @@ void Climber::Update()
         }
         else
         {
-            rotateMotor.get()->Set(table, rotateTarget);
+            rotateMotor.get()->Set(ntName, rotateTarget);
         }
     }
 
@@ -160,26 +161,25 @@ void Climber::LogData()
     Mech2IndMotors::LogData();
 
     auto ntName = GetNetworkTableName();
-    auto table = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
 
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Min"), GetMinReach());
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Max"), GetMaxReach());
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Current"), GetPositionInInches(GetPrimaryMotor()));
-    Logger::GetLogger()->ToNtTable(table, string("Reach - Target"), GetPrimaryTarget());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Reach - Min"), GetMinReach());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Reach - Max"), GetMaxReach());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Reach - Current"), GetPositionInInches(GetPrimaryMotor()));
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Reach - Target"), GetPrimaryTarget());
 
     auto liftMotor = GetPrimaryMotor();
     if (liftMotor.get() != nullptr)
     {
-        Logger::GetLogger()->ToNtTable(table, string("Reach - Min Switch"), liftMotor.get()->IsReverseLimitSwitchClosed() ? "true" : "false");
-        Logger::GetLogger()->ToNtTable(table, string("Reach - Max Switch"), liftMotor.get()->IsForwardLimitSwitchClosed() ? "true" : "false");
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Reach - Min Switch"), liftMotor.get()->IsReverseLimitSwitchClosed() ? "true" : "false");
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Reach - Max Switch"), liftMotor.get()->IsForwardLimitSwitchClosed() ? "true" : "false");
     }
 
-    Logger::GetLogger()->ToNtTable(table, string("Rotate - Min"), GetMinRotate());
-    Logger::GetLogger()->ToNtTable(table, string("Rotate - Max"), GetMaxRotate());
-    Logger::GetLogger()->ToNtTable(table, string("Rotate - Current"), GetPositionInDegrees(GetSecondaryMotor()));
-    Logger::GetLogger()->ToNtTable(table, string("Rotate - Target"), GetSecondaryTarget());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Rotate - Min"), GetMinRotate());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Rotate - Max"), GetMaxRotate());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Rotate - Current"), GetPositionInDegrees(GetSecondaryMotor()));
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Rotate - Target"), GetSecondaryTarget());
 
-    Logger::GetLogger()->ToNtTable(table, string("Rotate - Arm Back Switch"), m_armBack.get()->Get() ? "true" : "false");
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, ntName, string("Rotate - Arm Back Switch"), m_armBack.get()->Get() ? "true" : "false");
 }
 double Climber::GetPositionInInches
 (

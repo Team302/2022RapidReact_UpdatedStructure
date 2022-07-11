@@ -30,7 +30,7 @@
 #include <mechanisms/MechanismTypes.h>
 #include <mechanisms/StateMgr.h>
 #include <mechanisms/StateStruc.h>
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <mechanisms/shooter/Shooter.h>
 #include <mechanisms/shooter/ShooterState.h>
 #include <mechanisms/shooter/ShooterStateMgr.h>
@@ -80,19 +80,14 @@ ShooterStateMgr::ShooterStateMgr() : StateMgr(),
     Init(m_shooter, stateMap);
     if (m_shooter != nullptr)
     {
-        auto ntName = m_shooter->GetNetworkTableName();
-        m_nt = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
-    }
-    else
-    {
-        m_nt = nt::NetworkTableInstance::GetDefault().GetTable("shooter");
+        auto m_nt = m_shooter->GetNetworkTableName();
     }
 }   
 
 
 bool ShooterStateMgr::AtTarget() const
 {
-    Logger::GetLogger()->ToNtTable(m_nt, string("At Target"), GetCurrentStatePtr()->AtTarget() ? "true" : "false");
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("At Target"), GetCurrentStatePtr()->AtTarget() ? "true" : "false");
     return GetCurrentStatePtr()->AtTarget();
 }
 
@@ -103,7 +98,7 @@ void ShooterStateMgr::CheckForStateTransition()
     {    
         auto currentState = static_cast<SHOOTER_STATE>(GetCurrentState());
         auto targetState = currentState;
-        Logger::GetLogger()->ToNtTable(m_nt, string("current state "), currentState);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("current state "), currentState);
 
         auto isShootHighSelected    = false;
         auto isShootLowSelected     = false;
@@ -165,7 +160,7 @@ void ShooterStateMgr::CheckForStateTransition()
 
         if (targetState != currentState)
         {
-            Logger::GetLogger()->ToNtTable(m_nt, string("Changing Shooter State"), targetState);
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("Changing Shooter State"), targetState);
             SetCurrentState(targetState, true);
         }
         

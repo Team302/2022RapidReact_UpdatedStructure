@@ -24,7 +24,7 @@
 #include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <mechanisms/controllers/StateDataXmlParser.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <utils/Logger.h>
@@ -69,22 +69,15 @@ CameraServoStateMgr::CameraServoStateMgr() : m_camera((MechanismFactory::GetMech
     Init(m_camera, stateMap);
 }   
 
-bool CameraServoStateMgr::HasBall() const
-{
-    return false; 
-}
-
 /// @brief  run the current state
 /// @return void
 void CameraServoStateMgr::CheckForStateTransition()
 {
-    Logger::GetLogger()->ToNtTable(string("Sierra"), string("CheckForStateTransition"), string("true"));
     if ( MechanismFactory::GetMechanismFactory()->GetCameraServo() != nullptr )
     {
         // process teleop/manual interrupts
         auto currentState = static_cast<CAMERA_SERVO_STATE>(GetCurrentState());
         auto targetState = currentState;
-         Logger::GetLogger()->ToNtTable(string("Sierra"), string("Current"), currentState);
         //auto targetState
 
         auto controller = TeleopControl::GetInstance();
@@ -99,48 +92,15 @@ void CameraServoStateMgr::CheckForStateTransition()
             if (rightPressed  &&  currentState != CAMERA_SERVO_STATE::LOOK_RIGHT )
             {
                 targetState = CAMERA_SERVO_STATE::LOOK_RIGHT;
-                //Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::LOOK_RIGHT);
-                //SetCurrentState( CAMERA_SERVO_STATE::LOOK_RIGHT, true );
             }
             else if (leftPressed && currentState != CAMERA_SERVO_STATE::LOOK_LEFT )
             {
                 targetState = CAMERA_SERVO_STATE::LOOK_LEFT;
-                 //Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::LOOK_LEFT);
-                //SetCurrentState( CAMERA_SERVO_STATE::LOOK_LEFT, true );
             }
             else if (scanPressed && currentState != CAMERA_SERVO_STATE::SCAN)
             {
                 targetState = CAMERA_SERVO_STATE::SCAN;
-                //Logger::GetLogger()->ToNtTable(string("Sierra"), string("Changing state"), CAMERA_SERVO_STATE::SCAN);
 
-                // while(HasBall() == true)
-                // {
-                //     if (m_camera != nullptr)
-                //     {
-                //         auto currentAngle = m_camera->GetAngle();
-                //         currentAngle += m_increment;
-
-                //         if (currentAngle > 180 || currentAngle < 0)
-                //         {
-                //             m_increment *= -1;
-                //             currentAngle += m_increment;
-                //         }
-                //         m_camera->SetAngle(currentAngle);
-                //     } 
-
-                // }
-
-            }
-        }
-        if (targetState != currentState && targetState != CAMERA_SERVO_STATE::SCAN)
-        {
-            SetCurrentState( targetState, true );
-        }
-        if (targetState == CAMERA_SERVO_STATE::SCAN)
-        {
-            //while(!HasBall())
-            if (!HasBall())
-            {
                 if (m_camera != nullptr)
                 {
                     auto currentAngle = m_camera->GetAngle();
@@ -154,7 +114,27 @@ void CameraServoStateMgr::CheckForStateTransition()
                     m_camera->SetAngle(currentAngle);
                 } 
 
+
             }
+        }
+        if (targetState != currentState && targetState != CAMERA_SERVO_STATE::SCAN)
+        {
+            SetCurrentState( targetState, true );
+        }
+        if (targetState == CAMERA_SERVO_STATE::SCAN)
+        {
+            if (m_camera != nullptr)
+            {
+                auto currentAngle = m_camera->GetAngle();
+                currentAngle += m_increment;
+
+                if (currentAngle > 180 || currentAngle < 0)
+                {
+                    m_increment *= -1;
+                    currentAngle += m_increment;
+                }
+                m_camera->SetAngle(currentAngle);
+            } 
         }
     }
 }

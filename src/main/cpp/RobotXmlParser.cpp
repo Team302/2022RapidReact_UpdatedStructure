@@ -123,7 +123,7 @@ void RobotXmlParser::ParseXML()
                     {
                         string msg = "unknown child ";
                         msg += child.name();
-                        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("RobotXmlParser::ParseXML"), msg );
+                        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("RobotXmlParser"), string("ParseXML"), msg );
                     }
                 }
             }
@@ -135,22 +135,22 @@ void RobotXmlParser::ParseXML()
             msg += "] parsed with errors, attr value: [";
             msg += doc.child( "prototype" ).attribute( "attr" ).value();
             msg += "]";
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("RobotXmlParser::ParseXML (1) "), msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("RobotXmlParser"), string("ParseXML (1) "), msg );
 
             msg = "Error description: ";
             msg += result.description();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("RobotXmlParser::ParseXML (2) "), msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("RobotXmlParser"), string("ParseXML (2) "), msg );
 
             msg = "Error offset: ";
             msg += result.offset;
             msg += " error at ...";
             msg += filename;
             msg += result.offset;
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("RobotXmlParser::ParseXML (3) "), msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("RobotXmlParser"), string("ParseXML (3) "), msg );
         }
     }
     catch(const std::exception& e)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("RobotXmlParser::ParseXML"), string("Error thrown while parsing robot.xml") );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("RobotXmlParser"), string("ParseXML"), string("Error thrown while parsing robot.xml") );
     }
 }

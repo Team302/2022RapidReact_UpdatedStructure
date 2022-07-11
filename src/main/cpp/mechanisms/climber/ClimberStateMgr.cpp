@@ -28,7 +28,7 @@
 #include <TeleopControl.h>
 #include <mechanisms/climber/ClimberState.h>
 #include <mechanisms/climber/ClimberStateMgr.h>
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <mechanisms/climber/Climber.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/MechanismTypes.h>
@@ -63,12 +63,7 @@ ClimberStateMgr::ClimberStateMgr() : m_climber(MechanismFactory::GetMechanismFac
 {
     if (m_climber != nullptr)
     {
-        auto ntName = m_climber->GetNetworkTableName();
-        m_nt = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
-    }
-    else
-    {
-        m_nt = nt::NetworkTableInstance::GetDefault().GetTable("climber");
+        m_nt = m_climber->GetNetworkTableName();
     }    
     
     // initialize the xml string to state map
@@ -230,10 +225,10 @@ void ClimberStateMgr::CheckForStateTransition()
             targetState = CLIMBER_STATE::OFF;
         }
 
-        Logger::GetLogger()->ToNtTable(m_nt, string("state"), targetState);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("state"), targetState);
         if (targetState != currentState)
         {
-            Logger::GetLogger()->ToNtTable(m_nt, string("Changing climber State"), targetState);
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("Changing climber State"), targetState);
             SetCurrentState(targetState, true);
         }
     }

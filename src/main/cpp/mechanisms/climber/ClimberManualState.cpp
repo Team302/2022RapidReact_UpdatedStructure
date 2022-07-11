@@ -24,8 +24,8 @@
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <TeleopControl.h>
 #include <mechanisms/climber/ClimberManualState.h>
-#include <mechanisms/interfaces/IState.h>
-#include <mechanisms/interfaces/IMech2IndMotors.h>
+#include <basemechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IMech2IndMotors.h>
 #include <mechanisms/MechanismFactory.h>
 #include <utils/Logger.h>
 
@@ -52,13 +52,13 @@ ClimberManualState::ClimberManualState
     m_rotateMin(0.0),
     m_rotateMax(maxRotationsRotate)
 {
-    if (controlDataUpDown == nullptr)
+    if (controlDataUpDown == nullptr && m_climber != nullptr)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("Mech2MotorState::Mech2MotorState"), string("no control data"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, m_climber->GetNetworkTableName(), string("Manual Climber State"), string("no control data"));
     }    
-    else if (controlDataRotate == nullptr)
+    else if (controlDataRotate == nullptr && m_climber != nullptr)
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("Mech2MotorState::Mech2MotorState"), string("no control2 data"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE,  m_climber->GetNetworkTableName(), string("Manual Climber State"), string("no control2 data"));
     }
 }
 
@@ -72,7 +72,6 @@ void ClimberManualState::Init()
         m_climber->SetControlConstants(0, m_controlDataUpDown);
         m_climber->SetSecondaryControlConstants(0, m_controlDataRotate);
         m_climber->UpdateTargets(m_upDownMin, m_rotateMin);
-        //m_climber->UpdateTargets(m_upDownMin, 0.0);
     }
 }
 
@@ -136,10 +135,10 @@ void ClimberManualState::Run()
        //auto rotateTarget = 0.0;
        //auto testingZero = 0.0;
 
-        Logger::GetLogger()->ToNtTable(string("Climber Manual State"), string("Down Percent: "), armDownPercent);
-        Logger::GetLogger()->ToNtTable(string("Climber Manual State"), string("Up Percent: "), armUpPercent);
-        Logger::GetLogger()->ToNtTable(string("Climber Manual State"), string("UpDown Percent: "), upDownPercent);
-        Logger::GetLogger()->ToNtTable(string("Climber Manual State"), string("Rotate Percent: "), upDownPercent);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_climber->GetNetworkTableName(), string("Climber Manual State: Down Percent: "), armDownPercent);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_climber->GetNetworkTableName(), string("Climber Manual State: Up Percent: "), armUpPercent);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_climber->GetNetworkTableName(), string("Climber Manual State: UpDown Percent: "), upDownPercent);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_climber->GetNetworkTableName(), string("Climber Manual State: Rotate Percent: "), upDownPercent);
         //m_climber->UpdateTargets(upDownPercent, rotateTarget);
 
         m_climber->UpdateTargets(upDownPercent, rotatePercent);

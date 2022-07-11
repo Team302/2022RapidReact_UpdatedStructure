@@ -20,11 +20,11 @@
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IState.h>
 #include <basemechanisms/Mech2MotorState.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <mechanisms/interfaces/IMech2IndMotors.h>
+#include <basemechanisms/interfaces/IMech2IndMotors.h>
 #include <utils/Logger.h>
 
 #include <TeleopControl.h>
@@ -53,16 +53,15 @@ Mech2MotorState::Mech2MotorState
 {
     if ( mechanism == nullptr )
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("Mech2MotorState::Mech2MotorState"), string("no mechanism"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("Mech2MotorState"), string("Mech2MotorState"), string("no mechanism"));
     }    
-    
-    if ( control == nullptr )
+    else if ( control == nullptr )
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("Mech2MotorState::Mech2MotorState"), string("no control data"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mechanism->GetNetworkTableName(), ("Mech2MotorState::Mech2MotorState"), string("no control data"));
     }    
     else if ( control2 == nullptr )
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("Mech2MotorState::Mech2MotorState"), string("no control2 data"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mechanism->GetNetworkTableName(), ("Mech2MotorState::Mech2MotorState"), string("no control2 data"));
     }
     else
     {
@@ -123,7 +122,7 @@ Mech2MotorState::Mech2MotorState
         }
         else
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("Mech2MotorState::Mech2MotorState"), string("inconsistent control modes"));
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, mechanism->GetNetworkTableName(), ("Mech2MotorState::Mech2MotorState"), string("inconsistent control modes"));
         }
         
     }
@@ -145,8 +144,8 @@ void Mech2MotorState::Run()
 {
     if ( m_mechanism != nullptr )
     {
-        Logger::GetLogger()->ToNtTable(m_mechanism->GetNetworkTableName(), string("target1"), m_primaryTarget);
-        Logger::GetLogger()->ToNtTable(m_mechanism->GetNetworkTableName(), string("target2"), m_secondaryTarget);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_mechanism->GetNetworkTableName(), string("target1"), m_primaryTarget);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_mechanism->GetNetworkTableName(), string("target2"), m_secondaryTarget);
         
         m_mechanism->Update();
         m_mechanism->LogData();

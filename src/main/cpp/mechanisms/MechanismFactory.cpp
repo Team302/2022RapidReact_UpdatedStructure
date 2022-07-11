@@ -42,7 +42,7 @@
 #include <hw/DragonDigitalInput.h>
 #include <mechanisms/cameraServo/CameraServo.h>
 #include <mechanisms/MechanismFactory.h>
-#include <mechanisms/interfaces/IMech.h>
+#include <basemechanisms/interfaces/IMech.h>
 #include <mechanisms/MechanismTypes.h>
 #include <utils/Logger.h>
 
@@ -121,12 +121,12 @@ void MechanismFactory::CreateIMechanism
 				}
 				else
 				{
-					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechansimFactory::CreateIMechanism" ), string("Left Intake motor missing in XML"));
+					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism" ), string("Left Intake motor missing in XML"));
 				}
 			}
 			else
 			{
-				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechansimFactory::CreateIMechanism" ), string("Left Intake already exists") );
+				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism" ), string("Left Intake already exists") );
 			}
 		}
 		break;
@@ -147,12 +147,12 @@ void MechanismFactory::CreateIMechanism
 				}
 				else
 				{
-					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechansimFactory::CreateIMechanism" ), string("Right Intake motor missing in XML"));
+					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism" ), string("Right Intake motor missing in XML"));
 				}
 			}
 			else
 			{
-				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechansimFactory::CreateIMechanism" ), string("Right Intake already exists") );
+				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism" ), string("Right Intake already exists") );
 			}
 		}
 		break;
@@ -175,12 +175,12 @@ void MechanismFactory::CreateIMechanism
 				}
 				else
 				{
-					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechansimFactory::CreateIMechanism" ), string("indexer motor missing in XML"));
+					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism" ), string("indexer motor missing in XML"));
 				}
 			}
 			else
 			{
-				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechansimFactory::CreateIMechanism" ), string("indexer already exists") );
+				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism" ), string("indexer already exists") );
 			}
 		}
 		break;
@@ -196,16 +196,16 @@ void MechanismFactory::CreateIMechanism
 										controlFileName,
 										networkTableName,
 										liftMotor);
-					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory::CreateIMechansim"), string("Created Lift mechanism"));
+					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechansim"), string("Created Lift mechanism"));
 				}
 				else
 				{
-					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechansimFactory::CreateIMechanism" ), string("Lift motor is missing in XML") );
+					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism" ), string("Lift motor is missing in XML") );
 				}
 			}
 			else
 			{
-				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechansimFactory::CreateIMechanism" ), string("Lift motor already exists") );
+				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism" ), string("Lift motor already exists") );
 			}
 		}
 		break;
@@ -223,7 +223,7 @@ void MechanismFactory::CreateIMechanism
 				}
 				else
 				{
-					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechansimFactory::CreateIMechanism" ), string("No Shooter motor exists in XML"));
+					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism" ), string("No Shooter motor exists in XML"));
 				}
 			}
 		}
@@ -239,16 +239,16 @@ void MechanismFactory::CreateIMechanism
 				auto rotateMotor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::CLIMBER_ROTATE);
 				if ( liftMotor.get() != nullptr && rotateMotor.get() != nullptr )
 				{
-					m_climber = new Climber(liftMotor, rotateMotor, armBackSw);//, liftHeight);
+					m_climber = new Climber(controlFileName, networkTableName, liftMotor, rotateMotor, armBackSw);//, liftHeight);
 				}
 				else
 				{
-					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechansimFactory::CreateIMechanism" ), string("No climber motors exist in XML"));
+					Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism" ), string("No climber motors exist in XML"));
 				}
 			}
 			else
 			{
-				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechansimFactory::CreateIMechanism" ), string("Climber already exists") );
+				Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism" ), string("Climber already exists") );
 			}
 		}
 		break;
@@ -271,7 +271,7 @@ void MechanismFactory::CreateIMechanism
 		{
 			string msg = "unknown Mechanism type ";
 			msg += to_string( type );
-			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory::CreateIMechanism"), msg );
+			Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string("CreateIMechanism"), msg );
 		}
 		break;
 	}
@@ -294,14 +294,14 @@ shared_ptr<IDragonMotorController> MechanismFactory::GetMotorController
 	{
 		string msg = "motor not found; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string( "MechanismFactory::GetMotorController" ), msg );
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetMotorController" ), msg );
 	}
 	
 	if ( motor.get() == nullptr )
 	{
 		string msg = "motor is nullptr; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string( "MechanismFactory::GetMotorController" ), msg );
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetMotorController" ), msg );
 	}
 	return motor;
 }
@@ -363,14 +363,14 @@ shared_ptr<DragonSolenoid> MechanismFactory::GetSolenoid
 	{
 		string msg = "solenoid not found; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string( "MechanismFactory::GetSolenoid" ), msg );
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetSolenoid" ), msg );
 	}
 	
 	if ( solenoid.get() == nullptr )
 	{
 		string msg = "solenoid is nullptr; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string( "MechanismFactory::GetSolenoid" ), msg );
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetSolenoid" ), msg );
 	}
 	return solenoid;
 }
@@ -390,14 +390,14 @@ DragonServo* MechanismFactory::GetServo
 	{
 		string msg = "servo not found; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string( "MechanismFactory::GetServo" ), msg );
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetServo" ), msg );
 	}
 	
 	if ( servo == nullptr )
 	{
 		string msg = "servo is nullptr; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string( "MechanismFactory::GetServo" ), msg );
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetServo" ), msg );
 	}
 	return servo;
 
@@ -418,14 +418,14 @@ shared_ptr<DragonDigitalInput> MechanismFactory::GetDigitalInput
 	{
 		string msg = "digital input not found; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string( "MechanismFactory::GetDigitalInput" ), msg );
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetDigitalInput" ), msg );
 	}
 	
 	if ( dio.get() == nullptr )
 	{
 		string msg = "digital input is nullptr; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string( "MechanismFactory::GetDigitalInput" ), msg );
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetDigitalInput" ), msg );
 	}
 	return dio;
 }
@@ -446,14 +446,14 @@ DragonAnalogInput* MechanismFactory::GetAnalogInput
 	{
 		string msg = "analog input not found; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string( "MechanismFactory::GetAnalogInput" ), msg );
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetAnalogInput" ), msg );
 	}
 	
 	if ( anIn == nullptr )
 	{
 		string msg = "analog input is nullptr; usage = ";
 		msg += to_string( usage );
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string( "MechanismFactory::GetAnalogInput" ), msg );
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("MechanismFactory"), string( "GetAnalogInput" ), msg );
 	}
 	return anIn;
 }

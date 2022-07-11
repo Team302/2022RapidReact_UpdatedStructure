@@ -43,7 +43,7 @@
 #include <mechanisms/climber/Climber.h>
 #include <mechanisms/indexer/Indexer.h>
 #include <mechanisms/intake/Intake.h>
-#include <mechanisms/interfaces/IMech.h>
+#include <basemechanisms/interfaces/IMech.h>
 #include <mechanisms/lift/Lift.h>
 #include <mechanisms/shooter/Shooter.h>
 

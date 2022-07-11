@@ -65,7 +65,7 @@ Compressor* PCMXmlParser::ParseXML
         {
             string msg = "unknown attribute ";
             msg += attr.name();
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("PCMXmlParser::ParseXML"), msg );
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("PCMXmlParser"), string("ParseXML"), msg );
             hasError = true;
         }
     }

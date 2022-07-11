@@ -89,9 +89,6 @@ SwerveModule::SwerveModule
     Rotation2d ang { units::angle::degree_t(0.0)};
     m_activeState.angle = ang;
     m_activeState.speed = 0_mps;
-
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, "CurrentPoseX", to_string(m_currentPose.X().to<double>()));
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, "CurrentPoseY", to_string(m_currentPose.Y().to<double>()));
     
     // Set up the Drive Motor
     auto motor = m_driveMotor.get()->GetSpeedController();
@@ -132,31 +129,32 @@ SwerveModule::SwerveModule
                                                 turnNominalVal);
     m_turnMotor.get()->SetControlConstants( 0, turnCData.get() );
 
-    string ntName;
     switch ( GetType() )
     {
         case ModuleID::LEFT_FRONT:
-            ntName = "LeftFrontSwerveModule";
+            m_nt = string("LeftFrontSwerveModule");
             break;
 
         case ModuleID::LEFT_BACK:
-            ntName = "LeftBackSwerveModule";
+            m_nt = string("LeftBackSwerveModule");
             break;
 
         case ModuleID::RIGHT_FRONT:
-            ntName = "RightFrontSwerveModule";
+            m_nt = string("RightFrontSwerveModule");
             break;
 
         case ModuleID::RIGHT_BACK:
-            ntName = "RightBackSwerveModule";
+            m_nt = string("RightBackSwerveModule");
             break;
 
         default:
-            Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, string("SwerveModuleDrive"), string("unknown module"));
-            ntName = "UnknownSwerveModule";
+            m_nt = string("UnknownSwerveModule");
+            Logger::GetLogger()->LogData( Logger::LOGGER_LEVEL::ERROR_ONCE, m_nt, string("SwerveModuleDrive"), string("unknown module"));
             break;
     }
-    m_nt = nt::NetworkTableInstance::GetDefault().GetTable(ntName);
+
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "CurrentPoseX", to_string(m_currentPose.X().to<double>()));
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "CurrentPoseY", to_string(m_currentPose.Y().to<double>()));
 }
 
 /// @brief initialize the swerve module with information that the swerve chassis knows about
@@ -286,11 +284,9 @@ SwerveModuleState SwerveModule::Optimize
 
     auto delta = AngleUtils::GetDeltaAngle(currentAngle.Degrees(), optimizedState.angle.Degrees());
 
-    string ntname = "Optimize";
-    ntname += to_string(m_type);
-    Logger::GetLogger()->ToNtTable(ntname, "current", currentAngle.Degrees().to<double>());
-    Logger::GetLogger()->ToNtTable(ntname, "target", optimizedState.angle.Degrees().to<double>());
-    Logger::GetLogger()->ToNtTable(ntname, "delta", delta.to<double>());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "Optimize current", currentAngle.Degrees().to<double>());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "Optimize target", optimizedState.angle.Degrees().to<double>());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "Optimize delta", delta.to<double>());
     
     // deal with roll over issues (e.g. want to go from -180 degrees to 180 degrees or vice versa)
     // keep the current angle
@@ -305,18 +301,18 @@ SwerveModuleState SwerveModule::Optimize
     {
         optimizedState.speed *= -1.0;
         optimizedState.angle = optimizedState.angle + Rotation2d{180_deg};
-        Logger::GetLogger()->ToNtTable(ntname, "reversing", delta.to<double>());
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "Optimize reversing", delta.to<double>());
     }
 
     // if the delta is > 90 degrees, rotate the opposite way and reverse the wheel
     if ((units::math::abs(delta) - 90_deg) > 0.1_deg) 
     {
-        Logger::GetLogger()->ToNtTable(ntname, "optimized", (desiredState.angle + Rotation2d{180_deg}).Degrees().to<double>());
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "optimized", (desiredState.angle + Rotation2d{180_deg}).Degrees().to<double>());
         return {-desiredState.speed, desiredState.angle + Rotation2d{180_deg}};
     } 
     else 
     {
-        Logger::GetLogger()->ToNtTable(ntname, "optimized", desiredState.angle.Degrees().to<double>());
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "optimized", desiredState.angle.Degrees().to<double>());
         return {desiredState.speed, desiredState.angle};
     }
 }
@@ -339,9 +335,9 @@ void SwerveModule::SetDriveSpeed( units::velocity::meters_per_second_t speed )
 {
     m_activeState.speed = ( abs(speed.to<double>()/m_maxVelocity.to<double>()) < 0.05 ) ? 0_mps : speed;
 
-    Logger::GetLogger()->ToNtTable(m_nt, string("State Speed - mps"), m_activeState.speed.to<double>() );
-    Logger::GetLogger()->ToNtTable(m_nt, string("Wheel Diameter - meters"), units::length::meter_t(m_wheelDiameter).to<double>() );
-    Logger::GetLogger()->ToNtTable(m_nt, string("drive motor id"), m_driveMotor.get()->GetID() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("State Speed - mps"), m_activeState.speed.to<double>() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("Wheel Diameter - meters"), units::length::meter_t(m_wheelDiameter).to<double>() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("drive motor id"), m_driveMotor.get()->GetID() );
 
     if (m_runClosedLoopDrive)
     {
@@ -349,7 +345,7 @@ void SwerveModule::SetDriveSpeed( units::velocity::meters_per_second_t speed )
         auto driveTarget = m_activeState.speed.to<double>() / (units::length::meter_t(m_wheelDiameter).to<double>() * wpi::numbers::pi);  
         driveTarget /= m_driveMotor.get()->GetGearRatio();
         
-        Logger::GetLogger()->ToNtTable(m_nt, string("drive target - rps"), driveTarget );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("drive target - rps"), driveTarget );
         
         m_driveMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::VELOCITY_RPS);
         m_driveMotor.get()->Set(m_nt, driveTarget);
@@ -357,7 +353,7 @@ void SwerveModule::SetDriveSpeed( units::velocity::meters_per_second_t speed )
     else
     {
         double percent = m_activeState.speed / m_maxVelocity;
-        Logger::GetLogger()->ToNtTable(m_nt, string("drive target - percent"), percent );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("drive target - percent"), percent );
 
         m_driveMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::PERCENT_OUTPUT);
         m_driveMotor.get()->Set(m_nt, percent);
@@ -371,14 +367,14 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
 {
     m_activeState.angle = targetAngle;
 
-    Logger::GetLogger()->ToNtTable(m_nt, string("turn motor id"), m_turnMotor.get()->GetID() );
-    Logger::GetLogger()->ToNtTable(m_nt, string("target angle"), targetAngle.to<double>() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("turn motor id"), m_turnMotor.get()->GetID() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("target angle"), targetAngle.to<double>() );
 
     auto currAngle  = units::angle::degree_t(m_turnSensor.get()->GetAbsolutePosition());
     auto deltaAngle = AngleUtils::GetDeltaAngle(currAngle, targetAngle);
 
-    Logger::GetLogger()->ToNtTable(m_nt, string("current angle"), currAngle.to<double>() );
-    Logger::GetLogger()->ToNtTable(m_nt, string("delta angle"), deltaAngle.to<double>() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("current angle"), currAngle.to<double>() );
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("delta angle"), deltaAngle.to<double>() );
 
     if ( abs(deltaAngle.to<double>()) > 1.0 )
     {
@@ -392,9 +388,9 @@ void SwerveModule::SetTurnAngle( units::angle::degree_t targetAngle )
         double currentTicks = sensors.GetIntegratedSensorPosition();
         double desiredTicks = currentTicks + deltaTicks;
 
-        Logger::GetLogger()->ToNtTable(m_nt, string("currentTicks"), currentTicks );
-        Logger::GetLogger()->ToNtTable(m_nt, string("deltaTicks"), deltaTicks );
-        Logger::GetLogger()->ToNtTable(m_nt, string("desiredTicks"), desiredTicks );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("currentTicks"), currentTicks );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("deltaTicks"), deltaTicks );
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, string("desiredTicks"), desiredTicks );
 
         m_turnMotor.get()->SetControlMode(ControlModes::CONTROL_TYPE::POSITION_ABSOLUTE);
         m_turnMotor.get()->Set(m_nt, desiredTicks);
@@ -445,16 +441,16 @@ frc::Pose2d SwerveModule::GetCurrentPose(PoseEstimatorEnum opt)
         currentX = startX + cos(startAngle.to<double>()) * circum;
         currentY = startY + sin(startAngle.to<double>()) * circum;
 
-        Logger::GetLogger()->ToNtTable(m_nt, "start rotations",startRotations);
-        Logger::GetLogger()->ToNtTable(m_nt, "current rotations",currentRotations);
-        Logger::GetLogger()->ToNtTable(m_nt, "delta", delta);
-        Logger::GetLogger()->ToNtTable(m_nt, "circumference", circum.to<double>());
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "start rotations",startRotations);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "current rotations",currentRotations);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "delta", delta);
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "circumference", circum.to<double>());
 
-        Logger::GetLogger()->ToNtTable(m_nt, "WheelDiameter", m_wheelDiameter.to<double>());
-        Logger::GetLogger()->ToNtTable(m_nt, "CurrentX", currentX.to<double>());
-        Logger::GetLogger()->ToNtTable(m_nt, "CurrentY", currentY.to<double>());
-        Logger::GetLogger()->ToNtTable(m_nt, "startX", startX.to<double>());
-        Logger::GetLogger()->ToNtTable(m_nt, "startY", startY.to<double>());
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "WheelDiameter", m_wheelDiameter.to<double>());
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "CurrentX", currentX.to<double>());
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "CurrentY", currentY.to<double>());
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "startX", startX.to<double>());
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "startY", startY.to<double>());
     }
     else if (opt == PoseEstimatorEnum::POSE_EST_USING_MODULES)
     {
@@ -496,10 +492,10 @@ frc::Pose2d SwerveModule::GetCurrentPose(PoseEstimatorEnum opt)
     auto trans   = newpose - m_currentPose;
     m_currentPose = m_currentPose + trans;
 
-    Logger::GetLogger()->ToNtTable(m_nt, "NewPoseX", newpose.X().to<double>());
-    Logger::GetLogger()->ToNtTable(m_nt, "NewPoseY", newpose.Y().to<double>());
-    Logger::GetLogger()->ToNtTable(m_nt, "TransX", trans.X().to<double>());
-    Logger::GetLogger()->ToNtTable(m_nt, "TransY", trans.Y().to<double>());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "NewPoseX", newpose.X().to<double>());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "NewPoseY", newpose.Y().to<double>());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "TransX", trans.X().to<double>());
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::PRINT, m_nt, "TransY", trans.Y().to<double>());
 
     m_currentRotations = currentRotations;
     return m_currentPose;

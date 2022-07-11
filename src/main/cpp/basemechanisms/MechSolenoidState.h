@@ -17,8 +17,8 @@
 #pragma once
 
 #include <mechanisms/controllers/MechanismTargetData.h>
-#include <mechanisms/interfaces/IMech1Solenoid.h>
-#include <mechanisms/interfaces/IState.h>
+#include <basemechanisms/interfaces/IMech1Solenoid.h>
+#include <basemechanisms/interfaces/IState.h>
 
 
 class MechSolenoidState : public IState

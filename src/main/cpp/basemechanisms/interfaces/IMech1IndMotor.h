@@ -17,8 +17,8 @@
 #pragma once
 
 //========================================================================================================
-/// @interface IMech2IndMotors
-/// @brief     This is the interface for mechanisms that have two independently controlled motors.
+/// @interface IMech1IndMotor
+/// @brief     This is the interface for mechanisms that have one independently controlled motor.
 //========================================================================================================
 
 // C++ Includes
@@ -27,42 +27,33 @@
 
 // Team 302 includes
 #include <mechanisms/controllers/ControlModes.h>
-#include <mechanisms/interfaces/IMech.h>
+#include <basemechanisms/interfaces/IMech.h>
 #include <mechanisms/MechanismTypes.h>
 #include <mechanisms/controllers/ControlData.h>
 // Third Party Includes
 
 
-///	 @interface IMech2IndMotors
+///	 @interface IMech1IndMotor
 ///  @brief	    Interface for subsystems
-class IMech2IndMotors : public IMech
+class IMech1IndMotor : public IMech
 {
 	public:
         /// @brief update the output to the mechanism using the current controller and target value(s)
         /// @return void 
         virtual void Update() = 0;
 
-        virtual void UpdateTargets
+        virtual void UpdateTarget
         (
-            double      primary,
-            double      secondary
+            double target
         ) = 0;
 
-        /// @brief  Return the current position of the primary motor in the mechanism.  The value is in inches or degrees.
+        /// @brief  Return the current position of the mechanism.  The value is in inches or degrees.
         /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
-        virtual double GetPrimaryPosition() const = 0;
+        virtual double GetPosition() const = 0;
 
-        /// @brief  Return the current position of the secondary motor in the mechanism.  The value is in inches or degrees.
-        /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
-        virtual double GetSecondaryPosition() const = 0;
-
-        /// @brief  Get the current speed of the primary motor in the mechanism.  The value is in inches per second or degrees per second.
+        /// @brief  Get the current speed of the mechanism.  The value is in inches per second or degrees per second.
         /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        virtual double GetPrimarySpeed() const = 0;
-
-        /// @brief  Get the current speed of the secondary motor in the mechanism.  The value is in inches per second or degrees per second.
-        /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        virtual double GetSecondarySpeed() const = 0;
+        virtual double GetSpeed() const =0;
 
         /// @brief  Set the control constants (e.g. PIDF values).
         /// @param [in] ControlData*                                   pid:  the control constants
@@ -72,15 +63,10 @@ class IMech2IndMotors : public IMech
             int                                         slot,
             ControlData*                                pid                 
         ) = 0;
-        virtual void SetSecondaryControlConstants
-        (
-            int                                         slot,
-            ControlData*                                pid                 
-        ) = 0;
 
 
-	    IMech2IndMotors() = default;
-	    virtual ~IMech2IndMotors() = default;
+	    IMech1IndMotor() = default;
+	    virtual ~IMech1IndMotor() = default;
 };
 
 

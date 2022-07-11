@@ -66,6 +66,6 @@ MechanismTypes::MECHANISM_TYPE MechanismTypes::GetType
     {
         return it->second;
     }
-    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("MechanismTypes::GetType - unknown mechanism type"), typeString);
+    Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR, string("MechanismTypes"), string("GetType - unknown mechanism type"), typeString);
     return MechanismTypes::MECHANISM_TYPE::UNKNOWN_MECHANISM;
 }

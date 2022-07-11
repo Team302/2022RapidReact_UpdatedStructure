@@ -63,7 +63,7 @@ bool DigitalButton::IsButtonPressed() const
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("IsButtonPressed nullptr"), to_string( m_button ));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("DigitalButton"), string("IsButtonPressed nullptr"), to_string( m_button ));
     }
     
     return pressed;

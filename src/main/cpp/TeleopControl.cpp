@@ -138,7 +138,7 @@ void TeleopControl::Initialize()
     }
     else
     {
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("No controller plugged into port 0"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("No controller plugged into port 0"));
     }
 
     ctrlNo = 1;
@@ -189,7 +189,7 @@ void TeleopControl::Initialize()
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("Controller 1 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("Controller 1 not handled"));
     }
 
 	ctrlNo = 2;
@@ -224,7 +224,7 @@ void TeleopControl::Initialize()
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("Controller 2 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("Controller 2 not handled"));
     }
 
     ctrlNo = 3;
@@ -249,7 +249,7 @@ void TeleopControl::Initialize()
 	}
 	else
 	{
-		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("Controller 3 not handled"));
+		Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("Controller 3 not handled"));
 
 	}
 
@@ -262,7 +262,7 @@ void TeleopControl::Initialize()
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("Controller 4 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("Controller 4 not handled"));
     }
 
     ctrlNo = 5;
@@ -274,7 +274,7 @@ void TeleopControl::Initialize()
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl::Initialize"), string("Controller 5 not handled"));
+        Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("Controller 5 not handled"));
     }
 }
 

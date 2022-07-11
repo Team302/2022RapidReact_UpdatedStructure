@@ -98,7 +98,7 @@ void LiftStateMgr::CheckForStateTransition()
         else
         {
             targetState = LIFT_STATE::OFF;
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("LiftStateMgr"), string("No shooter state mgr"));
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("LiftStateMgr"), string("CheckForStateTransition"), string("No shooter state mgr"));
         }
     
         if (targetState != currentState)

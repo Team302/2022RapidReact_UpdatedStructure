@@ -73,7 +73,7 @@ shared_ptr<CANCoder> CancoderXmlParser::ParseXML
         }        
         else
         {
-            Logger::GetLogger()->LogData (Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("invalid attribute"));
+            Logger::GetLogger()->LogData (Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("invalid attribute"), string(attr.value()));
             hasError = true;
         }
 
@@ -84,45 +84,38 @@ shared_ptr<CANCoder> CancoderXmlParser::ParseXML
         auto error = cancoder.get()->ConfigFactoryDefault(50);
         if ( error != ErrorCode::OKAY )
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigFactoryDefault error"));
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigFactoryDefault"), string("error"));
         }
         
         error = cancoder.get()->ConfigAbsoluteSensorRange(AbsoluteSensorRange::Signed_PlusMinus180, 0);
         if ( error != ErrorCode::OKAY )
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigAbsoluteSensorRange error"));
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigAbsoluteSensorRange"), string("error"));
         }
-        /**
-        error = cancoder.get()->ConfigFeedbackCoefficient();
-        if ( error != ErrorCode::OKAY )
-        {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigAbsoluteSensorRange error"));
-        }
-        **/
         error = cancoder.get()->ConfigMagnetOffset(offset, 0);
         if ( error != ErrorCode::OKAY )
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigMagnetOffset error"));
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigMagnetOffset"), string("error"));
         }
         error = cancoder.get()->ConfigSensorDirection(reverse, 0);
         if ( error != ErrorCode::OKAY )
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigSensorDirection error"));
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigSensorDirection"), string("error"));
         }
         error = cancoder.get()->ConfigSensorInitializationStrategy(SensorInitializationStrategy::BootToAbsolutePosition, 0);
         if ( error != ErrorCode::OKAY )
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigSensorInitializationStrategy error"));
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigSensorInitializationStrategy"), string("error"));
         }
         error = cancoder.get()->ConfigVelocityMeasurementPeriod(SensorVelocityMeasPeriod::Period_1Ms, 0);
         if ( error != ErrorCode::OKAY )
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigVelocityMeasurementPeriod error"));
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigVelocityMeasurementPeriod"), string("error"));
         }
         error = cancoder.get()->ConfigVelocityMeasurementWindow(64, 0);
         if ( error != ErrorCode::OKAY )
         {
-            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigVelocityMeasurementWindow error"));
+            Logger::GetLogger()->LogData(Logger::LOGGER_LEVEL::ERROR_ONCE, string("CancoderXmlParser"), string("ConfigVelocityMeasurementWindow"), string("error"));
         }
     }
     return cancoder;
