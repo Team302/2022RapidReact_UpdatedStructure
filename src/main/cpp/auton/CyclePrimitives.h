@@ -48,6 +48,7 @@ class CyclePrimitives : public IState
 
 		void Init() override;
 		void Run() override;
+		void Exit() override;
 	 	bool AtTarget() const override;
 
 

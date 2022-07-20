@@ -41,6 +41,7 @@ class ClimberManualState : public IState
 
         void Init() override;
         void Run() override;
+        void Exit() override;
         bool AtTarget() const override;
 
     private:

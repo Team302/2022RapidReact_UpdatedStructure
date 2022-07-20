@@ -42,6 +42,10 @@ void CameraServoState::Run()
     }
 }
 
+void CameraServoState::Exit()
+{
+    
+}
 bool CameraServoState::AtTarget() const
 {
     return true;

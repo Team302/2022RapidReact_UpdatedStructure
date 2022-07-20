@@ -147,6 +147,10 @@ void ClimberManualState::Run()
     }
 }
 
+void ClimberManualState::Exit()
+{
+    
+}
 bool ClimberManualState::AtTarget() const
 {
     return true;

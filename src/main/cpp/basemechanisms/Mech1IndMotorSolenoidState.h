@@ -41,6 +41,7 @@ class Mech1IndMotorSolenoidState : public IState
 
         void Init() override;
         void Run() override;
+        void Exit() override;
         bool AtTarget() const override;
 
         double GetTarget() const;

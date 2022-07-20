@@ -44,6 +44,10 @@ void ShooterStateManual::Run()
     //    auto shooterHoodAdjust = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::SHOOTER_HOOD_MAN);
     //}
 }
+void ShooterStateManual::Exit()
+{
+}
+
 bool ShooterStateManual::AtTarget() const 
 {
     return true;

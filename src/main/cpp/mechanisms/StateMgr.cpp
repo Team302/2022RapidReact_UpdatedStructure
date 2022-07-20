@@ -255,11 +255,19 @@ void StateMgr::SetCurrentState
     {
         auto state = m_stateVector[stateID];
         if ( state != nullptr && state != m_currentState)
-        {    
+        {   
+            // if there are any exits that need to happen from the current state do them
+            if (m_currentState != nullptr) 
+            {
+                m_currentState->Exit();
+            }
+
+            // Transition to the new state
             m_currentState = state;
             m_currentStateID = stateID;       
             m_currentState->Init();
             
+            // Run current new state if requested
             if ( run )
             {
                 m_currentState->Run();

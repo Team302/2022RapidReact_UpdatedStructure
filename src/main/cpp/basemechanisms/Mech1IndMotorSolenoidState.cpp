@@ -72,6 +72,10 @@ void Mech1IndMotorSolenoidState::Run()
 
 }
 
+void Mech1IndMotorSolenoidState::Exit() 
+{
+}
+
 bool Mech1IndMotorSolenoidState::AtTarget() const
 {
     return m_motorState.get()->AtTarget();

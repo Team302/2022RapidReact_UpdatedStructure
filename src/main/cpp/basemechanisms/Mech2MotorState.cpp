@@ -152,6 +152,10 @@ void Mech2MotorState::Run()
     }
 }
 
+void Mech2MotorState::Exit() 
+{
+}
+
 bool Mech2MotorState::AtTarget() const
 {
     auto same = true;

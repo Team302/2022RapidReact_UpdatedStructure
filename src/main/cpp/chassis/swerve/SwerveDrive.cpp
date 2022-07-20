@@ -116,6 +116,10 @@ void SwerveDrive::Run()
     }
 }
 
+void SwerveDrive::Exit()
+{
+}
+
 /// @brief indicates that we are not at our target
 /// @return bool
 bool SwerveDrive::AtTarget() const

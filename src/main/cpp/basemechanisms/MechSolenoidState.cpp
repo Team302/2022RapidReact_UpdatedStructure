@@ -72,6 +72,10 @@ void MechSolenoidState::Run()
     }
 }
 
+void MechSolenoidState::Exit() 
+{
+}
+
 bool MechSolenoidState::AtTarget() const
 {
     return true;

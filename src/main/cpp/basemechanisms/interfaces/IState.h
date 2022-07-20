@@ -27,5 +27,6 @@ class IState
 
         virtual void Init() = 0;
         virtual void Run() = 0;
+        virtual void Exit() = 0;
         virtual bool AtTarget() const = 0;
 };

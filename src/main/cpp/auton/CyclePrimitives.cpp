@@ -119,6 +119,11 @@ void CyclePrimitives::Run()
 	}
 }
 
+void CyclePrimitives::Exit()
+{
+	
+}
+
 bool CyclePrimitives::AtTarget() const
 {
 	return m_isDone;
